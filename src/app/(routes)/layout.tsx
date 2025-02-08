@@ -1,7 +1,7 @@
 import MainHeader from "@/common/components/MainHeader";
 import type { Metadata } from "next";
+import StyledComponentsRegistry from "../../common/components/Registry/StyledComponentsRegistry";
 import "../globals.css";
-import StyledComponentsRegistry from "./_components/StyledComponentsRegistry";
 
 export const metadata: Metadata = {
   title: "모서리",
