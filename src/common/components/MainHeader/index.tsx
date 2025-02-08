@@ -17,12 +17,16 @@ const MainHeader = () => {
         <div className="dummylogo" />
         <span>MOSEORi</span>
       </Logo>
-      <SubTitle>|</SubTitle>
-      <SubTitle>{SUB_TITLE[subTitlekey] ?? ''}</SubTitle>
+      {SUB_TITLE[subTitlekey] && (
+        <>
+          <SubTitle>|</SubTitle>
+          <SubTitle>{SUB_TITLE[subTitlekey]}</SubTitle>
+        </>
+      )}
     </TitleWrapper>
     <LinkWrapper>
       {/* 링크 컴포넌트 삽입 에정*/}
-      <TestLink>euno님</TestLink>
+      <TestLink onClick={() => router.push('/profile')}>euno님</TestLink>
     </LinkWrapper>
   </Wrapper>
 }
@@ -32,7 +36,7 @@ export default MainHeader;
 const Wrapper = styled.div`
   width: 100dvw;
   height: var(--mobile-header-height);
-  padding: 0 3dvw;
+  padding: 0 5dvw;
   display: flex;
   justify-content: space-between;
   align-items: center;
