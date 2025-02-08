@@ -1,19 +1,9 @@
-'use client';
-
-import styled from "styled-components";
-
 //components
-import MainHeader from "@/common/components/MainHeader";
+import MainPage from "./_components/MainPage";
 
-/**메인 페이지 - 모집 공고*/
+/**server components, main page route*/
 const Page = () => {
-  return (<Wrapper>
-    <MainHeader />
-  </Wrapper>)
+  return (<MainPage />)
 }
 
 export default Page;
-
-const Wrapper = styled.div`
-
-`
