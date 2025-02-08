@@ -1,5 +1,7 @@
+import MainHeader from "@/common/components/MainHeader";
 import type { Metadata } from "next";
 import "../globals.css";
+import StyledComponentsRegistry from "./_components/StyledComponentsRegistry";
 
 export const metadata: Metadata = {
   title: "모서리",
@@ -14,7 +16,10 @@ export default function RootLayout({
   return (
     <html lang="kr">
       <body>
-        {children}
+        <StyledComponentsRegistry>
+          <MainHeader />
+          {children}
+        </StyledComponentsRegistry>
       </body>
     </html>
   );

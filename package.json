@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3060",
+    "dev": "next dev -p 3050",
     "build": "next build",
-    "start": "next start -p 3060",
+    "start": "next start -p 3050",
     "lint": "next lint"
   },
   "dependencies": {
@@ -16,6 +16,8 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@swc/core": "^1.10.14",
+    "@swc/plugin-styled-components": "^6.7.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
