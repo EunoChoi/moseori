@@ -18,7 +18,9 @@
 
   --mobile-header-height: 48px;
 
-  --main-color: #E8958C;
+  /* --main-color: #E8958C; */
+  --main-color: #a5addf;
+  --sub-color: #dfa5ad;
 }
 
 /* @media (prefers-color-scheme: dark) {
