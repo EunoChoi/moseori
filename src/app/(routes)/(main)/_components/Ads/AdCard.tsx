@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
 
-const AdCard = ({ content }: { content: string | number }) => {
+const AdCard = ({ content, ref }: { content: string | number, ref?: (node?: Element | null) => void }) => {
   return (
-    <Wrapper>
+    <Wrapper ref={ref}>
       {content}
     </Wrapper>
   );

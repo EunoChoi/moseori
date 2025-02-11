@@ -1,33 +1,66 @@
-import { useEffect, useRef, useState } from "react";
+import _ from 'lodash';
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useInView } from "react-intersection-observer";
 import styled from "styled-components";
 import AdCard from "./AdCard";
 
 const Ad = () => {
-  const wrapperRef = useRef<HTMLDivElement>(null);
-  const adList = ['AD1', 'AD2', 'AD3', 'AD4', 'AD5'];
+  const adList = ['AD1', 'AD2', 'AD3', 'AD4'];
   const adListLength = adList.length;
 
-  const [isVisible, setIsVisible] = useState(false); //초기 스크롤 재조정 보이기 방지 용도의 transition을 위한 상태
-  const [isAutoScrollStart, setIsAutoScrollStart] = useState(false);
-
+  const wrapperRef = useRef<HTMLDivElement>(null);
   const autoScrollIntervalRef = useRef<NodeJS.Timeout | null>(null);
-  const scrollEndTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const movingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
+  const firstTargetRef = useRef<HTMLDivElement>(null);
+  const secondTargetRef = useRef<HTMLDivElement>(null);
 
+  const [isVisible, setIsVisible] = useState(false); //초기 스크롤 재조정 보이기 방지 용도의 transition을 위한 상태
+  const [isAutoScrollStart, setIsAutoScrollStart] = useState(true);
+
+  const { ref: firstDummyRef, inView: firstDummyInView } = useInView({
+    threshold: 0.08,
+  });
+  const { ref: secondDummyRef, inView: secondDummyInView } = useInView({
+    threshold: 1,
+  });
+  const { ref: lastDummyRef, inView: lastDummyInView } = useInView({
+    threshold: 0.08,
+  });
+
+  const infinityScrollHandler = useCallback((direction: 'left' | 'right') => {
+    if (direction === 'left') {
+      secondTargetRef.current?.scrollIntoView({ behavior: 'auto', block: 'center', inline: 'center' });
+    }
+    else if (direction === 'right') {
+      firstTargetRef.current?.scrollIntoView({ behavior: 'auto', block: 'center', inline: 'center' });
+    }
+  }, []);
+  const throttleInfinityScrollHandler = useCallback(_.throttle(infinityScrollHandler, 500), []);
+
+  //무한 스크롤
+  useEffect(() => {
+    if (firstDummyInView) {
+      throttleInfinityScrollHandler('left');
+    }
+    if (lastDummyInView) {
+      throttleInfinityScrollHandler('right');
+    }
+  }, [firstDummyInView, lastDummyInView]);
+
+  //자동 스크롤 기능 처리
   useEffect(() => {
     if (isAutoScrollStart) {
       autoScrollIntervalRef.current = setInterval(() => {
         if (wrapperRef.current) {
-          const { clientWidth } = wrapperRef.current;
-          const snapScrollWidth = clientWidth * 0.85;
-          wrapperRef.current.scrollBy({ left: snapScrollWidth, behavior: 'smooth' });
+          const { clientWidth } = wrapperRef?.current;
+          if (secondDummyInView) wrapperRef.current.scrollBy({ left: clientWidth / 2, behavior: 'auto' });
+          else wrapperRef.current.scrollBy({ left: clientWidth / 2, behavior: 'smooth' });
         }
-      }, 2000);
-      // console.log('start autoScrollInterval', autoScrollIntervalRef.current);
+      }, 3000);
     }
     else {
       if (autoScrollIntervalRef.current) {
-        // console.log('end autoScrollInterval', autoScrollIntervalRef.current);
         clearInterval(autoScrollIntervalRef.current);
       }
     }
@@ -36,61 +69,56 @@ const Ad = () => {
         clearInterval(autoScrollIntervalRef.current);
       }
     }
-  }, [isAutoScrollStart]);
+  }, [isAutoScrollStart, lastDummyInView]);
 
+  //scroll 이동시 자동 스크롤 멈춤 처리
   useEffect(() => {
     setIsVisible(true);
-    const infinityScrollHandler = () => {
-      //자동 스크롤 시작 처리
+    const movingStartHandler = () => {
+      if (movingTimeoutRef.current) { clearTimeout(movingTimeoutRef.current); }
       setIsAutoScrollStart(false);
-      if (scrollEndTimeoutRef.current) {
-        // console.log('clearTimeout', scrollEndTimeoutRef.current);
-        clearTimeout(scrollEndTimeoutRef.current);
-      }
-      scrollEndTimeoutRef.current = setTimeout(() => {
-        // console.log('scroll end');
-        setIsAutoScrollStart(true);
-      }, 1000);
-
-      //무한 스크롤
-      if (wrapperRef.current) {
-        const { scrollLeft, clientWidth } = wrapperRef.current;
-        const snapScrollWidth = clientWidth * 0.85;
-        const jumpPoint = (1 + adListLength) * snapScrollWidth;
-
-        //우측으로 무한 스크롤
-        if (scrollLeft > jumpPoint) {// 3, 0, 1, 2, 3, 0 순서중 두번째 0이 보이면서 멈춘 상태일때 scrollLeft, (1+4)이므로 (1 + n) * snapScrollWidth, 
-          console.log(`(${scrollLeft} > ${jumpPoint}) jump to ${snapScrollWidth} from ${scrollLeft}`);
-          wrapperRef.current.scrollTo({ left: snapScrollWidth });  //3, 0, 1, 2, 3, 0에서 첫번째 0이 보이면서 멈춘 상태일때 scrollLeft
-        }
-        //좌측으로 무한 스클롤
-        else if (scrollLeft < snapScrollWidth - 5) {//5는 오차범위, 초기 첫번째 값으로 점프 후 이어서 점프 포인트로 점프되는 루프를 방지하기 위함
-          console.log(`(${scrollLeft} < ${snapScrollWidth}) jump to ${jumpPoint} from ${scrollLeft}`);
-          wrapperRef.current.scrollTo({ left: jumpPoint });
-        }
-      }
     };
-    infinityScrollHandler();
+    const movingEndHandler = () => {
+      movingTimeoutRef.current = setTimeout(() => {
+        setIsAutoScrollStart(true);
+      }, 3000);
+    };
 
     if (wrapperRef.current) {
-      wrapperRef.current.addEventListener('scroll', infinityScrollHandler);
+      wrapperRef.current.addEventListener('scroll', movingStartHandler);
+      wrapperRef.current.addEventListener('scrollend', movingEndHandler);
+      wrapperRef.current.addEventListener('touchstart', movingStartHandler);
+      wrapperRef.current.addEventListener('touchend', movingEndHandler);
     }
     return () => {
+      throttleInfinityScrollHandler.cancel();
       if (wrapperRef.current) {
-        wrapperRef.current.removeEventListener('scroll', infinityScrollHandler);
+        wrapperRef.current.removeEventListener('scroll', movingStartHandler);
+        wrapperRef.current.removeEventListener('scrollend', movingEndHandler);
+        wrapperRef.current.removeEventListener('touchstart', movingStartHandler);
+        wrapperRef.current.removeEventListener('touchend', movingEndHandler);
       }
     };
   }, []);
 
   return (
     <>
-      <Wrapper ref={wrapperRef} className={isVisible ? 'visible' : ''}>
-        <AdCard content={adList[adListLength - 1]} />
-        {adList.map((content, i) => (
-          <AdCard key={"ad" + i} content={content} />
-        ))}
-        <AdCard content={adList[0]} />
-        <AdCard content={adList[1]} />
+      <Wrapper
+        ref={wrapperRef} className={isVisible ? 'visible' : ''}>
+        <AdCard ref={firstDummyRef} content={'#' + adList[adListLength - 2]} />
+        <AdCard content={'#' + adList[adListLength - 1]} /> {/* 이 카드를 좌측으로 벗어날 때 두번째 타겟 카드로 이동 */}
+        {adList.map((content, i) => {
+          if (i === 0) {
+            return <TargetAdCard key={"ad" + i} ref={firstTargetRef}><AdCard content={content} /></TargetAdCard>;
+          }
+          else if (i === adList.length - 1) {
+            return <TargetAdCard key={"ad" + i} ref={secondTargetRef}><AdCard content={content} /></TargetAdCard>;
+          }
+          else return <AdCard key={"ad" + i} content={content} />
+        }
+        )}
+        <AdCard ref={secondDummyRef} content={'#' + adList[0]} /> {/* 이 카드를 우측으로 벗어날 때 첫번째 타겟 카드로 이동 */}
+        <AdCard ref={lastDummyRef} content={'#' + adList[1]} />
       </Wrapper>
     </>
 
@@ -98,6 +126,14 @@ const Ad = () => {
 };
 
 export default Ad;
+
+const TargetAdCard = styled.div`
+  width: auto;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
 
 // Wrapper 스타일
 const Wrapper = styled.div`
