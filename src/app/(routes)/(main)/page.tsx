@@ -1,7 +1,7 @@
 //components
 import MainPage from "./_components/MainPage";
 
-/**server components, main page route*/
+/**server components for data prefetch, main page route*/
 const Page = () => {
   return (<MainPage />)
 }
