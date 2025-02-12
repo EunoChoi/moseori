@@ -5,13 +5,6 @@
   font-style: normal;
 }
 
-@font-face {
-  font-family: 'Pretendard';
-  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-}
-
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -21,6 +14,7 @@
   /* --main-color: #E8958C; */
   --main-color: #a5addf;
   --sub-color: #dfa5ad;
+  --grey0: #333333;
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -55,7 +49,7 @@ div,
 span,
 button,
 * {
-  font-family: 'Pretendard';
+  font-family: 'pretendard';
 }
 
 /* 모든 엘리먼트에서 스크롤 바 숨기기 */
@@ -73,6 +67,13 @@ button,
 a {
   color: inherit;
   text-decoration: none;
+}
+
+button {
+  padding: 0;
+  margin: 0;
+  border: none;
+  background-color: white;
 }
 
 @media (prefers-color-scheme: dark) {
