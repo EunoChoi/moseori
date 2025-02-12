@@ -4,7 +4,7 @@ const SelectedFilters = () => {
   return (<SelectedOption>
     <span>진행중인 공고</span>
     <span>모든 분야</span>
-    <span>"검색어입력내용..."</span>
+    <span>{`"검색어입력내용..."`}</span>
   </SelectedOption>);
 }
 

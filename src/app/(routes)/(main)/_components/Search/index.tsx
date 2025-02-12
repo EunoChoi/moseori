@@ -1,19 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import SearchText from './SearchText';
 
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
+import SelectedFilters from './SelectedFilters';
 
 const Search: React.FC = () => {
+
+  const [testToggle, setTestToggle] = useState<boolean>(false)
+
   return (
     <Wrapper>
       <SearchWrapper>
         <SearchText />
-        <button>
+        <button onClick={() => {
+          setTestToggle(c => !c)
+        }}>
           <FilterAltIcon fontSize='inherit' color='inherit' />
         </button>
       </SearchWrapper>
-      {/* <SelectedFilters /> */}
+      {testToggle && <SelectedFilters />}
     </Wrapper>
   );
 };
