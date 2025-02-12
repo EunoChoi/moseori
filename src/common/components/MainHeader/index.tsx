@@ -53,7 +53,7 @@ const Logo = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 
   .dummylogo{
     width: 20px;
@@ -68,7 +68,7 @@ const Logo = styled.div`
   }
 `
 const SubTitle = styled.span`
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
   padding-top: 1px;
 `
@@ -82,6 +82,6 @@ const LinkWrapper = styled.div`
 `
 const TestLink = styled.span`
   color: var(--main-color);
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
 `
