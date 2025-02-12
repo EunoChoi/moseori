@@ -13,7 +13,7 @@ export default AdCard;
 
 const Wrapper = styled.div`
   width: 80dvw;
-  height: 130px;
+  aspect-ratio: 3;
   flex-shrink: 0;
 
   background-color: whitesmoke;

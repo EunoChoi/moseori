@@ -144,8 +144,10 @@ const Wrapper = styled.div`
   }
 
   width: 100dvw;
-  height: 150px;
+  height: auto;
+  flex-shrink: 0;
   padding: 0 10dvw;
+  margin-top: 20px;
 
   display: flex;
   align-items: center;
