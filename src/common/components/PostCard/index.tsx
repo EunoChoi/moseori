@@ -11,8 +11,8 @@ const Wrapper = styled.div`
   aspect-ratio: 2;
   border-radius: 16px;
 
-  border: 1px solid var(--card-border-grey);
-  background-color: var(--card-background-grey);
+  background-color: white;
+  box-shadow: 0 4px 16px 0 rgba(0, 0, 0, .04);
 
   @media (max-width: 479px) { //mobile port
     width: 90dvw;

@@ -6,8 +6,8 @@
 }
 
 :root {
-  --background: rgb(247, 247, 247);
-  --background: white;
+  --background: #f8f9fa;
+  /* --background: white; */
   --foreground: #171717;
 
   --mobile-header-height: 48px;
@@ -15,9 +15,6 @@
   /* --main-color: #E8958C; */
   --main-color: #73c1ab;
   --sub-color: #96d0c0;
-
-  --card-background-grey: #FCFCFC;
-  --card-border-grey: #e3e3e3;
 
   --grey0: #333333;
 }

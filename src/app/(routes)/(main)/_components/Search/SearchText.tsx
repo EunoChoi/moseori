@@ -24,13 +24,13 @@ const Wrapper = styled.div`
   align-items: center;
   padding: 0 8px;
 
-  .icon{
-    color: var(--main-color);
-    font-size: 20px;
-  }
-
   border-radius: 48px;
   border: solid 3px var(--main-color);
+
+  .icon{
+    color: var(--main-color);
+    font-size: 22px;
+  }
 
   @media (max-width: 479px) { //mobile port
     width: 300px;

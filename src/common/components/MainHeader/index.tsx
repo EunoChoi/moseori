@@ -53,13 +53,15 @@ const TitleWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   gap: 12px;
-  color: var(--main-color);
+  
 `
 const Logo = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 6px;
+
+  color: var(--main-color);
 
   .dummylogo{
     width: 20px;
@@ -77,17 +79,18 @@ const SubTitle = styled.span`
   font-size: 16px;
   font-weight: 500;
   padding-top: 1px;
+
+  color: #4d4d4d;
 `
 
 const LinkWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   gap: 8px;
 `
 const TestLink = styled.span`
-  color: var(--main-color);
+  color: #4d4d4d;
   font-size: 16px;
   font-weight: 500;
 `

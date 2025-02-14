@@ -1,9 +1,10 @@
+import CloseIcon from '@mui/icons-material/Close';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import SettingsIcon from '@mui/icons-material/Settings';
 import styled from "styled-components";
 
 const SelectedFilters = ({ isVisible }: { isVisible?: boolean }) => {
-  const FILTER_TYPES = ['공고 진행 여부', '카테고리'];
+  const FILTER_TYPES = ['진행중', '자기계발'];
   // 필터 타입이 용이하도록 코드 작성 필요
   // 버튼 누른 후 마운트되는 필터 리스트에서 버튼에 해당하는 위치로 스크롤하기 위한 ref가 들어있으면 좋을듯
 
@@ -12,11 +13,12 @@ const SelectedFilters = ({ isVisible }: { isVisible?: boolean }) => {
     {FILTER_TYPES.map((e) =>
       <FilterTypeButton key={'filterType' + e}>
         <span>{e}</span>
-        <ExpandMoreIcon fontSize='inherit' color='inherit' />
+        <CloseIcon className='icon' fontSize='inherit' color='inherit' />
+        <ExpandMoreIcon className='icon' fontSize='inherit' color='inherit' />
       </FilterTypeButton>)}
 
     <FilterTypeButton className='more'>
-      <SettingsIcon fontSize='inherit' color='inherit' />
+      <SettingsIcon className='icon' fontSize='inherit' color='inherit' />
     </FilterTypeButton>
     <Empty />
   </Wrapper>);
@@ -53,8 +55,6 @@ const Wrapper = styled.div`
 `
 
 const FilterTypeButton = styled.button`
-  font-size: 14px;
-  font-weight: 500;
   height: 100%;
   border-radius: 40px;
   padding-left: 18px;
@@ -67,7 +67,20 @@ const FilterTypeButton = styled.button`
   gap: 8px;
 
   background-color: var(--main-color);
-  color: white;
+
+  span{
+    font-size: 14px;
+    font-weight: 500;
+    color: white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .icon{
+    font-size: 16px;
+    color: white;
+  }
 
   &.more{
     font-size: 18px;
