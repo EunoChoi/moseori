@@ -23,8 +23,9 @@ const Wrapper = styled.div`
   div{
     width: 100%;
     height: 100%;
-    border: 1px solid var(--card-border-grey);
-    background-color: var(--card-background-grey);
+    
+    box-shadow: 0 4px 16px 0 rgba(0, 0, 0, .04);
+    background-color: white;
     border-radius: 16px;
 
     display: flex;
@@ -39,11 +40,11 @@ const Wrapper = styled.div`
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     width: 40dvw;
-    width: 400px;
+    width: 300px;
     padding: 0 8px;
   }
   @media (min-width:1024px) { //desktop
-    width: 450px;
+    width: 350px;
     padding: 0 12px;
     transition: 200ms ease-in-out transform;
     &:hover{

@@ -7,9 +7,10 @@ interface Props {
   cardWidth: number;
   loopWidth: number;
   isInteracting: boolean;
+  adAreaInview: boolean;
 }
 
-const useInfinityAutoScroll = ({ scrollWrapperRef, translateX, setTranslateX, cardWidth, loopWidth, isInteracting }: Props) => {
+const useInfinityAutoScroll = ({ scrollWrapperRef, translateX, setTranslateX, cardWidth, loopWidth, isInteracting, adAreaInview }: Props) => {
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
@@ -25,7 +26,8 @@ const useInfinityAutoScroll = ({ scrollWrapperRef, translateX, setTranslateX, ca
 
   useEffect(() => {
     console.log('isPause : ', isInteracting);
-    if (isInteracting === false) {
+    console.log('adAreaInview : ', adAreaInview);
+    if (isInteracting === false && adAreaInview) {
       intervalRef.current = setInterval(() => {
         setTranslateX((c: number) => {
           if (scrollWrapperRef.current) scrollWrapperRef.current.style.transition = 'transform 500ms ease-out';
@@ -42,7 +44,7 @@ const useInfinityAutoScroll = ({ scrollWrapperRef, translateX, setTranslateX, ca
     else {
       if (intervalRef.current) clearInterval(intervalRef.current);
     }
-  }, [isInteracting, cardWidth]);
+  }, [isInteracting, cardWidth, adAreaInview]);
 
   return { autoScrollInterval: intervalRef }
 }

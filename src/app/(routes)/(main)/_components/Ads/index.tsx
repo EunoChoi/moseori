@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { useInView } from 'react-intersection-observer';
 import styled from "styled-components";
 import AdCard from './AdCard';
 import useCardResize from './hooks/useCardResize';
@@ -14,6 +15,9 @@ const Ad = ({ adList }: Props) => {
 
   const scrollWrapperRef = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
+  const { ref: adAreaRef, inView: adAreaInview } = useInView({
+    threshold: 0,
+  });
 
   const {
     cardWidth,
@@ -26,7 +30,7 @@ const Ad = ({ adList }: Props) => {
     isInteracting,
   } = useInteraction({ scrollWrapperRef, cardWidth });
 
-  useInfinityAutoScroll({ scrollWrapperRef, translateX, setTranslateX, cardWidth, loopWidth, isInteracting });
+  useInfinityAutoScroll({ scrollWrapperRef, translateX, setTranslateX, cardWidth, loopWidth, isInteracting, adAreaInview });
 
   // cardWidth 변경시 스크롤 위치 재조정
   useEffect(() => {
@@ -37,11 +41,8 @@ const Ad = ({ adList }: Props) => {
   }, [cardWidth])
 
   return (
-    <Wrapper>
-      <ScrollWrapper
-        ref={scrollWrapperRef}
-        $translateX={translateX}
-      >
+    <Wrapper ref={adAreaRef}>
+      <ScrollWrapper ref={scrollWrapperRef} $translateX={translateX}>
         {longAdList.map((content, i) =>
           <AdCard key={'ad' + i} content={content} ref={i === 0 ? cardRef : undefined} />)
         }
