@@ -25,8 +25,8 @@ const useInfinityAutoScroll = ({ scrollWrapperRef, translateX, setTranslateX, ca
   }, [translateX, loopWidth])
 
   useEffect(() => {
-    console.log('isPause : ', isInteracting);
-    console.log('adAreaInview : ', adAreaInview);
+    // console.log('isPause : ', isInteracting);
+    // console.log('adAreaInview : ', adAreaInview);
     if (isInteracting === false && adAreaInview) {
       intervalRef.current = setInterval(() => {
         setTranslateX((c: number) => {

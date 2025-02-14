@@ -15,9 +15,8 @@ const SearchText: React.FC = () => {
 export default SearchText;
 
 const Wrapper = styled.div`
-  
-  flex-shrink: 1;
   height: 38px;
+  min-width: 150px;
   
   display: flex;
   justify-content: space-between;
@@ -26,9 +25,11 @@ const Wrapper = styled.div`
 
   border-radius: 48px;
   border: solid 3px var(--main-color);
+  /* border: solid 3px var(--sub-color); */
 
   .icon{
     color: var(--main-color);
+    /* color: var(--sub-color); */
     font-size: 22px;
   }
 

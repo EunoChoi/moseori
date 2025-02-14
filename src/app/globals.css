@@ -13,8 +13,8 @@
   --mobile-header-height: 48px;
 
   /* --main-color: #E8958C; */
-  --main-color: #73c1ab;
-  --sub-color: #96d0c0;
+  --main-color: #85c9b6;
+  --sub-color: #a8d8cc;
 
   --grey0: #333333;
 }
@@ -72,10 +72,8 @@ a {
 }
 
 button {
-  padding: 0;
-  margin: 0;
-  border: none;
-  background-color: white;
+  all: unset;
+  cursor: pointer;
 }
 
 @media (prefers-color-scheme: dark) {

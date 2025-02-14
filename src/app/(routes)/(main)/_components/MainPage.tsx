@@ -30,15 +30,6 @@ const MainPage = () => {
 
 export default MainPage;
 
-const SearchWrapper = styled.div`
-  z-index: 10; //postCard z-index : 9
-  position: sticky;
-  top: -1px;
-
-  height: auto;
-  width: auto;
-`
-
 const IntroduceText = styled.div`
   display :flex;
   flex-direction: column;

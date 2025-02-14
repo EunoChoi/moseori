@@ -26,6 +26,7 @@ const Wrapper = styled.div`
     
     box-shadow: 0 4px 16px 0 rgba(0, 0, 0, .04);
     background-color: white;
+    border: solid 1px rgba(0, 0, 0, .08);
     border-radius: 16px;
 
     display: flex;
@@ -44,9 +45,11 @@ const Wrapper = styled.div`
     padding: 0 8px;
   }
   @media (min-width:1024px) { //desktop
-    width: 350px;
+    width:400px;
     padding: 0 12px;
     transition: 200ms ease-in-out transform;
+    
+    z-index : 9;
     &:hover{
       transform :scale(1.05) ;
     }
