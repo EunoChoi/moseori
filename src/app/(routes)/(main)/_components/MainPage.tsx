@@ -10,8 +10,12 @@ import Search from "./Search";
 
 /**client component, main page component*/
 const MainPage = () => {
+
+  const adList = ['AD1', 'AD2', 'AD3', 'AD4', 'AD5'];
+
   return (<Wrapper>
-    <Ads />
+    <Ads adList={adList} />
+
     <IntroduceText>
       <span>📚 소개 텍스트!</span>
       <span>소개 텍스트 어쩌꾸 저쩌구 어쩌꾸 저쩌구 어쩌꾸!</span>
@@ -45,7 +49,7 @@ const IntroduceText = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 24px;
+  gap: 16px;
   padding : 36px 20px;
 
   span{

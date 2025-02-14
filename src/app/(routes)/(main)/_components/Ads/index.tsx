@@ -5,8 +5,11 @@ import useCardResize from './hooks/useCardResize';
 import useInfinityAutoScroll from './hooks/useInfinityAutoScroll';
 import useInteraction from './hooks/useInteraction';
 
-const Ad = () => {
-  const adList = ['AD1', 'AD2', 'AD3', 'AD4'];
+interface Props {
+  adList: (string | number)[];
+}
+
+const Ad = ({ adList }: Props) => {
   const longAdList = Array.from({ length: 5 }, () => adList).flat();
 
   const scrollWrapperRef = useRef<HTMLDivElement>(null);
