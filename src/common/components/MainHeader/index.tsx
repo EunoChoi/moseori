@@ -17,12 +17,7 @@ const MainHeader = () => {
         <div className="dummylogo" />
         <span>MOSEORi</span>
       </Logo>
-      {SUB_TITLE[subTitlekey] && (
-        <>
-          <SubTitle>|</SubTitle>
-          <SubTitle>{SUB_TITLE[subTitlekey]}</SubTitle>
-        </>
-      )}
+      {SUB_TITLE[subTitlekey] && <SubTitle>{SUB_TITLE[subTitlekey]}</SubTitle>}
     </TitleWrapper>
     <LinkWrapper>
       {/* 링크 컴포넌트 삽입 에정*/}
@@ -33,20 +28,31 @@ const MainHeader = () => {
 
 export default MainHeader;
 
-const Wrapper = styled.div`
-  width: 100dvw;
-  height: var(--mobile-header-height);
-  padding: 0 5dvw;
+const Wrapper = styled.div` 
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-shrink: 0;
+
+  width: 100dvw;
+  height: var(--mobile-header-height);
+
+  @media (max-width: 479px) { //mobile port
+    padding: 0 5dvw;
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    padding: 0 20px;
+  }
+  @media (min-width:1024px) { //desktop
+    padding: 0 20px;
+  }
 `
 
 const TitleWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 6px;
+  gap: 12px;
   color: var(--main-color);
 `
 const Logo = styled.div`
@@ -68,7 +74,7 @@ const Logo = styled.div`
   }
 `
 const SubTitle = styled.span`
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
   padding-top: 1px;
 `
@@ -82,6 +88,6 @@ const LinkWrapper = styled.div`
 `
 const TestLink = styled.span`
   color: var(--main-color);
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
 `

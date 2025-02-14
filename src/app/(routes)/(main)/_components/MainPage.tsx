@@ -3,32 +3,82 @@
 import styled from "styled-components";
 
 //components
+import BottomInfo from "@/common/components/BottomInfo";
 import PostCard from "@/common/components/PostCard";
-import Ad from "./Ads";
+import Ads from "./Ads";
 import Search from "./Search";
 
 /**client component, main page component*/
 const MainPage = () => {
   return (<Wrapper>
-    <Ad />
+    <Ads />
+    <IntroduceText>
+      <span>📚 소개 텍스트!</span>
+      <span>소개 텍스트 어쩌꾸 저쩌구 어쩌꾸 저쩌구 어쩌꾸!</span>
+      <span>소개 텍스트 소개 텍스트 소개 텍스트</span>
+    </IntroduceText>
+
     <Search />
-    <PostCards>
+
+    <PostCardWrapper>
       <PostCard></PostCard>
       <PostCard></PostCard>
       <PostCard></PostCard>
       <PostCard></PostCard>
-    </PostCards>
-    <Info>
-      <span className="title">MOSEORi</span>
-      <div><span>모여라 서평 리뷰단</span><span>2</span><span>3</span></div>
-      <div><span>email</span><span>eooooostudio@gmail.com</span><span>3</span></div>
-      <div><span>문의</span><span>2</span><span>3</span></div>
-    </Info>
+      <PostCard></PostCard>
+      <PostCard></PostCard>
+      <PostCard></PostCard>
+      <PostCard></PostCard>
+      <PostCard></PostCard>
+      <PostCard></PostCard>
+      <PostCard></PostCard>
+      <PostCard></PostCard>
+    </PostCardWrapper>
+    <BottomInfo />
   </Wrapper>)
 }
 
 export default MainPage;
 
+const IntroduceText = styled.div`
+  display :flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  padding : 36px 20px;
+
+  span{
+    text-align: center;
+    color: var(--grey0);
+    font-family: BMJUA;
+  }
+  @media (max-width: 479px) { //mobile port
+    span{
+      font-size:16px;
+    }
+    span:first-child{
+      font-size:20px;
+    }
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    span{
+      font-size:18px;
+    }
+    span:first-child{
+      font-size:22px;
+    }
+  }
+  @media (min-width:1024px) { //desktop
+    span{
+      font-size:20px;
+    }
+    span:first-child{
+      font-size:28px;
+    }
+    padding : 56px 20px;
+  }
+`
 const Wrapper = styled.div`
   width: 100dvw;
   height: calc(100dvh - var(--mobile-header-height));
@@ -38,47 +88,38 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
 `
-const PostCards = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
+const PostCardWrapper = styled.div`
   width: 100dvw;
   height: auto;
 
-  gap: 20px;
-`
-const Info = styled.div`
-  width: 100dvw;
-  height: 150px;
+  
 
-  padding: 0 5dvw;
-  margin-top: 20px;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: start;
-  flex-shrink: 0;
-  gap : 8px;
-
-  background-color: var(--grey0);
-
-  .title{
-    font-size: 24px;
-    font-family: BMJUA;
-    color: white;
-  }
-  div{
+  @media (max-width: 479px) { //mobile port
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 12px;
-    
-    width: 100%;
-    span{
-      font-weight: 500;
-      font-size: 14px;
-      color: white;
-    }
+
+    padding: 36px 20px;
+    gap: 24px;
+  }
+  @media (min-width:480px) and (max-width:900px) { //mobile land + tablet
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-rows: auto;
+
+    padding: 36px 20px;
+    gap: 16px;
+    row-gap: 20px;
+  }
+  @media (min-width:901px) { //desktop
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-rows: auto;
+
+    padding: 36px 10dvw;
+    gap: 24px;
+    row-gap: 28px;
   }
 `

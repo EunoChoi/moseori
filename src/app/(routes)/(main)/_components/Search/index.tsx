@@ -1,67 +1,51 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import SearchText from './SearchText';
 
-import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import SelectedFilters from './SelectedFilters';
 
 const Search: React.FC = () => {
-
-  const [testToggle, setTestToggle] = useState<boolean>(false)
-
   return (
     <Wrapper>
-      <SearchWrapper>
-        <SearchText />
-        <button onClick={() => {
-          setTestToggle(c => !c)
-        }}>
-          <FilterAltIcon fontSize='inherit' color='inherit' />
-        </button>
-      </SearchWrapper>
-      {testToggle && <SelectedFilters />}
-    </Wrapper>
-  );
+      <SearchText />
+      <SelectedFilters />
+    </Wrapper>);
 };
 
 export default Search;
 
+
 const Wrapper = styled.div`
   position: sticky;
-  top: 0;
+  top: -1px;
 
   width: 100dvw;
   height: auto;
 
   display: flex;
-  flex-direction: column;
   align-items: center;
 
-  gap: 16px;
-  padding: 16px 0;
-  margin: 24px 0;
-  background-color: white;
-`
+  
+  background-color: var(--background);
 
-const SearchWrapper = styled.div`
-  width: 85dvw;
+  @media (max-width: 479px) { //mobile port
+    flex-direction: column;
+    gap: 16px;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  button{
-    height: 100%;
-    aspect-ratio: 1;
-    border-radius: 40px;
-    margin-left: 8px;
-
-    display: flex;
+    padding: 12px 20px;
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    flex-direction: row-reverse;
     justify-content: center;
-    align-items: center;
+    gap: 0px;
 
-    background-color: var(--main-color);
-    color: white;
-    font-size: 18px;
+    padding: 12px 20px;
+  }
+  @media (min-width:1024px) { //desktop
+    flex-direction: row-reverse;
+    justify-content: center;
+    gap: 0px;
+
+    padding: 12px 20px;
   }
 `
