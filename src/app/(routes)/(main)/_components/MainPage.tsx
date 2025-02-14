@@ -4,45 +4,40 @@ import styled from "styled-components";
 
 //components
 import BottomInfo from "@/common/components/BottomInfo";
-import PostCard from "@/common/components/PostCard";
 import Ads from "./Ads";
+import Posts from "./Posts";
 import Search from "./Search";
 
 /**client component, main page component*/
 const MainPage = () => {
-
   const adList = ['AD1', 'AD2', 'AD3', 'AD4', 'AD5'];
 
-  return (<Wrapper>
+  return (<Wrapper >
     <Ads adList={adList} />
 
     <IntroduceText>
-      <span>📚 소개 텍스트!</span>
-      <span>소개 텍스트 어쩌꾸 저쩌구 어쩌꾸 저쩌구 어쩌꾸!</span>
-      <span>소개 텍스트 소개 텍스트 소개 텍스트</span>
+      <span>📚 소개 텍스트! 소개 텍스트! 소개 텍스트! </span>
+      <span>소개 텍스트 어쩌꾸 저쩌구 어쩌꾸 저쩌구!</span>
     </IntroduceText>
 
     <Search />
 
-    <PostCardWrapper>
-      <PostCard></PostCard>
-      <PostCard></PostCard>
-      <PostCard></PostCard>
-      <PostCard></PostCard>
-      <PostCard></PostCard>
-      <PostCard></PostCard>
-      <PostCard></PostCard>
-      <PostCard></PostCard>
-      <PostCard></PostCard>
-      <PostCard></PostCard>
-      <PostCard></PostCard>
-      <PostCard></PostCard>
-    </PostCardWrapper>
+    <Posts />
+
     <BottomInfo />
   </Wrapper>)
 }
 
 export default MainPage;
+
+const SearchWrapper = styled.div`
+  z-index: 10; //postCard z-index : 9
+  position: sticky;
+  top: -1px;
+
+  height: auto;
+  width: auto;
+`
 
 const IntroduceText = styled.div`
   display :flex;
@@ -87,43 +82,9 @@ const Wrapper = styled.div`
   width: 100dvw;
   height: calc(100dvh - var(--mobile-header-height));
   overflow-y: scroll;
+  /* height: auto; */
 
   display: flex;
   flex-direction: column;
   align-items: center;
-`
-const PostCardWrapper = styled.div`
-  width: 100dvw;
-  height: auto;
-
-  
-
-  @media (max-width: 479px) { //mobile port
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    padding: 36px 20px;
-    gap: 24px;
-  }
-  @media (min-width:480px) and (max-width:900px) { //mobile land + tablet
-    display: grid;
-    justify-content: center;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    grid-template-rows: auto;
-
-    padding: 36px 20px;
-    gap: 16px;
-    row-gap: 20px;
-  }
-  @media (min-width:901px) { //desktop
-    display: grid;
-    justify-content: center;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    grid-template-rows: auto;
-
-    padding: 36px 10dvw;
-    gap: 24px;
-    row-gap: 28px;
-  }
 `
