@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const Posts = () => {
   return (
-    <PostCardWrapper>
+    <Wrapper>
       <PostCard></PostCard>
       <PostCard></PostCard>
       <PostCard></PostCard>
@@ -16,13 +16,13 @@ const Posts = () => {
       <PostCard></PostCard>
       <PostCard></PostCard>
       <PostCard></PostCard>
-    </PostCardWrapper>
+    </Wrapper>
   );
 };
 
 export default Posts;
 
-const PostCardWrapper = styled.div`
+const Wrapper = styled.div`
   width: 100dvw;
   height: auto;
 
@@ -34,8 +34,7 @@ const PostCardWrapper = styled.div`
 
     padding: 4px 3dvw;
     padding-bottom: 48px;
-    gap: 12px;
-    row-gap: 32px;
+    gap: 8px;
   }
   @media (min-width:641px) and (max-width:900px) { //mobile land + tablet
     display: grid;
@@ -44,8 +43,7 @@ const PostCardWrapper = styled.div`
     grid-template-rows: auto;
 
     padding: 12px 3dvw;
-    gap: 18px;
-    row-gap: 32px;
+    gap: 16px;
   }
   @media (min-width:901px) { //desktop
     display: grid;
@@ -56,6 +54,5 @@ const PostCardWrapper = styled.div`
 
     padding: 20px 5dvw;
     gap: 24px;
-    row-gap: 32px;
   }
 `

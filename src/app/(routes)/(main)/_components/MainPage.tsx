@@ -30,6 +30,18 @@ const MainPage = () => {
 
 export default MainPage;
 
+
+const Wrapper = styled.div`
+  width: 100dvw;
+  height: calc(100dvh - var(--mobile-header-height));
+  overflow-y: scroll;
+  /* height: auto; */
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+
 const IntroduceText = styled.div`
   display :flex;
   flex-direction: column;
@@ -68,14 +80,4 @@ const IntroduceText = styled.div`
     }
     padding : 56px 20px;
   }
-`
-const Wrapper = styled.div`
-  width: 100dvw;
-  height: calc(100dvh - var(--mobile-header-height));
-  overflow-y: scroll;
-  /* height: auto; */
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 `

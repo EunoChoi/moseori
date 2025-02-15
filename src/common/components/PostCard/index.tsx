@@ -7,15 +7,20 @@ const PostCard = () => {
   return (<Wrapper>
     <CardWrapper>
       <ImageWrapper></ImageWrapper>
-      <Title>인스타브레인 서평단 모집 두줄 두줄 두줄</Title>
-      <Content>기본 설명 기본 설명 기본 설명 기본 설명 기본 설명 기본 설명 설명 기본 설명 기본 설명</Content>
+      <Content>
+        <SingleLineText className="title">인스타브레인</SingleLineText>
+        <SingleLineText className="author">안데르스 한센</SingleLineText>
+        <SingleLineText className="publisher">동양북스</SingleLineText>
+      </Content>
+      <TagWrapper>
+        <Tag>#미분류</Tag>
+        <Tag>#00.00마감</Tag>
+      </TagWrapper>
+      <InteractionButtonWrapper>
+        <InteractionButton><BookmarkIcon className="icon" fontSize="inherit" color="inherit" /><span>123</span></InteractionButton>
+        <InteractionButton><CommentIcon className="icon" fontSize="inherit" color="inherit" /><span>12</span></InteractionButton>
+      </InteractionButtonWrapper>
     </CardWrapper>
-    <PillWrapper>
-      <Pill><BookmarkIcon className="icon" fontSize="inherit" color="inherit" /><span>13</span></Pill>
-      <Pill><CommentIcon className="icon" fontSize="inherit" color="inherit" /><span>12</span></Pill>
-      <Pill><span>카테고리</span></Pill>
-      <Pill><span>~00.00.00</span></Pill>
-    </PillWrapper>
   </Wrapper>);
 }
 
@@ -24,124 +29,146 @@ export default PostCard;
 const Wrapper = styled.div`
   width: 100%;
   height: 100%;
-
   display: flex;
   flex-direction: column;  
-
-  @media (min-width:1024px) { //desktop
+  @media (min-width:1024px) {
     transition: 200ms ease-in-out transform;  
-    &:hover{
+    &:hover {
       z-index: 9;
-      transform :scale(1.03) ;
+      transform: scale(1.01) translateY(-8px);
     }
   }
-`
+`;
+
 const CardWrapper = styled.div`
   width: 100%;
-  aspect-ratio: 4 / 5;
-  overflow: hidden;
+  aspect-ratio: 3 / 4;
+  padding: 20px 10%;
+
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 22px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
-  
-  background-color: white;
-  border-radius: 16px;
-  box-shadow: 0 4px 16px 0 rgba(0, 0, 0, .04);
-  border: solid 1px rgba(0, 0, 0, .08);
+  overflow: hidden;
 
-  @media (max-width: 479px) { //mobile port
-    padding: 0 12px;
-    gap: 16px;
+  @media (max-width: 640px) {
+    padding: 16px 7%;
+    border-radius: 16px;
   }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    padding: 0 20px;
-    gap: 24px;
-  }
-  @media (min-width:1024px) { //desktop
-    padding: 0 20px;
-    gap: 28px;
-  }
-`
+`;
+
 const ImageWrapper = styled.div`
-  width: 45%;
-  aspect-ratio : 1;
+  width: 50%;
+  aspect-ratio: 1;
   flex-shrink: 0;
 
-  background-color: var(--sub-color);
-  border-radius: 100px;
-`
-const Title = styled.span`
-  font-weight: 600;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;  
+  background-color: whitesmoke;
+  border: 1px #e4e4e4 solid;
+  border-radius: 20%;
   overflow: hidden;
-  text-overflow: ellipsis;
 
-  text-align: center;
-  word-break: keep-all;
-
-  font-size: 16px;
-  @media (max-width: 479px) { //mobile port
-    font-size: 14px;
+  @media (max-width: 640px) {
+    width: 40%;
   }
-`
-const Content = styled.span`
-  text-align: center;
-  word-break: keep-all;
+`;
 
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;  
-  overflow: hidden;
-  text-overflow: ellipsis;
-
-  font-size: 16px;
-  line-height: 1.4;
-  -webkit-line-clamp: 3;
-  @media (max-width: 479px) { //mobile port
-    font-size: 14px;
-  }
-`
-const PillWrapper = styled.div`
+const Content = styled.div`
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  height: auto;
+`;
+const SingleLineText = styled.span`
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+  word-break: keep-all;
 
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 4px;
-  margin-top: 12px;
+  margin: 1px 0;
+  font-weight: 400;
 
-  overflow-x: scroll;
-`
-const Pill = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap:3px;
-  flex-shrink: 0;
-
-  padding: 4px 10px;
-  border-radius: 24px;
-
-  background-color: var(--sub-color);
-  .icon, span{
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--grey0);
-
-    @media (max-width: 479px) { //mobile port
-    font-size: 13px;
+  &.title{
+    font-size: 20px;
+    font-weight: 600;
+  }
+  &.author, &.publisher{
+    font-size: 18px;
+  }
+  @media (max-width: 479px) { //mobile port
+    &.title{
+      font-size: 16px;
     }
-    @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    &.author, &.publisher{
       font-size: 14px;
     }
-    @media (min-width:1024px) { //desktop
-      font-size: 15px;
+  }
+  @media (min-width:480px) and (max-width:640px) {
+    &.title{
+      font-size: 18px;
+    }
+    &.author, &.publisher{
+      font-size: 16px;
     }
   }
-`
+`;
+const TagWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 8px;
+  width: 100%;
+`;
+const Tag = styled.span`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+
+  color : #8e94a0;
+  font-size: 18px;
+  font-weight: 400;
+  @media (max-width: 640px) {
+    font-size: 14px;
+  }
+  @media (min-width:480px) and (max-width:640px) {
+    font-size: 16px;
+  }
+`;
+
+const InteractionButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  @media (max-width: 640px) {
+    gap: 12px;
+  }
+`;
+
+const InteractionButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+ 
+  span, .icon {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--main-color);
+    filter: brightness(90%) saturate(105%);
+    @media (max-width: 479px) {
+      font-size: 14px;
+    }
+    @media (min-width:480px) and (max-width:640px) {
+      font-size: 16px;
+    }
+  }
+`;

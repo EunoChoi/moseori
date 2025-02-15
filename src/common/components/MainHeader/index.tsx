@@ -1,16 +1,15 @@
 'use client';
 
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import styled from "styled-components";
 
-import { SUB_TITLE } from "./constant/SubTitle";
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 /**client component, main header component */
 const MainHeader = () => {
   const router = useRouter();
-  const subTitlekey = usePathname()?.split('/')[1] || 'default';
+  // const subTitlekey = usePathname()?.split('/')[1] || 'default';
 
   return <Wrapper>
     <TitleWrapper>
@@ -18,12 +17,12 @@ const MainHeader = () => {
         <div className="dummylogo" />
         <span>MOSEORi</span>
       </Logo>
-      {SUB_TITLE[subTitlekey] && <SubTitle>{SUB_TITLE[subTitlekey]}</SubTitle>}
+      {/* {SUB_TITLE[subTitlekey] && <SubTitle>{SUB_TITLE[subTitlekey]}</SubTitle>} */}
     </TitleWrapper>
-    <ProfileButtonWrapper>
-      <ProfileName onClick={() => router.push('/profile')}>euno</ProfileName>
+    <ProfileButton onClick={() => router.push('/profile')}>
+      <ProfileName>euno</ProfileName>
       <ProfileLogo><AccountCircleIcon className="icon" color="inherit" fontSize="inherit" /></ProfileLogo>
-    </ProfileButtonWrapper>
+    </ProfileButton>
   </Wrapper>
 }
 
@@ -56,12 +55,13 @@ const TitleWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   
-  gap: 16px;
+  gap: 12px;
   @media (min-width:1024px) { //desktop
     gap: 32px;
   }
 `
-const Logo = styled.div`
+const Logo = styled.button`
+
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -77,7 +77,7 @@ const Logo = styled.div`
   }
   span{
     font-family: BMJUA;
-    font-size: 20px;
+    font-size: 22px;
   }
 
   @media (min-width:1024px) { //desktop
@@ -92,19 +92,19 @@ const Logo = styled.div`
     }
   }
 `
-const SubTitle = styled.span`
-  font-size: 16px;
-  font-weight: 500;
-  padding-top: 2px;
+// const SubTitle = styled.span`
+//   font-size: 16px;
+//   font-weight: 600;
+//   padding-top: 2px;
 
-  color: var(--main-color);
-  color: #4d4d4d;
+//   color: var(--main-color);
+//   color: #4d4d4d;
 
-  @media (min-width:1024px) { //desktop
-    font-size: 20px;
-  }
-`
-const ProfileButtonWrapper = styled.button`
+//   @media (min-width:1024px) { //desktop
+//     font-size: 18px;
+//   }
+// `
+const ProfileButton = styled.button`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -113,12 +113,12 @@ const ProfileButtonWrapper = styled.button`
 const ProfileName = styled.span`
   color: #4d4d4d;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 600;
 
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
 
   @media (min-width:1024px) { //desktop
-    font-size: 20px;
+    font-size: 18px;
   }
 `
 const ProfileLogo = styled.div`

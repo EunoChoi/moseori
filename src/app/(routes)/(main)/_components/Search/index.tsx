@@ -2,14 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import SearchText from './SearchText';
 
-import SelectedFilters from './SelectedFilters';
+import Filters from '../Filters';
 
 const Search: React.FC = () => {
 
   return (
     <Wrapper>
       <SearchText />
-      <SelectedFilters />
+      <Filters />
     </Wrapper >);
 };
 

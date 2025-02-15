@@ -15,7 +15,7 @@ const SearchText: React.FC = () => {
 export default SearchText;
 
 const Wrapper = styled.div`
-  height: 38px;
+  height: 36px;
   min-width: 150px;
   
   display: flex;
@@ -24,6 +24,7 @@ const Wrapper = styled.div`
   padding: 0 8px;
 
   border-radius: 48px;
+  box-sizing: border-box;
   border: solid 3px var(--main-color);
   /* border: solid 3px var(--sub-color); */
 
