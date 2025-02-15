@@ -36,23 +36,14 @@ const Wrapper = styled.div`
     padding-bottom: 48px;
     gap: 8px;
   }
-  @media (min-width:641px) and (max-width:900px) { //mobile land + tablet
+  @media (min-width:641px)  { 
     display: grid;
     justify-content: center;
     grid-template-columns: repeat(auto-fill, 290px);
     grid-template-rows: auto;
 
     padding: 12px 3dvw;
+    padding-bottom: 48px;
     gap: 16px;
-  }
-  @media (min-width:901px) { //desktop
-    display: grid;
-    justify-content: center;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    grid-template-columns: repeat(auto-fill, 290px);
-    grid-template-rows: auto;
-
-    padding: 20px 5dvw;
-    gap: 24px;
   }
 `

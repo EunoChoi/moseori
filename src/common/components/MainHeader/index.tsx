@@ -46,7 +46,7 @@ const Wrapper = styled.div`
   }
   @media (min-width:1024px) { //desktop
     padding: 0 24px;
-    height: 72px;
+    height: var(--pc-header-height);
   }
 `
 
@@ -108,14 +108,12 @@ const ProfileButton = styled.button`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 `
 const ProfileName = styled.span`
   color: #4d4d4d;
   font-size: 16px;
   font-weight: 600;
-
-  /* text-transform: uppercase; */
 
   @media (min-width:1024px) { //desktop
     font-size: 18px;

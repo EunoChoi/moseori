@@ -21,10 +21,22 @@ const PostCard = () => {
         <InteractionButton><CommentIcon className="icon" fontSize="inherit" color="inherit" /><span>12</span></InteractionButton>
       </InteractionButtonWrapper>
     </CardWrapper>
+    <UploadDate>00.00.00 00:00 등록</UploadDate>
   </Wrapper>);
 }
 
 export default PostCard;
+
+const UploadDate = styled.span`
+  font-size: 16px;
+  text-align: center;
+  margin-top: 6px;
+
+  color: #8e94a0;
+  @media (max-width:640px) {
+    font-size: 14px;
+  }
+`
 
 const Wrapper = styled.div`
   width: 100%;
@@ -97,16 +109,18 @@ const SingleLineText = styled.span`
   &.title{
     font-size: 20px;
     font-weight: 600;
+    color: black;
   }
   &.author, &.publisher{
-    font-size: 18px;
+    font-size: 17px;
+    color: var(--grey0);
   }
   @media (max-width: 479px) { //mobile port
     &.title{
       font-size: 16px;
     }
     &.author, &.publisher{
-      font-size: 14px;
+      font-size: 13px;
     }
   }
   @media (min-width:480px) and (max-width:640px) {
@@ -114,7 +128,7 @@ const SingleLineText = styled.span`
       font-size: 18px;
     }
     &.author, &.publisher{
-      font-size: 16px;
+      font-size: 15px;
     }
   }
 `;
@@ -135,7 +149,7 @@ const Tag = styled.span`
   color : #8e94a0;
   font-size: 18px;
   font-weight: 400;
-  @media (max-width: 640px) {
+  @media (max-width: 479px) {
     font-size: 14px;
   }
   @media (min-width:480px) and (max-width:640px) {

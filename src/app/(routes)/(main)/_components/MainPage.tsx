@@ -14,16 +14,12 @@ const MainPage = () => {
 
   return (<Wrapper >
     <Ads adList={adList} />
-
     <IntroduceText>
       <span>📚 소개 텍스트! 소개 텍스트! 소개 텍스트! </span>
       <span>소개 텍스트 어쩌꾸 저쩌구 어쩌꾸 저쩌구!</span>
     </IntroduceText>
-
     <Search />
-
     <Posts />
-
     <BottomInfo />
   </Wrapper>)
 }
