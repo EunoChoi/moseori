@@ -26,16 +26,10 @@ const MainPage = () => {
 
 export default MainPage;
 
-
 const Wrapper = styled.div`
   width: 100dvw;
-  height: calc(100dvh - var(--mobile-header-height));
-  overflow-y: scroll;
-  /* height: auto; */
-
   display: flex;
   flex-direction: column;
-  align-items: center;
 `
 
 const IntroduceText = styled.div`
@@ -43,9 +37,8 @@ const IntroduceText = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 16px;
-  padding : 36px 20px;
-
+  gap: 12px;
+ 
   span{
     text-align: center;
     color: var(--grey0);
@@ -58,6 +51,7 @@ const IntroduceText = styled.div`
     span:first-child{
       font-size:20px;
     }
+    padding : 32px 20px;
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     span{
@@ -66,6 +60,7 @@ const IntroduceText = styled.div`
     span:first-child{
       font-size:22px;
     }
+    padding : 44px 20px;
   }
   @media (min-width:1024px) { //desktop
     span{
