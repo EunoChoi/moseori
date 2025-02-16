@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import CommentIcon from '@mui/icons-material/Comment';
+import InsertInvitationRoundedIcon from '@mui/icons-material/InsertInvitationRounded';
 
 const PostCard = () => {
   return (<Wrapper>
@@ -13,28 +14,47 @@ const PostCard = () => {
         <SingleLineText className="publisher">동양북스</SingleLineText>
       </Content>
       <TagWrapper>
-        <Tag>#미분류</Tag>
-        <Tag>#00.00마감</Tag>
+        <Tag>#카테고리 미분류</Tag>
+        {/* <Tag>#마감 일주일후</Tag> */}
       </TagWrapper>
       <InteractionButtonWrapper>
         <InteractionButton><BookmarkIcon className="icon" fontSize="inherit" color="inherit" /><span>123</span></InteractionButton>
         <InteractionButton><CommentIcon className="icon" fontSize="inherit" color="inherit" /><span>12</span></InteractionButton>
       </InteractionButtonWrapper>
     </CardWrapper>
-    <UploadDate>00.00.00 00:00 등록</UploadDate>
+    <DueDate>
+      <div>
+        <InsertInvitationRoundedIcon fontSize="inherit" color="inherit" />
+        <span>마감일</span>
+      </div>
+      <span>00.00.00</span>
+    </DueDate>
   </Wrapper>);
 }
 
 export default PostCard;
 
-const UploadDate = styled.span`
-  font-size: 16px;
+const DueDate = styled.span`
+  font-size: 15px;
   text-align: center;
   margin-top: 6px;
-
   color: #8e94a0;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding : 0 12px;
+
+  div{
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
   @media (max-width:640px) {
-    font-size: 14px;
+    margin-top: 4px;
+    font-size: 13px;
+    padding : 0 10px;
   }
 `
 
@@ -55,7 +75,7 @@ const Wrapper = styled.div`
 const CardWrapper = styled.div`
   width: 100%;
   aspect-ratio: 3 / 4;
-  padding: 20px 10%;
+  padding: 20px 5%;
 
   background-color: white;
   border: 1px solid rgba(0, 0, 0, 0.08);
@@ -69,7 +89,7 @@ const CardWrapper = styled.div`
   overflow: hidden;
 
   @media (max-width: 640px) {
-    padding: 16px 7%;
+    padding: 16px 5%;
     border-radius: 16px;
   }
 `;
@@ -134,10 +154,10 @@ const SingleLineText = styled.span`
 `;
 const TagWrapper = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  gap: 8px;
   width: 100%;
 `;
 const Tag = styled.span`
@@ -147,13 +167,15 @@ const Tag = styled.span`
   flex-shrink: 0;
 
   color : #8e94a0;
-  font-size: 18px;
   font-weight: 400;
   @media (max-width: 479px) {
     font-size: 14px;
   }
   @media (min-width:480px) and (max-width:640px) {
     font-size: 16px;
+  }
+  @media (min-width:641px){
+    font-size: 18px;
   }
 `;
 
@@ -173,8 +195,7 @@ const InteractionButton = styled.button`
   align-items: center;
   gap: 4px;
  
-  span, .icon {
-    font-size: 18px;
+  >span, .icon {
     font-weight: 500;
     color: var(--main-color);
     filter: brightness(90%) saturate(105%);
@@ -183,6 +204,9 @@ const InteractionButton = styled.button`
     }
     @media (min-width:480px) and (max-width:640px) {
       font-size: 16px;
+    }
+    @media (min-width: 641px){
+      font-size: 18px;
     }
   }
 `;
