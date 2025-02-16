@@ -9,7 +9,6 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 /**client component, main header component */
 const MainHeader = () => {
   const router = useRouter();
-  // const subTitlekey = usePathname()?.split('/')[1] || 'default';
 
   return <Wrapper>
     <TitleWrapper>
@@ -17,7 +16,6 @@ const MainHeader = () => {
         <div className="dummylogo" />
         <span>MOSEORi</span>
       </Logo>
-      {/* {SUB_TITLE[subTitlekey] && <SubTitle>{SUB_TITLE[subTitlekey]}</SubTitle>} */}
     </TitleWrapper>
     <ProfileButton onClick={() => router.push('/profile')}>
       <ProfileName>euno</ProfileName>
@@ -92,18 +90,6 @@ const Logo = styled.button`
     }
   }
 `
-// const SubTitle = styled.span`
-//   font-size: 16px;
-//   font-weight: 600;
-//   padding-top: 2px;
-
-//   color: var(--main-color);
-//   color: #4d4d4d;
-
-//   @media (min-width:1024px) { //desktop
-//     font-size: 18px;
-//   }
-// `
 const ProfileButton = styled.button`
   display: flex;
   justify-content: space-between;
@@ -113,7 +99,7 @@ const ProfileButton = styled.button`
 const ProfileName = styled.span`
   color: #4d4d4d;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 500;
 
   @media (min-width:1024px) { //desktop
     font-size: 18px;
