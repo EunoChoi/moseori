@@ -25,7 +25,7 @@ const PostCard = () => {
     <DueDate>
       <div>
         <InsertInvitationRoundedIcon fontSize="inherit" color="inherit" />
-        <span>마감일</span>
+        <span>등록일</span>
       </div>
       <span>00.00.00</span>
     </DueDate>
@@ -197,7 +197,7 @@ const InteractionButton = styled.button`
  
   >span, .icon {
     font-weight: 500;
-    color: var(--main-color);
+    color: var(--main-0);
     filter: brightness(90%) saturate(105%);
     @media (max-width: 479px) {
       font-size: 14px;

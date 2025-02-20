@@ -65,13 +65,13 @@ const Logo = styled.button`
   align-items: center;
   gap: 6px;
 
-  color: var(--main-color);
+  color: var(--main-0);
 
   .dummylogo{
     width: 20px;
     height: 20px;
     border-radius: 4px;
-    background-color: var(--main-color);
+    background-color: var(--main-0);
   }
   span{
     font-family: BMJUA;
@@ -112,7 +112,7 @@ const ProfileLogo = styled.div`
 
   .icon{
     font-size: 28px;
-    color: var(--main-color);
+    color: var(--main-0);
   }
 
   @media (min-width:1024px) { //desktop
@@ -120,7 +120,7 @@ const ProfileLogo = styled.div`
     height: 28px;
     .icon{
       font-size: 32px;
-      color: var(--main-color);
+      color: var(--main-0);
     }
   }
 `
