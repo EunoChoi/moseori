@@ -1,79 +1,38 @@
+import SearchIcon from '@mui/icons-material/Search';
+import React from 'react';
 import styled from 'styled-components';
-import SearchText from './SearchText';
 
-import { useEffect, useRef, useState } from 'react';
-import Filters from '../Filters';
-
-const Search = () => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [isTop, setIsTop] = useState<boolean>(false);
-
-  useEffect(() => {
-    const scrollHandler = () => {
-      // console.log(ref.current?.getBoundingClientRect().top);
-      if (ref.current && ref.current?.getBoundingClientRect().top < 0 && isTop === false) {
-        setIsTop(true);
-      }
-      else setIsTop(false);
-    }
-    window.addEventListener('scroll', scrollHandler);
-    return () => {
-      window.removeEventListener('scroll', scrollHandler);
-    }
-  }, [])
-
+const Search: React.FC = () => {
   return (
-    <>
-      <Wrapper ref={ref} className={isTop ? 'hide' : ''}>
-        <SearchText />
-        <Filters />
-      </Wrapper >
-      {isTop === true && <FixWrapper className='fix' >
-        <SearchText />
-        <Filters />
-      </FixWrapper >}
-    </>
+    <Wrapper>
+      <div></div>
+      <SearchIcon className='icon' fontSize='inherit' color='inherit' />
+    </Wrapper>
   );
 };
 
 export default Search;
 
 const Wrapper = styled.div`
-  &.hide{
-   opacity: 0; 
-   pointer-events: none;
-  }
-  width: 100dvw;
-  height: auto;
-  background-color: var(--background);
-
+  height: 36px;
+  min-width: 100px;
+  width: 200px;
+  
   display: flex;
+  justify-content: space-between;
   align-items: center;
+  padding: 0 8px;
 
-  @media (max-width: 479px) { //mobile port
-    flex-direction: column;
-    gap: 16px;
-    padding: 20px 20px;
-  }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    flex-direction: row-reverse;
-    justify-content: center;
-    gap: 0px;
+  border-radius: 48px;
+  box-sizing: border-box;
+  border: solid 3px var(--main-0);
 
-    padding: 12px 20px;
+  .icon{
+    color: var(--main-0);
+    font-size: 22px;
   }
-  @media (min-width:1024px) { //desktop
-    flex-direction: row-reverse;
-    justify-content: center;
-    gap: 0px;
-
-    padding: 12px 20px;
+  @media (max-width: 640px) {
+    max-width: 275px;
+    width: 60dvw;
   }
-`;
-const FixWrapper = styled(Wrapper)`
-  z-index: 10; //postCard z-index : 9
-  position: fixed;
-  top: 0;
-  border-bottom: solid 1px rgba(0,0,0,0.08);
-  box-shadow: rgba(0, 0, 0, 0.04) 0px 6px 6px 0px;
 `
