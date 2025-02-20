@@ -22,7 +22,10 @@ const useInteraction = ({ scrollWrapperRef, cardWidth }: Props) => {
 
       startX = e.touches[0].clientX;
       isDragging = true;
-      if (scrollWrapperRef.current) scrollWrapperRef.current.style.transition = 'none';
+      if (scrollWrapperRef.current) {
+        scrollWrapperRef.current.style.transition = 'none';
+        scrollWrapperRef.current?.focus();
+      }
     }
     const touchMove = (e: TouchEvent) => {
       e.preventDefault();
@@ -70,7 +73,10 @@ const useInteraction = ({ scrollWrapperRef, cardWidth }: Props) => {
 
       startX = e.clientX;
       isDragging = true;
-      if (scrollWrapperRef.current) scrollWrapperRef.current.style.transition = 'none';
+      if (scrollWrapperRef.current) {
+        scrollWrapperRef.current.style.transition = 'none';
+        scrollWrapperRef.current?.focus();
+      }
     }
     const mouseMove = (e: MouseEvent) => {
       e.preventDefault();

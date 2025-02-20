@@ -42,7 +42,10 @@ const Ad = ({ adList }: Props) => {
 
   return (
     <Wrapper ref={adAreaRef}>
-      <ScrollWrapper ref={scrollWrapperRef} $translateX={translateX}>
+      <ScrollWrapper
+        tabIndex={-1}
+        ref={scrollWrapperRef}
+        $translateX={translateX}>
         {longAdList.map((content, i) =>
           <AdCard key={'ad' + i} content={content} ref={i === 0 ? cardRef : undefined} />)
         }
@@ -69,6 +72,9 @@ const ScrollWrapper = styled.div.attrs<{ $translateX: number }>((props) => (
     }
   }
 ))`
+  &:focus{
+    outline: none;
+  }
   transition : transform 500ms ease-out;
 
   height: auto;
