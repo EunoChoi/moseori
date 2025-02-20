@@ -44,10 +44,14 @@ const CustomSelect: React.FC<SelectProps> = ({
   const optionWrapperRef = useRef<HTMLDivElement>(null);
 
   const resetSelectedItems = () => {
-    multiple && onChange([]);
+    if (multiple) {
+      onChange([]);
+    }
   }
   const selectAllListItem = () => {
-    multiple && onChange([...options]);
+    if (multiple) {
+      onChange([...options]);
+    }
   }
   const selectListItem = (option: Option) => {
     if (multiple) {
@@ -61,8 +65,8 @@ const CustomSelect: React.FC<SelectProps> = ({
         onChange([...value, option]);
       }
     }
-    else {
-      value !== option && onChange(option);
+    else if (!multiple && value !== option) {
+      onChange(option);
     }
   }
   const onToggleOpenCloseButton = () => {
@@ -73,7 +77,9 @@ const CustomSelect: React.FC<SelectProps> = ({
   }
   //focus action for blur action
   const onTransitionEnd = () => {
-    isOpen && optionWrapperRef.current?.focus();
+    if (isOpen) {
+      optionWrapperRef.current?.focus();
+    }
   }
   const isSelected = (option: Option) => {
     if (multiple) {
@@ -86,7 +92,8 @@ const CustomSelect: React.FC<SelectProps> = ({
     if (multiple) {
       if (value.length == 0 || value.length === options.length) {
         return <Selection>모든 {name}</Selection>;
-      } else {
+      }
+      else {
         return value.map(e =>
           <MultiSelection
             key={'selected-value-' + e.value}
@@ -96,13 +103,16 @@ const CustomSelect: React.FC<SelectProps> = ({
             {e.label}
           </MultiSelection>);
       }
-    } else {
+    }
+    else {
       return <Selection>{value.label}</Selection>;
     }
   }
 
   useEffect(() => {
-    scrollWrapperRef.current && scrollWrapperRef.current.scrollTo({ left: scrollWrapperRef.current.scrollWidth, behavior: 'smooth' })
+    if (scrollWrapperRef.current) {
+      scrollWrapperRef.current.scrollTo({ left: scrollWrapperRef.current.scrollWidth, behavior: 'smooth' })
+    }
   }, [value])
 
   return (

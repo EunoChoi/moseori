@@ -19,11 +19,11 @@ const MainPage = () => {
 
   useEffect(() => {
     const scrollHandler = () => {
-      if (ref.current?.getBoundingClientRect().top && isSticky === false) {
-        setIsSticky(false);
+      if (ref.current && ref.current?.getBoundingClientRect().top === 0) {
+        setIsSticky(true);
       }
       else {
-        setIsSticky(true);
+        setIsSticky(false);
       }
     }
     scrollHandler();

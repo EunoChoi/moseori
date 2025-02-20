@@ -23,10 +23,6 @@ const sortOptions: Option[] = [
   { label: '마감 임박순', value: 1 },
 ]
 
-const wrapperStyle = {
-  height: '100%',
-}
-
 const Filters = () => {
   const [multiCatNull, setMultiCatNull] = useState<Option[]>([]);
   const [SingleCat, setSingleCat] = useState<Option>(sortOptions[0]);
