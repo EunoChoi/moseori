@@ -21,12 +21,12 @@ interface BaseSelectProps {
 interface SingleSelectProps extends BaseSelectProps {
   multiple?: false;
   value: Option;
-  onChange: (value: Option) => void;
+  setValue: (value: Option) => void;
 }
 interface MultiSelectProps extends BaseSelectProps {
   multiple: true;
   value: Option[];
-  onChange: (value: Option[]) => void;
+  setValue: (value: Option[]) => void;
 }
 
 type SelectProps = SingleSelectProps | MultiSelectProps;
@@ -34,7 +34,7 @@ type SelectProps = SingleSelectProps | MultiSelectProps;
 const CustomSelect: React.FC<SelectProps> = ({
   multiple,
   value, //multiple boolean 값에 따라 value 타입이 결정된다. 
-  onChange,
+  setValue,
   name,
   options,
   className
@@ -45,28 +45,26 @@ const CustomSelect: React.FC<SelectProps> = ({
 
   const resetSelectedItems = () => {
     if (multiple) {
-      onChange([]);
+      setValue([]);
     }
   }
   const selectAllListItem = () => {
     if (multiple) {
-      onChange([...options]);
+      setValue([...options]);
     }
   }
   const selectListItem = (option: Option) => {
     if (multiple) {
-      //클릭한 옵션이 이미 선택된 경우
-      if (value.includes(option) === true) {
+      if (value.includes(option) === true) {  //선택 요소 삭제
         const lastValueItems = value.filter(e => e !== option)
-        onChange([...lastValueItems]);
+        setValue([...lastValueItems]);
       }
-      //클릭한 옵션이 선택되어 있지 않은 경우
-      else {
-        onChange([...value, option]);
+      else { //선택 요소 추가
+        setValue([...value, option]);
       }
     }
     else if (!multiple && value !== option) {
-      onChange(option);
+      setValue(option);
     }
   }
   const onToggleOpenCloseButton = () => {
@@ -75,8 +73,7 @@ const CustomSelect: React.FC<SelectProps> = ({
   const onBlurOptionListWrapper = () => {
     setIsOpen(false);
   }
-  //focus action for blur action
-  const onTransitionEnd = () => {
+  const onTransitionEnd = () => {  //focus action for blur action
     if (isOpen) {
       optionWrapperRef.current?.focus();
     }
@@ -88,7 +85,7 @@ const CustomSelect: React.FC<SelectProps> = ({
       return value === option;
     }
   }
-  const renderSelection = () => {
+  const renderValue = () => {
     if (multiple) {
       if (value.length == 0 || value.length === options.length) {
         return <Selection>모든 {name}</Selection>;
@@ -121,7 +118,7 @@ const CustomSelect: React.FC<SelectProps> = ({
         <div
           className='scrollWrapper'
           ref={scrollWrapperRef}>
-          <Emtpy />{renderSelection()}<Emtpy />
+          <Emtpy />{renderValue()}<Emtpy />
         </div>
         <div
           className='toggleButton'

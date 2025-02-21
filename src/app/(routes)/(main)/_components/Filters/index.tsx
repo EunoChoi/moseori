@@ -1,4 +1,6 @@
-import setQueryParameter from '@/common/function/setQueryParameter';
+'use Client';
+
+import useQueryParams from '@/common/hooks/useQueryParams';
 import FilterListRoundedIcon from '@mui/icons-material/FilterListRounded';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
@@ -12,27 +14,47 @@ interface Option {
 
 
 const Filters = () => {
-  const [multiCatNull, setMultiCatNull] = useState<Option[]>([]);
-  const [SingleCat, setSingleCat] = useState<Option>(SORT_OPTIONS[0]);
+  const queryParams = useQueryParams();
 
+  const getSelectedOptionsByQueryParams = ({ key, type, options }: { key: string, type: 'single' | 'multiple', options: Option[] }) => {
+    const optionsByQueryKey = queryParams
+      .getQueryParams({ key })
+      .map(cat => options.find(option => option.value.toString() === cat))
+      .filter((e) => e !== undefined);
+
+    if (type === 'multiple') return optionsByQueryKey; //key값에 해당하는 쿼리 파라미터가 존재하지 않는 경우 빈 배열 리턴
+    else return optionsByQueryKey.length === 0 ? options[0] : optionsByQueryKey[0];
+  }
+
+  const [categories, setCategories] = useState<Option[]>(() => getSelectedOptionsByQueryParams({ options: CAT_OPTIONS, type: 'multiple', key: 'cat' }) as Option[]);
+  const [sort, setSort] = useState<Option>(() => getSelectedOptionsByQueryParams({ options: SORT_OPTIONS, type: 'single', key: 'sort' }) as Option);
+
+
+  //set Query Params by categories
   useEffect(() => {
-    console.log(multiCatNull);
-  }, [multiCatNull])
+    const values = categories.map(category => category.value);
+    queryParams.setQueryParamsByValueArray({ key: 'cat', values });
+  }, [categories])
 
-  setQueryParameter();
+  //set Query Params by sort
+  useEffect(() => {
+    queryParams.setQueryParams({ key: 'sort', value: sort.value });
+  }, [sort])
+
 
   return (<Wrapper>
     <CatSelect
-      name="도서 카테고리"
       multiple
+      name="도서 카테고리"
       options={CAT_OPTIONS}
-      value={multiCatNull}
-      onChange={setMultiCatNull} />
+      value={categories}
+      setValue={setCategories}
+    />
     <SortSelect
       name="정렬"
       options={SORT_OPTIONS}
-      value={SingleCat}
-      onChange={setSingleCat} />
+      value={sort}
+      setValue={setSort} />
 
     <SettingButton>
       <FilterListRoundedIcon className='icon' fontSize='inherit' color='inherit' />
