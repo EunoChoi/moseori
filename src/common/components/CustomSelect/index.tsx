@@ -1,10 +1,10 @@
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
-import CircleRoundedIcon from '@mui/icons-material/CircleRounded';
 import ExpandLessRoundedIcon from '@mui/icons-material/ExpandLessRounded';
 import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
 import RadioButtonCheckedRoundedIcon from '@mui/icons-material/RadioButtonCheckedRounded';
 import RadioButtonUncheckedRoundedIcon from '@mui/icons-material/RadioButtonUncheckedRounded';
 import RestartAltRoundedIcon from '@mui/icons-material/RestartAltRounded';
+import TagRoundedIcon from '@mui/icons-material/TagRounded';
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
@@ -99,7 +99,7 @@ const CustomSelect: React.FC<SelectProps> = ({
             key={'selected-value-' + e.value}
             onClick={() => selectListItem(e)}
           >
-            <CircleRoundedIcon className='icon' fontSize='inherit' color='inherit' />
+            <TagRoundedIcon className='icon' fontSize='inherit' color='inherit' />
             {e.label}
           </MultiSelection>);
       }
@@ -125,6 +125,7 @@ const CustomSelect: React.FC<SelectProps> = ({
         </div>
         <div
           className='toggleButton'
+          onMouseDown={(e) => { e.preventDefault() }}
           onClick={onToggleOpenCloseButton}>
           {isOpen ?
             <ExpandLessRoundedIcon className='icon' fontSize='inherit' color='inherit' /> :
@@ -307,13 +308,13 @@ const PillWrapper = styled.div`
 
   display: flex;
   align-items: center;
-  padding-left: 16px;
+  padding-left: 20px;
 
   > .scrollWrapper{
     flex-grow: 1;
     display: flex;
     overflow-x: scroll;
-    padding-right: 16px;
+    padding-right: 20px;
   }
   > .toggleButton{
     display: flex;
@@ -339,7 +340,6 @@ const Selection = styled.button`
 const MultiSelection = styled(Selection)`
   margin: 0 4px;
   .icon{
-    font-size: 6px;
-    margin-right: 3px;
+    font-size: 15px;
   }
 `
