@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 //components
 import BottomInfo from "@/common/components/BottomInfo";
-import { useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import Ads from "./Ads";
 import Filters from "./Filters";
 import Posts from "./Posts";
@@ -42,7 +42,9 @@ const MainPage = () => {
 
     <SearchFilterArea ref={ref} className={isSticky ? 'sticky' : ''}>
       <Search />
-      <Filters />
+      <Suspense fallback={<></>}>
+        <Filters />
+      </Suspense>
     </SearchFilterArea >
 
     <Posts />
