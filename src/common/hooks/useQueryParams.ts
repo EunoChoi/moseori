@@ -16,22 +16,22 @@ const useQueryParams = () => {
   }
   const setQueryParams = ({ key, value }: { key: string, value: Value }) => {
     editableParams.set(key, value.toString());
-    router.push(`${pathname}?${editableParams.toString()}`);
+    router.push(`${pathname}?${editableParams.toString()}`, { scroll: false });
   }
   const setQueryParamsByValueArray = ({ key, values }: { key: string, values: Values }) => {
     editableParams.delete(key);
     values.forEach(value => editableParams.append(key, value.toString()));
-    router.push(`${pathname}?${editableParams.toString()}`);
+    router.push(`${pathname}?${editableParams.toString()}`, { scroll: false });
   }
   const appendQueryParmas = ({ key, value }: { key: string, value: Value }) => {
     if (!editableParams.has(key, value.toString())) {
       editableParams.append(key, value.toString());
-      router.push(`${pathname}?${editableParams.toString()}`);
+      router.push(`${pathname}?${editableParams.toString()}`, { scroll: false });
     }
   }
   const deleteQueryParmas = ({ key, value }: { key: string, value?: Value }) => {
     editableParams.delete(key, value ? value.toString() : undefined);
-    router.push(`${pathname}?${editableParams.toString()}`);
+    router.push(`${pathname}?${editableParams.toString()}`, { scroll: false });
   }
   return {
     getQueryParams,
