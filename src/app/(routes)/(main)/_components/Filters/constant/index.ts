@@ -3,6 +3,7 @@ interface Option {
   value: number;
 }
 
+//all item selected -> value : -1
 export const CAT_OPTIONS: Option[] = [
   { label: '역사', value: 0 },
   { label: '소설', value: 1 },

@@ -1,60 +1,28 @@
 'use Client';
 
-import useQueryParams from '@/common/hooks/useQueryParams';
 import FilterListRoundedIcon from '@mui/icons-material/FilterListRounded';
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import CustomSelect from '../../../../../common/components/CustomSelect';
+import useSelectState from '../../../../../common/components/CustomSelect/hooks/useSelectState';
 import { CAT_OPTIONS, SORT_OPTIONS } from './constant';
 
-interface Option {
-  label: string;
-  value: number;
-}
-
-
 const Filters = () => {
-  const queryParams = useQueryParams();
-
-  const getSelectedOptionsByQueryParams = ({ key, type, options }: { key: string, type: 'single' | 'multiple', options: Option[] }) => {
-    const optionsByQueryKey = queryParams
-      .getQueryParams({ key })
-      .map(cat => options.find(option => option.value.toString() === cat))
-      .filter((e) => e !== undefined);
-
-    if (type === 'multiple') return optionsByQueryKey; //key값에 해당하는 쿼리 파라미터가 존재하지 않는 경우 빈 배열 리턴
-    else return optionsByQueryKey.length === 0 ? options[0] : optionsByQueryKey[0];
-  }
-
-  const [categories, setCategories] = useState<Option[]>(() => getSelectedOptionsByQueryParams({ options: CAT_OPTIONS, type: 'multiple', key: 'cat' }) as Option[]);
-  const [sort, setSort] = useState<Option>(() => getSelectedOptionsByQueryParams({ options: SORT_OPTIONS, type: 'single', key: 'sort' }) as Option);
-
-
-  //set Query Params by categories
-  useEffect(() => {
-    const values = categories.map(category => category.value);
-    queryParams.setQueryParamsByValueArray({ key: 'cat', values });
-  }, [categories])
-
-  //set Query Params by sort
-  useEffect(() => {
-    queryParams.setQueryParams({ key: 'sort', value: sort.value });
-  }, [sort])
-
+  const { selectState: selectCatState, setSelectState: setSelectCatState } = useSelectState<'multiple'>({ key: 'cat', options: CAT_OPTIONS, type: 'multiple' });
+  const { selectState: selectSortState, setSelectState: setSelectSortState } = useSelectState<'single'>({ key: 'sort', options: SORT_OPTIONS, type: 'single' });
 
   return (<Wrapper>
     <CatSelect
       multiple
       name="도서 카테고리"
       options={CAT_OPTIONS}
-      value={categories}
-      setValue={setCategories}
+      value={selectCatState}
+      setValue={setSelectCatState}
     />
     <SortSelect
       name="정렬"
       options={SORT_OPTIONS}
-      value={sort}
-      setValue={setSort} />
+      value={selectSortState}
+      setValue={setSelectSortState} />
 
     <SettingButton>
       <FilterListRoundedIcon className='icon' fontSize='inherit' color='inherit' />

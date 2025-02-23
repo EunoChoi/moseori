@@ -1,12 +1,9 @@
-import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
-import ExpandLessRoundedIcon from '@mui/icons-material/ExpandLessRounded';
-import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
-import RadioButtonCheckedRoundedIcon from '@mui/icons-material/RadioButtonCheckedRounded';
-import RadioButtonUncheckedRoundedIcon from '@mui/icons-material/RadioButtonUncheckedRounded';
-import RestartAltRoundedIcon from '@mui/icons-material/RestartAltRounded';
-import TagRoundedIcon from '@mui/icons-material/TagRounded';
-import React, { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import styled from 'styled-components';
+import useToggleListOption from './hooks/useToggleListOption';
+import OptionButton from './OptionButton';
+import OptionList from './OptionList';
+import PillShapeSelect from './PillShapeSelect';
 
 interface Option {
   label: string;
@@ -31,26 +28,25 @@ interface MultiSelectProps extends BaseSelectProps {
 
 type SelectProps = SingleSelectProps | MultiSelectProps;
 
-const CustomSelect: React.FC<SelectProps> = ({
+const CustomSelect = ({
   multiple,
-  value, //multiple boolean 값에 따라 value 타입이 결정된다. 
+  value,
   setValue,
   name,
   options,
   className
-}) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const scrollWrapperRef = useRef<HTMLDivElement>(null);
+}: SelectProps) => {
   const optionWrapperRef = useRef<HTMLDivElement>(null);
 
-  const resetSelectedItems = () => {
-    if (multiple) {
-      setValue([]);
-    }
-  }
-  const selectAllListItem = () => {
-    if (multiple) {
-      setValue([...options]);
+  const { isOptionOpen,
+    onCloseOption,
+    onToggleOption } = useToggleListOption();
+
+  const isSelected = (option: Option) => {
+    if (Array.isArray(value)) {
+      return value?.includes(option) === true;
+    } else {
+      return value === option;
     }
   }
   const selectListItem = (option: Option) => {
@@ -67,112 +63,56 @@ const CustomSelect: React.FC<SelectProps> = ({
       setValue(option);
     }
   }
-  const onToggleOpenCloseButton = () => {
-    setIsOpen(c => !c);
+  const resetSelectedItems = () => {
+    if (multiple) {
+      setValue([]);
+    }
   }
-  const onBlurOptionListWrapper = () => {
-    setIsOpen(false);
+  const selectAllListItem = () => {
+    if (multiple) {
+      setValue([...options]);
+    }
   }
   const onTransitionEnd = () => {  //focus action for blur action
-    if (isOpen) {
+    if (isOptionOpen) {
       optionWrapperRef.current?.focus();
     }
   }
-  const isSelected = (option: Option) => {
-    if (multiple) {
-      return value?.includes(option) === true;
-    } else {
-      return value === option;
-    }
-  }
-  const renderValue = () => {
-    if (multiple) {
-      if (value.length == 0 || value.length === options.length) {
-        return <Selection>모든 {name}</Selection>;
-      }
-      else {
-        return value.map(e =>
-          <MultiSelection
-            key={'selected-value-' + e.value}
-            onClick={() => selectListItem(e)}
-          >
-            <TagRoundedIcon className='icon' fontSize='inherit' color='inherit' />
-            {e.label}
-          </MultiSelection>);
-      }
-    }
-    else {
-      return <Selection>{value.label}</Selection>;
-    }
-  }
-
-  useEffect(() => {
-    if (scrollWrapperRef.current) {
-      scrollWrapperRef.current.scrollTo({ left: scrollWrapperRef.current.scrollWidth, behavior: 'smooth' })
-    }
-  }, [value])
 
   return (
     <Wrapper className={className}>
-      <PillWrapper>
-        <div
-          className='scrollWrapper'
-          ref={scrollWrapperRef}>
-          <Emtpy />{renderValue()}<Emtpy />
-        </div>
-        <div
-          className='toggleButton'
-          onMouseDown={(e) => { e.preventDefault() }}
-          onClick={onToggleOpenCloseButton}>
-          {isOpen ?
-            <ExpandLessRoundedIcon className='icon' fontSize='inherit' color='inherit' /> :
-            <ExpandMoreRoundedIcon className='icon' fontSize='inherit' color='inherit' />}
-        </div>
-      </PillWrapper>
+      <PillShapeSelect
+        value={value}
+        options={options}
+        name={name}
+        selectListItem={selectListItem}
+        onToggleOption={onToggleOption}
+        isOpen={isOptionOpen}
+      />
       <OptionWrapper
         ref={optionWrapperRef}
         tabIndex={-1}
         onTransitionEnd={onTransitionEnd}
-        onBlur={onBlurOptionListWrapper}
-        className={isOpen ? 'open' : ''}
+        onBlur={onCloseOption}
+        className={isOptionOpen ? 'open' : ''}
       >
-        <OptionListWrapper>
-          {options.map(option =>
-            <OptionListItem
-              key={'list' + option.value}
-              onClick={() => { selectListItem(option) }}>
-              <span className='check'>
-                {isSelected(option) ?
-                  <RadioButtonCheckedRoundedIcon fontSize='inherit' color='inherit' /> :
-                  <RadioButtonUncheckedRoundedIcon fontSize='inherit' color='inherit' />}
-              </span>
-              <span className='label'>{option.label}</span>
-            </OptionListItem>
-          )}
-        </OptionListWrapper>
-        {multiple === true &&
-          <OptionButtonWrapper
-            onMouseDown={(e) => { e.preventDefault() }}
-          >
-            <button onClick={selectAllListItem}>
-              <CheckCircleRoundedIcon fontSize='inherit' color='inherit' />모두 선택
-            </button>
-            <button onClick={resetSelectedItems}>
-              <RestartAltRoundedIcon fontSize='inherit' color='inherit' />초기화
-            </button>
-          </OptionButtonWrapper>}
+        <OptionList
+          options={options}
+          isSelected={isSelected}
+          selectListItem={selectListItem} />
+        <OptionButton
+          selectAllListItem={selectAllListItem}
+          resetSelectedItems={resetSelectedItems}
+          multiple={multiple} />
       </OptionWrapper>
-
-    </Wrapper >
+    </Wrapper>
   );
 };
 
 
 export default CustomSelect;
 
-const Emtpy = styled.div`
-  flex: 1;
-`
+
 const Wrapper = styled.div`
   position: relative;
   display : flex;
@@ -236,107 +176,5 @@ const OptionWrapper = styled.div`
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
     border-bottom: 10px solid white; 
-  }
-`
-const OptionListWrapper = styled.ul`
-  width: auto;
-  height: auto;
-  max-height: 12.5rem;
-
-  display:flex;
-  flex-direction: column;
-  overflow-y: scroll;
-  flex-shrink: 0;
-`
-const OptionListItem = styled.li`
-  transition: background-color 200ms ease-in-out;
-  cursor: pointer;
-  
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-shrink: 0;
-
-  height: 2.5rem;
-  padding: 0 1rem;
-
-  .check{
-    font-size: 18px;
-    color: var(--main-0)
-  }
-  .label{
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--grey0);
-  }
-`
-const OptionButtonWrapper = styled.div`
-  background-color: var(--main-2);
-  background-color: whitesmoke;
-  padding : 12px 0;
-
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-
-  border-top: 1px solid #ddd;
-  border-bottom-left-radius: 15px;
-  border-bottom-right-radius: 15px;
-
-  button{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 6px;
-
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--grey0);
-  }
-`
-
-const PillWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  border-radius: 9999px;
-  border : 1px solid var(--main-0);
-  background-color: var(--main-1);
-  overflow: hidden;
-
-  display: flex;
-  align-items: center;
-  padding-left: 20px;
-
-  > .scrollWrapper{
-    flex-grow: 1;
-    display: flex;
-    overflow-x: scroll;
-    padding-right: 20px;
-  }
-  > .toggleButton{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    padding-left: 8px;
-    padding-right: 8px;
-    border-left: solid 1px var(--main-0);
-  }
-`
-const Selection = styled.button`
-  flex-shrink: 0;
-  font-size: 15px;
-  font-weight: 500;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  color: var(--grey0);
-`
-const MultiSelection = styled(Selection)`
-  margin: 0 4px;
-  .icon{
-    font-size: 15px;
   }
 `
