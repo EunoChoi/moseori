@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import styled from 'styled-components';
-import useToggleListOption from './hooks/useToggleListOption';
+import useOpenState from '../../hooks/useOpenState';
 import OptionButton from './OptionButton';
 import OptionList from './OptionList';
 import PillShapeSelect from './PillShapeSelect';
@@ -38,9 +38,10 @@ const CustomSelect = ({
 }: SelectProps) => {
   const optionWrapperRef = useRef<HTMLDivElement>(null);
 
-  const { isOptionOpen,
-    onCloseOption,
-    onToggleOption } = useToggleListOption();
+  const {
+    isOpen: isOptionListOpen,
+    onClose: onCloseOptionList,
+    onToggle: onToggleOptionList } = useOpenState();
 
   const isSelected = (option: Option) => {
     if (Array.isArray(value)) {
@@ -74,7 +75,7 @@ const CustomSelect = ({
     }
   }
   const onTransitionEnd = () => {  //focus action for blur action
-    if (isOptionOpen) {
+    if (isOptionListOpen) {
       optionWrapperRef.current?.focus();
     }
   }
@@ -86,15 +87,15 @@ const CustomSelect = ({
         options={options}
         name={name}
         selectListItem={selectListItem}
-        onToggleOption={onToggleOption}
-        isOpen={isOptionOpen}
+        onToggleOptionList={onToggleOptionList}
+        isOptionListOpen={isOptionListOpen}
       />
       <OptionWrapper
         ref={optionWrapperRef}
         tabIndex={-1}
         onTransitionEnd={onTransitionEnd}
-        onBlur={onCloseOption}
-        className={isOptionOpen ? 'open' : ''}
+        onBlur={onCloseOptionList}
+        className={isOptionListOpen ? 'open' : ''}
       >
         <OptionList
           options={options}

@@ -14,11 +14,11 @@ interface Props {
   options: Option[];
   name: string;
   selectListItem: (option: Option) => void;
-  onToggleOption: () => void;
-  isOpen: boolean;
+  onToggleOptionList: () => void;
+  isOptionListOpen: boolean;
 }
 
-const PillShapeSelect = ({ value, options, name, selectListItem, onToggleOption, isOpen }: Props) => {
+const PillShapeSelect = ({ value, options, name, selectListItem, onToggleOptionList, isOptionListOpen }: Props) => {
   const scrollWrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -43,8 +43,8 @@ const PillShapeSelect = ({ value, options, name, selectListItem, onToggleOption,
     <div
       className='toggleButton'
       onMouseDown={(e) => { e.preventDefault() }}
-      onClick={onToggleOption}>
-      {isOpen ?
+      onClick={onToggleOptionList}>
+      {isOptionListOpen ?
         <ExpandLessRoundedIcon className='icon' fontSize='inherit' color='inherit' /> :
         <ExpandMoreRoundedIcon className='icon' fontSize='inherit' color='inherit' />}
     </div>
