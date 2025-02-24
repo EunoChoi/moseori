@@ -13,7 +13,7 @@ interface SelectStateProps {
 }
 
 //select state for query params binding
-const useSelectState = <T extends 'multiple' | 'single'>({ key, type, options }: SelectStateProps) => {
+const useQueryState = <T extends 'multiple' | 'single'>({ key, type, options }: SelectStateProps) => {
   const queryParams = useQueryParams();
 
   const getSelectedOptionsByQueryParams = ({ key, type, options }: SelectStateProps) => {
@@ -45,4 +45,4 @@ const useSelectState = <T extends 'multiple' | 'single'>({ key, type, options }:
   }
 }
 
-export default useSelectState;
+export default useQueryState;
