@@ -1,14 +1,22 @@
 'use Client';
 
+import CustomSelect from '@/common/components/CustomSelect';
+import useOpenState from '@/common/hooks/useOpenState';
+import useQueryState from '@/common/hooks/useQueryState';
 import FilterListRoundedIcon from '@mui/icons-material/FilterListRounded';
 import styled from 'styled-components';
-import CustomSelect from '../../../../../common/components/CustomSelect';
-import useSelectState from '../../../../../common/components/CustomSelect/hooks/useSelectState';
+import FilterSetting from '../FilterSetting';
 import { CAT_OPTIONS, SORT_OPTIONS } from './constant';
 
 const Filters = () => {
-  const { selectState: selectCatState, setSelectState: setSelectCatState } = useSelectState<'multiple'>({ key: 'cat', options: CAT_OPTIONS, type: 'multiple' });
-  const { selectState: selectSortState, setSelectState: setSelectSortState } = useSelectState<'single'>({ key: 'sort', options: SORT_OPTIONS, type: 'single' });
+  const { selectState: selectCatState, setSelectState: setSelectedCatOption } = useQueryState<'multiple'>({ key: 'cat', options: CAT_OPTIONS, type: 'multiple' });
+  const { selectState: selectSortState, setSelectState: setSelectedSortOption } = useQueryState<'single'>({ key: 'sort', options: SORT_OPTIONS, type: 'single' });
+
+  const { isOpen: isFilterSettingOpen,
+    setIsOpen: setFilterSettingOpen,
+    onToggle: onToggleFilterSetting,
+    onOpen: onOpenFilterSetting,
+    onClose: onCloseFilterSetting } = useOpenState();
 
   return (<Wrapper>
     <CatSelect
@@ -16,18 +24,27 @@ const Filters = () => {
       name="도서 카테고리"
       options={CAT_OPTIONS}
       value={selectCatState}
-      setValue={setSelectCatState}
+      setValue={setSelectedCatOption}
     />
     <SortSelect
       name="정렬"
       options={SORT_OPTIONS}
       value={selectSortState}
-      setValue={setSelectSortState} />
+      setValue={setSelectedSortOption} />
 
-    <SettingButton>
+    <SettingButton onClick={onToggleFilterSetting}>
       <FilterListRoundedIcon className='icon' fontSize='inherit' color='inherit' />
       <span className='text'>검색 설정</span>
     </SettingButton>
+    {isFilterSettingOpen === true && <FilterSetting
+      catOptions={CAT_OPTIONS}
+      selectedCatOptions={selectCatState}
+      setSelectedCatOption={setSelectedCatOption}
+      sortOptions={SORT_OPTIONS}
+      selectedSortOptions={selectSortState}
+      setSelectedSortOption={setSelectedSortOption}
+      isOpen={isFilterSettingOpen}
+      onClose={onCloseFilterSetting} />}
   </Wrapper>);
 }
 
