@@ -13,9 +13,9 @@ const Filters = () => {
   const { selectState: selectSortState, setSelectState: setSelectedSortOption } = useQueryState<'single'>({ key: 'sort', options: SORT_OPTIONS, type: 'single' });
 
   const { isOpen: isFilterSettingOpen,
-    setIsOpen: setFilterSettingOpen,
+    // setIsOpen: setFilterSettingOpen,
     onToggle: onToggleFilterSetting,
-    onOpen: onOpenFilterSetting,
+    // onOpen: onOpenFilterSetting,
     onClose: onCloseFilterSetting } = useOpenState();
 
   return (<Wrapper>
