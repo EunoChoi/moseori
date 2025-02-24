@@ -15,8 +15,10 @@
   --main-0: #85c9b6;
   --main-1: #a8d8cc;
   --main-2: #c0e2d9;
+  --main-3: #eaf3f0;
 
   --grey0: #444444;
+  --light-grey: #e1e1e1;
 }
 
 /* @media (prefers-color-scheme: dark) {
