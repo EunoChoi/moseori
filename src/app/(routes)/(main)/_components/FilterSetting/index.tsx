@@ -1,5 +1,4 @@
 import useDocumentScrollLockWhenMount from "@/common/hooks/useDocumentScrollLockWhenMount";
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { Dispatch, SetStateAction } from "react";
 import { createPortal } from "react-dom";
 import styled from "styled-components";
@@ -35,15 +34,14 @@ const FilterSetting = ({
   useDocumentScrollLockWhenMount() //컴포넌트 마운트시 전체 스크롤 중단
 
   if (!portalRoot) return null;
-  return createPortal(<BGWrapper className={isOpen ? 'open' : ''}>
-    <Wrapper>
+  return createPortal(<BGWrapper onClick={onClose} className={isOpen ? 'open' : ''}>
+    <Wrapper onClick={(e) => { e.stopPropagation() }}>
       <Header>
-        <span></span>
-        <span>검색 설정</span>
-        <button onClick={onClose}><CloseRoundedIcon fontSize="inherit" color="inherit" /></button>
+        <div></div>
+        <div className="name">검색 설정</div>
+        <div className="confirm"><button onClick={onClose}>확인</button></div>
       </Header>
       <Main>
-        <EmptyForCenter />
         <FilterGroup
           name="도서 카테고리"
           options={catOptions}
@@ -54,7 +52,6 @@ const FilterSetting = ({
           options={sortOptions}
           selectedOptions={selectedSortOptions}
           setSelectedOption={setSelectedSortOption} />
-        <EmptyForCenter />
       </Main>
     </Wrapper>
   </BGWrapper>, portalRoot);
@@ -62,9 +59,6 @@ const FilterSetting = ({
 
 export default FilterSetting;
 
-const EmptyForCenter = styled.div`
-  height: 100%;
-`
 const BGWrapper = styled.div`
   z-index: 99;
   position: fixed;
@@ -75,7 +69,7 @@ const BGWrapper = styled.div`
   height: 100dvh;
 
   background-color: rgba(0,0,0,0.1);
-  backdrop-filter: blur(16px);
+  backdrop-filter: blur(6px);
 
   display: flex;
   justify-content: center;
@@ -85,13 +79,20 @@ const Wrapper = styled.div`
   background-color: white;
   display: flex;
   flex-direction: column;
+
   @media (max-width: 479px) { //mobile port
     width: 100dvw;
     height: 100dvh;
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    width: 480px;
+    height: 85dvh;
+    border-radius: 12px;
   }
   @media (min-width:1024px) { //desktop
+    width: 500px;
+    height: 85dvh;
+    border-radius: 12px;
   }
 `
 const Header = styled.header`
@@ -100,16 +101,23 @@ const Header = styled.header`
   grid-template-columns: 1fr 1fr 1fr;
   border-bottom: 1px solid var(--light-grey);
 
-  font-size: 20px;
-  font-weight: 600;
-  
-  span, button{
+  .name{
     display: flex;
     justify-content: center;
     align-items: center;
+
+    font-size: 20px;
+    font-weight: 600;
+    color: black;
   }
-  button{
+  .confirm{
+    display: flex;
     justify-content: end;
+    align-items: center;
+
+    font-size: 16px;
+    font-weight: 500;
+    color: grey;
   }
 
   @media (max-width: 479px) { //mobile port
@@ -117,9 +125,11 @@ const Header = styled.header`
     height: var(--mobile-header-height)
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    padding: 0 20px;
     height: var(--mobile-header-height)
   }
   @media (min-width:1024px) { //desktop
+    padding: 0 20px;
     height: var(--pc-header-height);
   }
 `
@@ -132,5 +142,5 @@ const Main = styled.div`
   overflow-y : scroll;
 
   gap: 32px;
-  padding-bottom: 64px;
+  padding: 24px 0;
 `

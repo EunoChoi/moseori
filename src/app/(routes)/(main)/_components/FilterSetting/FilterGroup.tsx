@@ -88,10 +88,19 @@ export default FilterGroup;
 
 const Wrapper = styled.section`
   width: 100%;
-  padding: 16px;
 
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 479px) { //mobile port
+    padding: 16px;
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    padding: 24px;
+  }
+  @media (min-width:1024px) { //desktop
+    padding: 32px;
+  }
 `
 const FilterHeader = styled.span`
   display: flex;
