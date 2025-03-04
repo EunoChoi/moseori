@@ -16,6 +16,6 @@ export const CAT_OPTIONS: Option[] = [
   { label: '취미', value: 8 },
 ];
 export const SORT_OPTIONS: Option[] = [
-  { label: '최근 등록순', value: 0 },
-  { label: '마감 임박순', value: 1 },
+  { label: '최근 등록순 정렬', value: 0 },
+  { label: '마감 임박순 정렬', value: 1 },
 ]
