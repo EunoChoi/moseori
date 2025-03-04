@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import useOpenState from '../../hooks/useOpenState';
 import OptionButton from './OptionButton';
 import OptionList from './OptionList';
-import PillShapeSelect from './PillShapeSelect';
+import Select from './Select';
 
 interface Option {
   label: string;
@@ -82,7 +82,7 @@ const CustomSelect = ({
 
   return (
     <Wrapper className={className}>
-      <PillShapeSelect
+      <Select
         value={value}
         options={options}
         name={name}

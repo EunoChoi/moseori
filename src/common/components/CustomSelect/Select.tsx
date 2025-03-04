@@ -16,7 +16,7 @@ interface Props {
   isOptionListOpen: boolean;
 }
 
-const PillShapeSelect = ({ value, options, name, onToggleOptionList, isOptionListOpen }: Props) => {
+const Select = ({ value, options, name, onToggleOptionList, isOptionListOpen }: Props) => {
   return (<Wrapper
     onMouseDown={(e) => { e.preventDefault() }}
     onClick={onToggleOptionList}
@@ -33,9 +33,9 @@ const PillShapeSelect = ({ value, options, name, onToggleOptionList, isOptionLis
   );
 }
 
-export default PillShapeSelect;
+export default Select;
 
-const Wrapper = styled.div`
+const Wrapper = styled.button`
   width: 100%;
   height: 42px;
   border-radius: 16px;

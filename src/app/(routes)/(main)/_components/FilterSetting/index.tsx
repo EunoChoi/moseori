@@ -2,6 +2,7 @@ import useDocumentScrollLockWhenMount from "@/common/hooks/useDocumentScrollLock
 import { Dispatch, SetStateAction } from "react";
 import { createPortal } from "react-dom";
 import styled from "styled-components";
+import { CAT_OPTIONS, SORT_OPTIONS } from "../Filters/constant";
 import FilterGroup from "./FilterGroup";
 
 interface Option {
@@ -12,8 +13,6 @@ interface Option {
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  catOptions: Option[];
-  sortOptions: Option[];
   selectedCatOptions: Option[];
   selectedSortOptions: Option;
   setSelectedCatOption: Dispatch<SetStateAction<Option[]>>;
@@ -23,10 +22,8 @@ interface Props {
 const FilterSetting = ({
   isOpen,
   onClose,
-  catOptions,
   selectedCatOptions,
   setSelectedCatOption,
-  sortOptions,
   selectedSortOptions,
   setSelectedSortOption }: Props) => {
 
@@ -44,12 +41,12 @@ const FilterSetting = ({
       <Main>
         <FilterGroup
           name="도서 카테고리"
-          options={catOptions}
+          options={CAT_OPTIONS}
           selectedOptions={selectedCatOptions}
           setSelectedOption={setSelectedCatOption} />
         <FilterGroup
           name="정렬 방식"
-          options={sortOptions}
+          options={SORT_OPTIONS}
           selectedOptions={selectedSortOptions}
           setSelectedOption={setSelectedSortOption} />
       </Main>

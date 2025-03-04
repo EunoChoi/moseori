@@ -41,10 +41,8 @@ const Filters = () => {
       <span className='text'>검색 설정</span>
     </Button>
     {isFilterSettingOpen === true && <FilterSetting
-      catOptions={CAT_OPTIONS}
       selectedCatOptions={selectCatState}
       setSelectedCatOption={setSelectedCatOption}
-      sortOptions={SORT_OPTIONS}
       selectedSortOptions={selectSortState}
       setSelectedSortOption={setSelectedSortOption}
       isOpen={isFilterSettingOpen}
