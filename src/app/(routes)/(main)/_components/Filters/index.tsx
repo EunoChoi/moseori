@@ -1,18 +1,19 @@
 'use Client';
 
 import CustomSelect from '@/common/components/CustomSelect';
+import useSelectState from '@/common/components/CustomSelect/hooks/useSelectState';
 import useOpenState from '@/common/hooks/useOpenState';
-import useQueryState from '@/common/hooks/useQueryState';
 import TuneRoundedIcon from '@mui/icons-material/TuneRounded';
 import styled from 'styled-components';
 import FilterSetting from '../FilterSetting';
 import { CAT_OPTIONS, SORT_OPTIONS } from './constant';
 
-import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
+import Search from '../Search';
 
 const Filters = () => {
-  const { selectState: selectCatState, setSelectState: setSelectedCatOption } = useQueryState<'multiple'>({ key: 'cat', options: CAT_OPTIONS, type: 'multiple' });
-  const { selectState: selectSortState, setSelectState: setSelectedSortOption } = useQueryState<'single'>({ key: 'sort', options: SORT_OPTIONS, type: 'single' });
+  //이 두 state 전역 처리 가능하도록, context 또는 zustand 적용하자
+  const { selectState: selectCatState, setSelectState: setSelectedCatOption } = useSelectState<'multiple'>({ key: 'cat', options: CAT_OPTIONS, type: 'multiple' });
+  const { selectState: selectSortState, setSelectState: setSelectedSortOption } = useSelectState<'single'>({ key: 'sort', options: SORT_OPTIONS, type: 'single' });
 
   const { isOpen: isFilterSettingOpen,
     onToggle: onToggleFilterSetting,
@@ -32,13 +33,11 @@ const Filters = () => {
       value={selectSortState}
       setValue={setSelectedSortOption} />
 
-    <Button onClick={onToggleFilterSetting}>
-      <SearchRoundedIcon className='icon' fontSize='inherit' color='inherit' />
-      <span className='text'>통합 검색</span>
-    </Button>
+    <Search />
+
     <Button onClick={onToggleFilterSetting}>
       <TuneRoundedIcon className='icon' fontSize='inherit' color='inherit' />
-      <span className='text'>검색 설정</span>
+      {/* <span className='text'>검색 설정</span> */}
     </Button>
     {isFilterSettingOpen === true && <FilterSetting
       selectedCatOptions={selectCatState}

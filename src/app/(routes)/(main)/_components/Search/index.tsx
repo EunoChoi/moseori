@@ -1,12 +1,34 @@
-import SearchIcon from '@mui/icons-material/Search';
+import useInput from '@/common/hooks/useInput';
+import useOpenState from '@/common/hooks/useOpenState';
+import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
+import { useMediaQuery } from '@mui/material';
 import React from 'react';
 import styled from 'styled-components';
+import MobileSearchInputModal from './MobileSearchInputModal';
 
 const Search: React.FC = () => {
+
+  const {
+    isOpen: isSearchInputOpen,
+    onClose: onCloseSearchInput,
+    onToggle: onToggleSearchInput } = useOpenState();
+
+  const { value: search, setValue: setSearch, onChange } = useInput({ initialValue: '' });
+
+  console.log(search);
+
+  const isPc = useMediaQuery('(min-width:1024px)');
+
   return (
     <Wrapper>
-      <div></div>
-      <SearchIcon className='icon' fontSize='inherit' color='inherit' />
+      <SearchButton onClick={onToggleSearchInput}>
+        <SearchInput
+          type='text'
+          placeholder='모집 공고 검색'
+        />
+        <SearchRoundedIcon className='icon' fontSize='inherit' color='inherit' />
+      </SearchButton>
+      {(isSearchInputOpen && !isPc) && <MobileSearchInputModal isOpen={isSearchInputOpen} onClose={onCloseSearchInput} />}
     </Wrapper>
   );
 };
@@ -14,27 +36,50 @@ const Search: React.FC = () => {
 export default Search;
 
 const Wrapper = styled.div`
-  height: 36px;
-  min-width: 100px;
-  width: 230px;
-  height: 42px;
-  
-  display: flex;
-  justify-content: space-between;
+  position: relative;
+  display : flex;
+  flex-direction: column;
   align-items: center;
-  padding: 0 8px;
 
-  /* border-radius: 9999px; */
+  overflow: visible;
+`
+const SearchButton = styled.button`
+  height: 100%;
+  width: auto;
+
+  padding : 0 18px;
+  
+  height: 42px;
   border-radius: 16px;
-  box-sizing: border-box;
-  border: solid 3px var(--main-1);
+  background-color: var(--main-3);
+  border: 1px solid var(--main-1);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 6px;
 
   .icon{
-    color: var(--main-1);
-    font-size: 22px;
+    color: var(--grey0);
+    font-size: 18px;
   }
-  @media (max-width: 640px) {
-    max-width: 275px;
-    width: 60dvw;
+`
+const SearchInput = styled.input`
+  display: none;
+  border: none;
+  outline: none;
+  background-color: rgba(0,0,0,0);
+  &::placeholder{
+    color: darkgray;
+  }
+
+  @media (min-width:1024px) {
+    display: inline;
+    width: 200px;
+
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--grey0);
   }
 `
