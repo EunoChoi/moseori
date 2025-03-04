@@ -8,7 +8,6 @@ import { Suspense, useEffect, useRef, useState } from "react";
 import Ads from "./Ads";
 import Filters from "./Filters";
 import Posts from "./Posts";
-import Search from "./Search";
 
 /**client component, main page component*/
 const MainPage = () => {
@@ -41,7 +40,6 @@ const MainPage = () => {
     </IntroduceText>
 
     <SearchFilterArea ref={ref} className={isSticky ? 'sticky' : ''}>
-      <Search />
       <Suspense fallback={<></>}>
         <Filters />
       </Suspense>
@@ -72,18 +70,10 @@ const SearchFilterArea = styled.div`
   background-color: var(--background);
 
   display: flex;
+  justify-content: center;
   align-items: center;
-  @media (max-width: 640px) { //mobile port
-    flex-direction: column;
-    gap: 16px;
-    padding: 20px 20px;
-  }
-  @media (min-width:641px) { //mobild land + tablet + pc
-    flex-direction: row-reverse;
-    justify-content: center;
-    gap: 0px;
-    padding: 12px 20px;
-  }
+
+  padding: 12px 0;
 `
 const Wrapper = styled.div`
   width: 100dvw;

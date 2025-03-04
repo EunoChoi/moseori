@@ -1,4 +1,3 @@
-import TagRoundedIcon from '@mui/icons-material/TagRounded';
 import styled from "styled-components";
 
 interface Option {
@@ -10,22 +9,22 @@ interface Props {
   value: Option[] | Option;
   options: Option[];
   name: string;
-  selectListItem: (option: Option) => void;
 }
 
-const SelectedValue = ({ value, options, name, selectListItem }: Props) => {
+const SelectedValue = ({ value, options, name }: Props) => {
+  const MAX_VISIBLE_NUM = 3;
+  const remainSelectedItem = Array.isArray(value) ? value.length - MAX_VISIBLE_NUM : 0;
+
   if (Array.isArray(value)) {
     if (value.length == 0 || value.length === options.length) {
-      return <Selection>모든 {name}</Selection>;
+      return <Selection>{name}</Selection>;
     }
     else {
-      return value.map(e =>
-        <MultiSelection
-          key={'selected-value-' + e.value}
-          onClick={() => selectListItem(e)}>
-          <TagRoundedIcon className='icon' fontSize='inherit' color='inherit' />
-          {e.label}
-        </MultiSelection>);
+      return <>
+        {value.slice(0, 3).map(e =>
+          <MultiSelection key={'selected-value-' + e.value}>#{e.label}</MultiSelection>)}
+        {remainSelectedItem >= 1 && <MultiSelection>외 {remainSelectedItem}</MultiSelection>}
+      </>;
     }
   }
   else {
@@ -35,7 +34,7 @@ const SelectedValue = ({ value, options, name, selectListItem }: Props) => {
 
 export default SelectedValue;
 
-const Selection = styled.button`
+const Selection = styled.span`
   flex-shrink: 0;
   font-size: 15px;
   font-weight: 500;

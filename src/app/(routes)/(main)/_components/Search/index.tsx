@@ -16,19 +16,21 @@ export default Search;
 const Wrapper = styled.div`
   height: 36px;
   min-width: 100px;
-  width: 200px;
+  width: 230px;
+  height: 42px;
   
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 8px;
 
-  border-radius: 48px;
+  /* border-radius: 9999px; */
+  border-radius: 16px;
   box-sizing: border-box;
-  border: solid 3px var(--main-0);
+  border: solid 3px var(--main-1);
 
   .icon{
-    color: var(--main-0);
+    color: var(--main-1);
     font-size: 22px;
   }
   @media (max-width: 640px) {

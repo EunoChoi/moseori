@@ -140,7 +140,7 @@ const FilterOption = styled.button`
 
   &.selected{
     background-color: var(--main-3);
-    border-color: var(--main-0);
+    border-color: var(--main-1);
   }
 `
 const FilterControl = styled.div`

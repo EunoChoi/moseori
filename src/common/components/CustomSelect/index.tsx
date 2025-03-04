@@ -86,7 +86,6 @@ const CustomSelect = ({
         value={value}
         options={options}
         name={name}
-        selectListItem={selectListItem}
         onToggleOptionList={onToggleOptionList}
         isOptionListOpen={isOptionListOpen}
       />
@@ -98,6 +97,7 @@ const CustomSelect = ({
         className={isOptionListOpen ? 'open' : ''}
       >
         <OptionList
+          multiple={multiple}
           options={options}
           isSelected={isSelected}
           selectListItem={selectListItem} />
@@ -145,8 +145,8 @@ const OptionWrapper = styled.div`
 
   position: absolute;
   top: 100%;
-  right: 0;
-  transform: translateX(calc(50% - 17px));
+  left: 50%;
+  transform: translateX(calc(-50%));
   margin-top: 4px;
 
   background-color: white;
