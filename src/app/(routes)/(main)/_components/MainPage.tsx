@@ -4,7 +4,8 @@ import styled from "styled-components";
 
 //components
 import BottomInfo from "@/common/components/BottomInfo";
-import { Suspense, useEffect, useRef, useState } from "react";
+import useTopChceck from "@/common/hooks/useTopCheck";
+import { Suspense, useRef } from "react";
 import Ads from "./Ads";
 import Filters from "./Filters";
 import Posts from "./Posts";
@@ -14,23 +15,7 @@ const MainPage = () => {
   const adList = ['AD1', 'AD2', 'AD3', 'AD4', 'AD5'];
 
   const ref = useRef<HTMLDivElement>(null);
-  const [isSticky, setIsSticky] = useState<boolean>(false);
-
-  useEffect(() => {
-    const scrollHandler = () => {
-      if (ref.current && ref.current?.getBoundingClientRect().top === 0) {
-        setIsSticky(true);
-      }
-      else {
-        setIsSticky(false);
-      }
-    }
-    scrollHandler();
-    window.addEventListener('scroll', scrollHandler);
-    return () => {
-      window.removeEventListener('scroll', scrollHandler);
-    }
-  }, [])
+  const { isTop } = useTopChceck({ ref, top: 0 });
 
   return (<Wrapper >
     <Ads adList={adList} />
@@ -39,7 +24,7 @@ const MainPage = () => {
       <span>소개 텍스트 어쩌꾸 저쩌구 어쩌꾸 저쩌구!</span>
     </IntroduceText>
 
-    <SearchFilterArea ref={ref} className={isSticky ? 'sticky' : ''}>
+    <SearchFilterArea ref={ref} className={isTop ? 'sticky' : ''}>
       <Suspense fallback={<></>}>
         <Filters />
       </Suspense>

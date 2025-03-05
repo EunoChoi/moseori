@@ -4,10 +4,16 @@ import styled from "styled-components";
 
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 
-const MobileSearchInputModal = ({ isOpen, onClose }: any) => {
+interface Props {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const MobileSearchInputModal = ({ isOpen, onClose }: Props) => {
   const portalRoot = document.getElementById('modal-root');
   useDocumentScrollLockWhenMount() //컴포넌트 마운트시 전체 스크롤 중단
 
+  //localStorage 사용해서 최근 검색어 저장 및 불러오기 처리
   const recentSearch = ['aaaa', '어쩌구 저쩌구', 'cddddccc', 'dsssdd', 'eeee', 'aasaaaa', 'bbddddbb', 'cccc', 'dddd', 'eeee'];
 
   if (!portalRoot) return null;

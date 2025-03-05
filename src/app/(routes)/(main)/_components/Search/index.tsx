@@ -22,7 +22,7 @@ const Search: React.FC = () => {
   return (
     <Wrapper>
       <SearchButton onClick={onToggleSearchInput}>
-        <SearchInput
+        <PCSearchInput
           type='text'
           placeholder='모집 공고 검색'
         />
@@ -65,7 +65,7 @@ const SearchButton = styled.button`
     font-size: 18px;
   }
 `
-const SearchInput = styled.input`
+const PCSearchInput = styled.input`
   display: none;
   border: none;
   outline: none;
