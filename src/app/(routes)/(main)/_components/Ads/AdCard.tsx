@@ -17,7 +17,7 @@ const AdCard = ({ content, ref }: { content: string | number, ref?: RefObject<HT
 export default AdCard;
 
 const Wrapper = styled.div`
-  aspect-ratio: 5/2;
+  aspect-ratio: 3;
   flex-shrink: 0;
 
   div{
@@ -36,16 +36,16 @@ const Wrapper = styled.div`
 
   @media (max-width: 479px) { //mobile port
     width: 85dvw;
-    width: 300px;
-    padding: 0 2.5dvw;
+    width: 330px;
+    padding: 0 2dvw;
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     width: 40dvw;
-    width: 300px;
+    width: 400px;
     padding: 0 8px;
   }
   @media (min-width:1024px) { //desktop
-    width:400px;
+    width:500px;
     padding: 0 12px;
     transition: 200ms ease-in-out transform;
     
