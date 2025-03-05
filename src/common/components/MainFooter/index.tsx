@@ -2,7 +2,7 @@
 
 import styled from "styled-components";
 
-const BottomInfo = () => {
+const MainFooter = () => {
   return (<Wrapper>
     <Section>
       <Title>MOSEORi</Title>
@@ -17,7 +17,7 @@ const BottomInfo = () => {
   </Wrapper>);
 }
 
-export default BottomInfo;
+export default MainFooter;
 
 const Wrapper = styled.div`
   display: flex;

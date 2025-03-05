@@ -1,3 +1,4 @@
+import MainFooter from "@/common/components/MainFooter";
 import MainHeader from "@/common/components/MainHeader";
 import type { Metadata } from "next";
 import localFont from 'next/font/local';
@@ -35,6 +36,7 @@ export default function RootLayout({
           <div id="modal-root" />
           <MainHeader />
           {children}
+          <MainFooter />
         </StyledComponentsRegistry>
       </body>
     </html>
