@@ -3,10 +3,10 @@
 import styled from "styled-components";
 
 //components
-import BottomInfo from "@/common/components/BottomInfo";
 import useTopChceck from "@/common/hooks/useTopCheck";
 import { Suspense, useRef } from "react";
 import Ads from "./Ads";
+import Banner from "./Banner";
 import Filters from "./Filters";
 import Posts from "./Posts";
 
@@ -19,10 +19,14 @@ const MainPage = () => {
 
   return (<Wrapper >
     <Ads adList={adList} />
-    <IntroduceText>
-      <span>📚 소개 텍스트! 소개 텍스트! 소개 텍스트! </span>
-      <span>소개 텍스트 어쩌꾸 저쩌구 어쩌꾸 저쩌구!</span>
-    </IntroduceText>
+
+    <IntroBannerWrapper>
+      <IntroText>
+        <span className="main">독서 열정이 모이는 공간</span>
+        <span className="sub">다양한 서평단 모집에 참여하고 혜택을 받아보세요</span>
+      </IntroText>
+      <Banner />
+    </IntroBannerWrapper>
 
     <SearchFilterArea ref={ref} className={isTop ? 'sticky' : ''}>
       <Suspense fallback={<></>}>
@@ -31,11 +35,78 @@ const MainPage = () => {
     </SearchFilterArea >
 
     <Posts />
-    <BottomInfo />
   </Wrapper>)
 }
 
 export default MainPage;
+
+const IntroBannerWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+
+  @media (max-width: 479px) { //mobile port
+    align-items: start;
+    gap: 64px;
+    width: 100dvw;
+    padding: 56px 0;
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    gap: 64px;
+    padding: 64px 0;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+  }
+  @media (min-width:1024px) { //desktop
+    gap: 96px;
+    width: 100%;
+    padding: 72px 0;
+    flex-direction: row;
+  }
+`
+const IntroText = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  gap: 12px;
+  width: auto;
+
+  .main{
+    white-space: nowrap;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--grey0);
+  }
+  .sub{
+    white-space: nowrap;
+    font-size: 16px;
+    font-weight: 400;
+    color: grey;
+  }
+  @media (max-width: 479px) { //mobile port
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    .main{
+      font-size: 28px;
+    }
+    .sub{
+      font-size: 20px;
+    }
+  }
+  @media (min-width:1024px) { //desktop
+    width: auto;
+    .main{
+      font-size: 28px;
+    }
+    .sub{
+      font-size: 20px;
+    }
+  }
+`
 
 const SearchFilterArea = styled.div`
   position: sticky;
@@ -68,45 +139,4 @@ const Wrapper = styled.div`
   align-items: center;
 
   overflow: visible;
-`
-
-const IntroduceText = styled.div`
-  display :flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
- 
-  span{
-    text-align: center;
-    color: var(--grey0);
-    font-family: BMJUA;
-  }
-  @media (max-width: 479px) { //mobile port
-    span{
-      font-size:16px;
-    }
-    span:first-child{
-      font-size:20px;
-    }
-    padding : 32px 20px;
-  }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    span{
-      font-size:18px;
-    }
-    span:first-child{
-      font-size:22px;
-    }
-    padding : 44px 20px;
-  }
-  @media (min-width:1024px) { //desktop
-    span{
-      font-size:20px;
-    }
-    span:first-child{
-      font-size:28px;
-    }
-    padding : 56px 20px;
-  }
 `
