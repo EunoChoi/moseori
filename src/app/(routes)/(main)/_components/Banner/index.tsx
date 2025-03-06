@@ -20,15 +20,10 @@ export default Banner;
 
 const Wrapper = styled.div`
   display: flex;
+  flex-shrink: 0;
   width: 100%;
-
   @media (max-width: 479px) { //mobile port
-  }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    max-width: 400px;
-  }
-  @media (min-width:1024px) { //desktop
-    max-width: 400px;
+    padding: 4px 7.5dvw;
   }
 `;
 
@@ -37,11 +32,10 @@ const InfoArea = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: start;
-  gap: 12px;
+  gap: 4px;
 
   width: 60%;
   padding-right: 12px;
-  /* border: 1px solid black; */
 `;
 
 const Tag = styled.div`
@@ -49,6 +43,7 @@ const Tag = styled.div`
   font-weight: 500;
   color: var(--main-0);
   text-transform: capitalize;
+  margin-bottom: 8px;
 `;
 
 const Title = styled.div`
@@ -57,9 +52,6 @@ const Title = styled.div`
   color: var(--grey0);
 
   width: 100%;
-  /* white-space: nowrap;
-  overflow-x: hidden;
-  text-overflow: ellipsis; */
 `;
 
 const SubText = styled.div`
@@ -79,13 +71,15 @@ const Button = styled.button`
 
   color: white;
   background-color: var(--main-0);
+  background-color: var(--main-1);
   border-radius: 9999px;
   padding: 4px 20px;
+
+  margin-top: 8px;
 `;
 
 const ImageWrapper = styled.div`
   width: 40%;
-  /* border: 1px solid black; */
   display: flex;
   justify-content: center;
   align-items: center;

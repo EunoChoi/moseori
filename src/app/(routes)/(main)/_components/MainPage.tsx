@@ -3,6 +3,7 @@
 import styled from "styled-components";
 
 //components
+import Carousel from "@/common/components/Carousel";
 import useTopChceck from "@/common/hooks/useTopCheck";
 import { Suspense, useRef } from "react";
 import Ads from "./Ads";
@@ -25,7 +26,12 @@ const MainPage = () => {
         <span className="main">독서 열정이 모이는 공간</span>
         <span className="sub">다양한 서평단 모집에 참여하고 혜택을 받아보세요</span>
       </IntroText>
-      <Banner />
+      <BannerCarousel arrow={true} >
+        <Banner />
+        <Banner />
+        <Banner />
+        <Banner />
+      </BannerCarousel>
     </IntroBannerWrapper>
 
     <SearchFilterArea ref={ref} className={isTop ? 'sticky' : ''}>
@@ -40,6 +46,20 @@ const MainPage = () => {
 
 export default MainPage;
 
+const BannerCarousel = styled(Carousel)`
+  @media (max-width: 479px) { //mobile port
+    width: 100%;
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    width: 100%;
+    max-width: 480px;
+    padding: 0 32px;
+  }
+  @media (min-width:1024px) { //desktop
+    padding: 0 32px;
+    width: 480px;
+  }
+`
 const IntroBannerWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -88,6 +108,8 @@ const IntroText = styled.div`
     color: grey;
   }
   @media (max-width: 479px) { //mobile port
+    width: 100%;
+    padding: 0 7.5dvw;
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     .main{
