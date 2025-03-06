@@ -6,18 +6,20 @@ interface Props {
 
 const useCheckCurrentIndex = ({ ref }: Props) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+
   useEffect(() => {
+    const currentRef = ref.current;
     const scrollHandler = () => {
-      if (ref.current) {
-        const index = Math.round(ref.current?.scrollLeft / ref.current?.clientWidth);
+      if (currentRef) {
+        const index = Math.round(currentRef?.scrollLeft / currentRef?.clientWidth);
         setCurrentIndex(index);
       }
     };
-    ref.current?.addEventListener('scroll', scrollHandler);
+    if (currentRef) currentRef?.addEventListener('scroll', scrollHandler);
     return () => {
-      ref.current?.removeEventListener('scroll', scrollHandler);
+      if (currentRef) currentRef?.removeEventListener('scroll', scrollHandler);
     }
-  }, [ref])
+  }, [])
 
   return { currentIndex };
 }
