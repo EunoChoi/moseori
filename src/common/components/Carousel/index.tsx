@@ -65,7 +65,7 @@ const Arrow = styled.div`
   transform: translateY(-50%);
   color: var(--main-1);
   font-size: 18px;
-  padding: 2px;
+  padding: 4px;
 
   &.hide{
     opacity: 0;
@@ -90,11 +90,6 @@ const ScrollWrapper = styled.div`
     scroll-snap-stop: always;
     scroll-snap-align: center;
     width: 100%;
-    margin-right: 48px;
-
-    @media (max-width: 479px) { //mobile port
-      margin-right: 0;
-    }
   }
 `
 const Indicator = styled.div`

@@ -22,6 +22,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-shrink: 0;
   width: 100%;
+  padding: 4px 32px;
   @media (max-width: 479px) { //mobile port
     padding: 4px 7.5dvw;
   }
