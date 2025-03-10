@@ -1,5 +1,4 @@
 import useDocumentScrollLockWhenMount from "@/common/hooks/useDocumentScrollLockWhenMount";
-import { createPortal } from "react-dom";
 import styled from "styled-components";
 
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
@@ -9,15 +8,13 @@ interface Props {
   onClose: () => void;
 }
 
-const MobileSearchInputModal = ({ isOpen, onClose }: Props) => {
-  const portalRoot = document.getElementById('modal-root');
+const MobileSearchModal = ({ isOpen, onClose }: Props) => {
   useDocumentScrollLockWhenMount() //컴포넌트 마운트시 전체 스크롤 중단
 
   //localStorage 사용해서 최근 검색어 저장 및 불러오기 처리
   const recentSearch = ['aaaa', '어쩌구 저쩌구', 'cddddccc', 'dsssdd', 'eeee', 'aasaaaa', 'bbddddbb', 'cccc', 'dddd', 'eeee'];
 
-  if (!portalRoot) return null;
-  return createPortal(<BGWrapper onClick={onClose} className={isOpen ? 'open' : ''}>
+  return <BGWrapper onClick={onClose} className={isOpen ? 'open' : ''}>
     <Wrapper onClick={(e) => { e.stopPropagation() }}>
       <Header>
         <div className="button start"></div>
@@ -43,10 +40,10 @@ const MobileSearchInputModal = ({ isOpen, onClose }: Props) => {
         </RecentSearchWrapper>
       </Main>
     </Wrapper>
-  </BGWrapper>, portalRoot);
+  </BGWrapper>;
 }
 
-export default MobileSearchInputModal;
+export default MobileSearchModal;
 
 const DeleteAllRecentButton = styled.button`
   font-size: 15px;
