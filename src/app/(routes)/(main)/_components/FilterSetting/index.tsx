@@ -1,6 +1,5 @@
 import useDocumentScrollLockWhenMount from "@/common/hooks/useDocumentScrollLockWhenMount";
 import { Dispatch, SetStateAction } from "react";
-import { createPortal } from "react-dom";
 import styled from "styled-components";
 import { CAT_OPTIONS, SORT_OPTIONS } from "../Filters/constant";
 import FilterGroup from "./FilterGroup";
@@ -11,6 +10,7 @@ interface Option {
 }
 
 interface Props {
+  className?: string;
   isOpen: boolean;
   onClose: () => void;
   selectedCatOptions: Option[];
@@ -20,6 +20,7 @@ interface Props {
 }
 
 const FilterSetting = ({
+  className,
   isOpen,
   onClose,
   selectedCatOptions,
@@ -27,11 +28,10 @@ const FilterSetting = ({
   selectedSortOptions,
   setSelectedSortOption }: Props) => {
 
-  const portalRoot = document.getElementById('modal-root');
+  // const portalRoot = document.getElementById('modal-root');
   useDocumentScrollLockWhenMount() //컴포넌트 마운트시 전체 스크롤 중단
 
-  if (!portalRoot) return null;
-  return createPortal(<BGWrapper onClick={onClose} className={isOpen ? 'open' : ''}>
+  return <BGWrapper onClick={onClose} className={className}>
     <Wrapper onClick={(e) => { e.stopPropagation() }}>
       <Header>
         <div></div>
@@ -51,13 +51,12 @@ const FilterSetting = ({
           setSelectedOption={setSelectedSortOption} />
       </Main>
     </Wrapper>
-  </BGWrapper>, portalRoot);
+  </BGWrapper>;
 }
 
 export default FilterSetting;
 
 const BGWrapper = styled.div`
-  z-index: 99;
   position: fixed;
   top: 0;
   left: 0;
@@ -66,7 +65,7 @@ const BGWrapper = styled.div`
   height: 100dvh;
 
   background-color: rgba(0,0,0,0.1);
-  backdrop-filter: blur(6px);
+  /* backdrop-filter: blur(6px); */
 
   display: flex;
   justify-content: center;

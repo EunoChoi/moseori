@@ -2,51 +2,62 @@
 
 import CustomSelect from '@/common/components/CustomSelect';
 import useSelectState from '@/common/components/CustomSelect/hooks/useSelectState';
-import useOpenState from '@/common/hooks/useOpenState';
 import TuneRoundedIcon from '@mui/icons-material/TuneRounded';
 import styled from 'styled-components';
-import FilterSetting from '../FilterSetting';
 import { CAT_OPTIONS, SORT_OPTIONS } from './constant';
 
+import { TransitionContainer, useMountTransition } from '@/common/hooks/useMountTransition';
+import FilterSetting from '../FilterSetting';
 import Search from '../Search';
 
 const Filters = () => {
-  //이 두 state 전역 처리 가능하도록, context 또는 zustand 적용하자
+  //search, filter(cat, sort)
   const { selectState: selectCatState, setSelectState: setSelectedCatOption } = useSelectState<'multiple'>({ key: 'cat', options: CAT_OPTIONS, type: 'multiple' });
   const { selectState: selectSortState, setSelectState: setSelectedSortOption } = useSelectState<'single'>({ key: 'sort', options: SORT_OPTIONS, type: 'single' });
 
-  const { isOpen: isFilterSettingOpen,
+  const { isMount: isFilterSettingMount,
+    setIsMount: setIsFilterSettingMount,
     onToggle: onToggleFilterSetting,
-    onClose: onCloseFilterSetting } = useOpenState();
+    onClose: onCloseFilterSetting,
+    transitionPhase: FilterSettingTransitionPhase } = useMountTransition({ defaultState: 'unmount' });
 
-  return (<Wrapper>
-    <CatSelect
-      multiple
-      name="도서 카테고리"
-      options={CAT_OPTIONS}
-      value={selectCatState}
-      setValue={setSelectedCatOption}
-    />
-    <SortSelect
-      name="정렬"
-      options={SORT_OPTIONS}
-      value={selectSortState}
-      setValue={setSelectedSortOption} />
+  return (<>
+    <Wrapper>
+      <CatSelect
+        multiple
+        name="도서 카테고리"
+        options={CAT_OPTIONS}
+        value={selectCatState}
+        setValue={setSelectedCatOption}
+      />
+      <SortSelect
+        name="정렬"
+        options={SORT_OPTIONS}
+        value={selectSortState}
+        setValue={setSelectedSortOption} />
 
-    <Search />
+      <Search />
 
-    <Button onClick={onToggleFilterSetting}>
-      <TuneRoundedIcon className='icon' fontSize='inherit' color='inherit' />
-      {/* <span className='text'>검색 설정</span> */}
-    </Button>
-    {isFilterSettingOpen === true && <FilterSetting
-      selectedCatOptions={selectCatState}
-      setSelectedCatOption={setSelectedCatOption}
-      selectedSortOptions={selectSortState}
-      setSelectedSortOption={setSelectedSortOption}
-      isOpen={isFilterSettingOpen}
-      onClose={onCloseFilterSetting} />}
-  </Wrapper>);
+      <Button onClick={onToggleFilterSetting}>
+        <TuneRoundedIcon className='icon' fontSize='inherit' color='inherit' />
+      </Button>
+    </Wrapper>
+
+    <TransitionContainer
+      duration={300}
+      isMount={isFilterSettingMount}
+      setIsMount={setIsFilterSettingMount}
+      transitionPhase={FilterSettingTransitionPhase}
+    >
+      <FilterSetting
+        selectedCatOptions={selectCatState}
+        setSelectedCatOption={setSelectedCatOption}
+        selectedSortOptions={selectSortState}
+        setSelectedSortOption={setSelectedSortOption}
+        isOpen={isFilterSettingMount}
+        onClose={onCloseFilterSetting} />
+    </TransitionContainer>
+  </>);
 }
 
 export default Filters;
@@ -57,7 +68,7 @@ const CatSelect = styled(CustomSelect)`
     flex: 1;
   }
   @media (min-width:641px) { 
-    width: 250px;
+    width: 225px;
   }
 `
 const SortSelect = styled(CustomSelect)`
@@ -66,7 +77,7 @@ const SortSelect = styled(CustomSelect)`
     display: none;
   }
   @media (min-width:641px) { //mobild land + tablet + pc
-    width: 250px;
+    width: 225px;
   }
 `
 

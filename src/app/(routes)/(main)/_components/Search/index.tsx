@@ -1,34 +1,43 @@
 import useInput from '@/common/hooks/useInput';
-import useOpenState from '@/common/hooks/useOpenState';
+import { TransitionContainer, useMountTransition } from '@/common/hooks/useMountTransition';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import { useMediaQuery } from '@mui/material';
 import React from 'react';
 import styled from 'styled-components';
-import MobileSearchInputModal from './MobileSearchInputModal';
+import MobileSearchModal from './MobileSearchModal';
 
 const Search: React.FC = () => {
+  const isPc = useMediaQuery('(min-width:1024px)');
 
-  const {
-    isOpen: isSearchInputOpen,
-    onClose: onCloseSearchInput,
-    onToggle: onToggleSearchInput } = useOpenState();
+
+  const { isMount: isMobileSearchMount,
+    setIsMount: setIsMobileSearchMount,
+    onToggle: onToggleMobileSearch,
+    onClose: onCloseMobileSearch,
+    transitionPhase: MobileSearchTransitionPhase } = useMountTransition({ defaultState: 'unmount' });
+
 
   const { value: search, setValue: setSearch, onChange } = useInput({ initialValue: '' });
 
-  console.log(search);
-
-  const isPc = useMediaQuery('(min-width:1024px)');
 
   return (
     <Wrapper>
-      <SearchButton onClick={onToggleSearchInput}>
+      <SearchButton onClick={onToggleMobileSearch}>
         <PCSearchInput
           type='text'
           placeholder='모집 공고 검색'
         />
         <SearchRoundedIcon className='icon' fontSize='inherit' color='inherit' />
       </SearchButton>
-      {(isSearchInputOpen && !isPc) && <MobileSearchInputModal isOpen={isSearchInputOpen} onClose={onCloseSearchInput} />}
+      {!isPc &&
+        <TransitionContainer
+          duration={300}
+          isMount={isMobileSearchMount}
+          setIsMount={setIsMobileSearchMount}
+          transitionPhase={MobileSearchTransitionPhase}
+        >
+          <MobileSearchModal isOpen={isMobileSearchMount} onClose={onCloseMobileSearch} />
+        </TransitionContainer>}
     </Wrapper>
   );
 };

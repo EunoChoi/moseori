@@ -34,11 +34,11 @@ const MainPage = () => {
       </BannerCarousel>
     </IntroBannerWrapper>
 
-    <SearchFilterArea ref={ref} className={isTop ? 'sticky' : ''}>
-      <Suspense fallback={<></>}>
+    <Suspense fallback={<></>}>
+      <SearchFilterArea ref={ref} className={isTop ? 'sticky' : ''}>
         <Filters />
-      </Suspense>
-    </SearchFilterArea >
+      </SearchFilterArea >
+    </Suspense>
 
     <Posts />
   </Wrapper>)
@@ -53,11 +53,9 @@ const BannerCarousel = styled(Carousel)`
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     width: 100%;
     max-width: 480px;
-    padding: 0 32px;
   }
   @media (min-width:1024px) { //desktop
-    padding: 0 32px;
-    width: 480px;
+    width: 520px;
   }
 `
 const IntroBannerWrapper = styled.div`
@@ -78,11 +76,11 @@ const IntroBannerWrapper = styled.div`
     padding: 64px 0;
     justify-content: center;
     align-items: center;
-    width: 80%;
+    width: 90%;
   }
   @media (min-width:1024px) { //desktop
-    gap: 96px;
-    width: 100%;
+    gap: 64px;
+    width: 90%;
     padding: 72px 0;
     flex-direction: row;
   }

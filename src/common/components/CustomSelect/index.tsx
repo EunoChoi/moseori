@@ -1,6 +1,6 @@
-import { useRef } from 'react';
+import { TransitionContainer, useMountTransition } from '@/common/hooks/useMountTransition';
+import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import useOpenState from '../../hooks/useOpenState';
 import OptionButton from './OptionButton';
 import OptionList from './OptionList';
 import Select from './Select';
@@ -37,11 +37,7 @@ const CustomSelect = ({
   className
 }: SelectProps) => {
   const optionWrapperRef = useRef<HTMLDivElement>(null);
-
-  const {
-    isOpen: isOptionListOpen,
-    onClose: onCloseOptionList,
-    onToggle: onToggleOptionList } = useOpenState();
+  const { isMount, setIsMount, onToggle, onClose, transitionPhase } = useMountTransition({ defaultState: 'unmount' });
 
   const isSelected = (option: Option) => {
     if (Array.isArray(value)) {
@@ -74,11 +70,13 @@ const CustomSelect = ({
       setValue([...options]);
     }
   }
-  const onTransitionEnd = () => {  //focus action for blur action
-    if (isOptionListOpen) {
+
+  //focus action for blur action
+  useEffect(() => {
+    if (isMount) {
       optionWrapperRef.current?.focus();
     }
-  }
+  }, [isMount]);
 
   return (
     <Wrapper className={className}>
@@ -86,33 +84,37 @@ const CustomSelect = ({
         value={value}
         options={options}
         name={name}
-        onToggleOptionList={onToggleOptionList}
-        isOptionListOpen={isOptionListOpen}
+        onToggleOptionList={onToggle}
+        isOptionListOpen={isMount}
       />
-      <OptionWrapper
-        ref={optionWrapperRef}
-        tabIndex={-1}
-        onTransitionEnd={onTransitionEnd}
-        onBlur={onCloseOptionList}
-        className={isOptionListOpen ? 'open' : ''}
+      <TransitionContainer
+        duration={300}
+        isMount={isMount}
+        setIsMount={setIsMount}
+        transitionPhase={transitionPhase}
       >
-        <OptionList
-          multiple={multiple}
-          options={options}
-          isSelected={isSelected}
-          selectListItem={selectListItem} />
-        <OptionButton
-          selectAllListItem={selectAllListItem}
-          resetSelectedItems={resetSelectedItems}
-          multiple={multiple} />
-      </OptionWrapper>
+        <OptionWrapper
+          ref={optionWrapperRef}
+          tabIndex={-1}
+          onBlur={onClose}
+        >
+          <OptionList
+            multiple={multiple}
+            options={options}
+            isSelected={isSelected}
+            selectListItem={selectListItem} />
+          <OptionButton
+            selectAllListItem={selectAllListItem}
+            resetSelectedItems={resetSelectedItems}
+            multiple={multiple} />
+        </OptionWrapper>
+      </TransitionContainer>
     </Wrapper>
   );
 };
 
 
 export default CustomSelect;
-
 
 const Wrapper = styled.div`
   position: relative;
@@ -126,34 +128,27 @@ const Wrapper = styled.div`
 `
 const OptionWrapper = styled.div`
   width: 200px;
+  width: 100%;
   height: auto;
   display: flex;
   flex-direction: column;
 
-  transition: opacity 300ms ease-in-out, visibility 200ms ease-in-out;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  &.open{
-    opacity: 1;
-    visibility:visible;
-    pointer-events: auto;
-  }
-  &:focus {
-    outline: none;
-  }
 
   position: absolute;
   top: 100%;
   left: 50%;
   transform: translateX(calc(-50%));
-  margin-top: 4px;
+  margin-top: 12px;
 
   background-color: white;
   border-radius: 16px;
   border: 1px solid #ddd;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 
+
+  &:focus {
+    outline: none;
+  }
   &::before {
     content: '';
     position: absolute;
