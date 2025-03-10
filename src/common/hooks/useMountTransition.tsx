@@ -1,17 +1,24 @@
-import { Dispatch, ReactNode, SetStateAction, useCallback, useState } from "react";
+import { Dispatch, ReactNode, SetStateAction, useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import { clearTimeout } from "timers";
 
 type TransitionPhase = 'exited' | 'entered';
 
 interface Props {
   defaultState?: 'mount' | 'unmount';
 }
-interface TransitionElementProps {
+
+interface TransitionContainertProps {
   children?: ReactNode;
-  setIsMount: Dispatch<SetStateAction<boolean>>;
+
   isMount: boolean;
+  setIsMount: Dispatch<SetStateAction<boolean>>;
   transitionPhase: TransitionPhase;
-  duration?: number
+
+  duration?: number;
+  zIndex?: number;
+  exitedStyle?: string;
+  enteredStyle?: string;
 }
 
 export const useMountTransition = ({ defaultState = 'unmount' }: Props) => {
@@ -38,7 +45,6 @@ export const useMountTransition = ({ defaultState = 'unmount' }: Props) => {
   }, [isMount])
 
 
-
   return {
     isMount,
     setIsMount,
@@ -47,36 +53,73 @@ export const useMountTransition = ({ defaultState = 'unmount' }: Props) => {
   };
 };
 
-/** duration : n * ms(default : 1000ms), transitionPhase : 'exited' | 'entered' */
-export const TransitionContainer = ({ children, isMount, setIsMount, transitionPhase, duration = 1000 }: TransitionElementProps) => {
-  const transitionHandle = useCallback(() => {
-    if (transitionPhase === 'exited') {
-      setIsMount(false);
-    }
-  }, [transitionPhase]);
+/** duration : n * ms(default : 500ms), transitionPhase : 'exited' | 'entered' */
+export const TransitionContainer = ({
+  children,
+  isMount,
+  setIsMount,
+  transitionPhase,
+  duration = 500,
+  zIndex = 99,
+  exitedStyle = 'opacity: 0;',
+  enteredStyle = 'opacity: 1;',
+}: TransitionContainertProps) => {
 
-  return (isMount &&
-    <Wrapper
-      onTransitionEnd={transitionHandle}
-      className={transitionPhase}
-      $duration={duration}>
-      {children}
-    </Wrapper>);
+  const isInitialRender = useRef(true);
+  const timer = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    if (isInitialRender.current === true) {
+      console.log('init')
+      isInitialRender.current = false;
+      return;
+    }
+    if (transitionPhase === 'exited') {
+      timer.current = setTimeout(() => {
+        console.log('unmount')
+        setIsMount(false);
+        timer.current = null;
+      }, duration);
+      return () => {
+        if (timer.current) {
+          clearTimeout(timer.current);
+          timer.current = null;
+        }
+      };
+    }
+  }, [transitionPhase])
+
+
+  return isMount && <Wrapper
+    className={transitionPhase}
+    $zIndex={zIndex}
+    $duration={duration}
+    $exitedStyle={exitedStyle}
+    $enteredStyle={enteredStyle}
+  >
+    {children}
+  </Wrapper>;
+
 }
 
-const Wrapper = styled.div<{ $duration: number }>`
+
+
+
+const Wrapper = styled.div<{ $duration: number, $exitedStyle: string, $enteredStyle: string, $zIndex: number }>`
+  /* display: contents; */
+  /* position: static; */
+  /* static 때문에 위치 어긋나던게 아니라 포탈때문에 어긋나던거였음 */
+
   width: auto;
   height: auto;
-
-  overflow-y: hidden;
+  z-index: ${props => props.$zIndex};
   transition: all ease-in-out ${props => props.$duration + 'ms'};
 
   &.exited {
-    opacity: 0;
-    /* max-height: 0; */
+    ${props => props.$exitedStyle}
   }
   &.entered {
-    opacity: 1;
-    /* max-height: 1080px; */
+    ${props => props.$enteredStyle}
   }
 `;
+
