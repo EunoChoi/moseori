@@ -1,4 +1,4 @@
-import { TransitionContainer, useMountTransition } from '@/common/hooks/useMountTransition_fix';
+import { TransitionContainer, useMountTransition } from '@/common/hooks/useMountTransition';
 import { OptionsType } from '@/common/type/selectType';
 import { Dispatch, SetStateAction, useEffect, useRef } from 'react';
 import styled from 'styled-components';

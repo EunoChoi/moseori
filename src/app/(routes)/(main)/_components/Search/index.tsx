@@ -3,7 +3,7 @@
 import TuneRoundedIcon from '@mui/icons-material/TuneRounded';
 import styled from 'styled-components';
 
-import { TransitionContainer, useMountTransition } from '@/common/hooks/useMountTransition_fix';
+import { TransitionContainer, useMountTransition } from '@/common/hooks/useMountTransition';
 import useTopChceck from "@/common/hooks/useTopCheck";
 
 import { useRef } from 'react';
@@ -34,6 +34,7 @@ const Search = () => {
     </Wrapper>
 
     <TransitionContainer
+      portalBody={true}
       duration={300}
       isMount={isFilterSettingMount}
       setIsMount={setIsFilterSettingMount}
