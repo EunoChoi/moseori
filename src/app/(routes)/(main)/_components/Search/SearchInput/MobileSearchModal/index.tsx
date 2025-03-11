@@ -2,17 +2,21 @@ import useDocumentScrollLockWhenMount from "@/common/hooks/useDocumentScrollLock
 import styled from "styled-components";
 
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
+import RecentSearch from "./RecentSearch";
 
 interface Props {
+  onClickSearchButton: () => void;
+  searchInput: string;
+  onSearchInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  recentSearchInput: string[];
+
   isOpen: boolean;
   onClose: () => void;
 }
 
-const MobileSearchModal = ({ isOpen, onClose }: Props) => {
+const MobileSearchModal = ({ onClickSearchButton, searchInput, onSearchInputChange, recentSearchInput, isOpen, onClose }: Props) => {
   useDocumentScrollLockWhenMount() //컴포넌트 마운트시 전체 스크롤 중단
-
-  //localStorage 사용해서 최근 검색어 저장 및 불러오기 처리
-  const recentSearch = ['aaaa', '어쩌구 저쩌구', 'cddddccc', 'dsssdd', 'eeee', 'aasaaaa', 'bbddddbb', 'cccc', 'dddd', 'eeee'];
+  const hasRecentSearchInput = recentSearchInput.length >= 1;
 
   return <BGWrapper onClick={onClose} className={isOpen ? 'open' : ''}>
     <Wrapper onClick={(e) => { e.stopPropagation() }}>
@@ -25,60 +29,21 @@ const MobileSearchModal = ({ isOpen, onClose }: Props) => {
         <SearchInputWrapper>
           <input
             type="text"
+            value={searchInput}
+            onChange={onSearchInputChange}
             placeholder="모집 공고 검색"
           />
-          <button><SearchRoundedIcon fontSize="small" color="inherit" /></button>
+          <button onClick={onClickSearchButton}>
+            <SearchRoundedIcon fontSize="small" color="inherit" />
+          </button>
         </SearchInputWrapper>
-        <RecentSearchWrapper>
-          <span className="title">최근 검색어</span>
-          {recentSearch.slice(0, 10).map((e, i) =>
-            <RecentSearch key={e + i}>
-              <button className="recent-search-text">{e}</button>
-              <DeleteRecentButton>&times;</DeleteRecentButton>
-            </RecentSearch>)}
-          {recentSearch.length >= 1 && <DeleteAllRecentButton>최근 검색어 전체 삭제</DeleteAllRecentButton>}
-        </RecentSearchWrapper>
+        <RecentSearch hasRecentSearchInput={hasRecentSearchInput} recentSearchInput={recentSearchInput} />
       </Main>
     </Wrapper>
   </BGWrapper>;
 }
 
 export default MobileSearchModal;
-
-const DeleteAllRecentButton = styled.button`
-  font-size: 15px;
-  font-weight: 500;
-  color: darkgrey;
-  color: var(--main-0);
-  margin-top: 16px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 6px;
-`
-const DeleteRecentButton = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  font-size: 18px;
-  color: grey;
-`
-const RecentSearch = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  .recent-search-text{
-    font-size: 16px;
-    color: grey;
-
-    white-space: nowrap;
-    overflow-x: hidden;
-    text-overflow: ellipsis;
-  }
-`
 
 const BGWrapper = styled.div`
   z-index: 99;
@@ -165,38 +130,28 @@ const Main = styled.div`
   gap: 56px;
   padding: 40px 0;
 `
-const RecentSearchWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-
-  width: 70%;
-
-  .title{
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--grey0);
-    margin-bottom: 16px;
-  }
-`
 const SearchInputWrapper = styled.div`
   width: 90%;
   height: 46px;
   border-radius: 16px;
   border: 1px solid var(--main-0);
 
-  padding: 0 16px;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
 
+  input{
+    flex-grow: 1;
+    height: 90%;
+    padding-left: 16px;
+  }
   button{
-    color: var(--grey0);
+    color: var(--main-0);
     display: flex;
     justify-content: center;
     align-items: center;
+
+    height: 90%;
+    padding: 0 16px;
   }
 `
