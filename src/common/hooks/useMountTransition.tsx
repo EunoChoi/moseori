@@ -1,4 +1,5 @@
 import { Dispatch, ReactNode, SetStateAction, useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import styled from "styled-components";
 import { clearTimeout } from "timers";
 
@@ -9,6 +10,7 @@ interface Props {
 }
 
 interface TransitionContainertProps {
+  portalBody?: boolean;
   children?: ReactNode;
 
   isMount: boolean;
@@ -55,6 +57,7 @@ export const useMountTransition = ({ defaultState = 'unmount' }: Props) => {
 
 /** duration : n * ms(default : 500ms), transitionPhase : 'exited' | 'entered' */
 export const TransitionContainer = ({
+  portalBody,
   children,
   isMount,
   setIsMount,
@@ -89,30 +92,40 @@ export const TransitionContainer = ({
     }
   }, [transitionPhase])
 
-
-  return isMount && <Wrapper
-    className={transitionPhase}
-    $zIndex={zIndex}
-    $duration={duration}
-    $exitedStyle={exitedStyle}
-    $enteredStyle={enteredStyle}
-  >
-    {children}
-  </Wrapper>;
-
+  if (portalBody && isMount) {
+    return createPortal(<Wrapper
+      className={transitionPhase}
+      $portalBody={portalBody}
+      $zIndex={zIndex}
+      $duration={duration}
+      $exitedStyle={exitedStyle}
+      $enteredStyle={enteredStyle}
+    >
+      {children}
+    </Wrapper>, document.body);
+  }
+  else if (!portalBody && isMount) {
+    return <Wrapper
+      className={transitionPhase}
+      $zIndex={zIndex}
+      $duration={duration}
+      $exitedStyle={exitedStyle}
+      $enteredStyle={enteredStyle}
+    >
+      {children}
+    </Wrapper>;
+  }
 }
 
 
 
 
-const Wrapper = styled.div<{ $duration: number, $exitedStyle: string, $enteredStyle: string, $zIndex: number }>`
-  /* display: contents; */
-  /* position: static; */
-  /* static 때문에 위치 어긋나던게 아니라 포탈때문에 어긋나던거였음 */
+const Wrapper = styled.div<{ $portalBody?: boolean, $duration: number, $exitedStyle: string, $enteredStyle: string, $zIndex: number }>`
+  position: ${props => props.$portalBody ? 'relative' : 'static'};
 
   width: auto;
   height: auto;
-  z-index: ${props => props.$zIndex};
+  z-index: ${props => props.$zIndex} !important;
   transition: all ease-in-out ${props => props.$duration + 'ms'};
 
   &.exited {
