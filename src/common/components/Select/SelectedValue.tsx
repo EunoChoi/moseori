@@ -32,7 +32,7 @@ const SelectedValue = ({ value, options, multiple, name, onToggleOptionList, isO
           {multiple && <>#</>}
           {option?.label}
         </MultiSelection>)}
-        {remainSelectedItem >= 1 && <MultiSelection>외 {remainSelectedItem}</MultiSelection>}
+        {remainSelectedItem >= 1 && <MultiSelection>+{remainSelectedItem}</MultiSelection>}
       </>
     }
   }
