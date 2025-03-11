@@ -1,27 +1,30 @@
+import { OptionsType } from '@/common/type/selectType';
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
 import RestartAltRoundedIcon from '@mui/icons-material/RestartAltRounded';
+import { Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
+import { resetAll, selectAll } from './function/selectControl';
 
 interface Props {
-  selectAllListItem: () => void;
-  resetSelectedItems: () => void;
-  multiple: boolean | undefined;
+  multiple: boolean;
+  options: OptionsType;
+  setValue: Dispatch<SetStateAction<number[]>>;
 }
 
-const OptionButton = ({ selectAllListItem, resetSelectedItems, multiple }: Props) => {
+const BottomButton = ({ multiple, options, setValue }: Props) => {
   if (multiple === true) {
     return (<OptionButtonWrapper onMouseDown={(e) => { e.preventDefault() }}>
-      <button onClick={selectAllListItem}>
+      <button onClick={() => selectAll({ options, setValue })}>
         <CheckCircleRoundedIcon fontSize='inherit' color='inherit' />모두 선택
       </button>
-      <button onClick={resetSelectedItems}>
+      <button onClick={() => resetAll({ setValue })}>
         <RestartAltRoundedIcon fontSize='inherit' color='inherit' />초기화
       </button>
     </OptionButtonWrapper>);
   }
 }
 
-export default OptionButton;
+export default BottomButton;
 
 const OptionButtonWrapper = styled.div`
   background-color: var(--main-2);
