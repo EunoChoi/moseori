@@ -1,34 +1,16 @@
 import useDocumentScrollLockWhenMount from "@/common/hooks/useDocumentScrollLockWhenMount";
-import { Dispatch, SetStateAction } from "react";
+import { useSearchContext } from "@/common/store/useSearchContext";
 import styled from "styled-components";
-import { CAT_OPTIONS, SORT_OPTIONS } from "../Filters/constant";
+import { CAT_OPTIONS, SORT_OPTIONS } from "../../../../../../common/constant/searchFilterOptions";
 import FilterGroup from "./FilterGroup";
-
-interface Option {
-  label: string;
-  value: number;
-}
 
 interface Props {
   className?: string;
-  isOpen: boolean;
   onClose: () => void;
-  selectedCatOptions: Option[];
-  selectedSortOptions: Option;
-  setSelectedCatOption: Dispatch<SetStateAction<Option[]>>;
-  setSelectedSortOption: Dispatch<SetStateAction<Option>>;
 }
 
-const FilterSetting = ({
-  className,
-  isOpen,
-  onClose,
-  selectedCatOptions,
-  setSelectedCatOption,
-  selectedSortOptions,
-  setSelectedSortOption }: Props) => {
-
-  // const portalRoot = document.getElementById('modal-root');
+const FilterSettingModal = ({ className, onClose }: Props) => {
+  const { sortType, setSortType, categoryType, setCategoryType } = useSearchContext();
   useDocumentScrollLockWhenMount() //컴포넌트 마운트시 전체 스크롤 중단
 
   return <BGWrapper onClick={onClose} className={className}>
@@ -40,21 +22,22 @@ const FilterSetting = ({
       </Header>
       <Main>
         <FilterGroup
+          multiple
           name="도서 카테고리"
           options={CAT_OPTIONS}
-          selectedOptions={selectedCatOptions}
-          setSelectedOption={setSelectedCatOption} />
+          value={categoryType}
+          setValue={setCategoryType} />
         <FilterGroup
           name="정렬 방식"
           options={SORT_OPTIONS}
-          selectedOptions={selectedSortOptions}
-          setSelectedOption={setSelectedSortOption} />
+          value={sortType}
+          setValue={setSortType} />
       </Main>
     </Wrapper>
   </BGWrapper>;
 }
 
-export default FilterSetting;
+export default FilterSettingModal;
 
 const BGWrapper = styled.div`
   position: fixed;

@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 const pretendard = localFont({
-  src: '../../font/PretendardVariable.woff2',
+  src: '../../common/font/PretendardVariable.woff2',
   display: 'swap',
   weight: '45 920',
 })

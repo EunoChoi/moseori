@@ -1,58 +1,82 @@
-import useInput from '@/common/hooks/useInput';
-import { TransitionContainer, useMountTransition } from '@/common/hooks/useMountTransition';
-import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
-import { useMediaQuery } from '@mui/material';
-import React from 'react';
+'use Client';
+
+import TuneRoundedIcon from '@mui/icons-material/TuneRounded';
 import styled from 'styled-components';
-import MobileSearchModal from './MobileSearchModal';
 
-const Search: React.FC = () => {
-  const isPc = useMediaQuery('(min-width:1024px)');
+import { TransitionContainer, useMountTransition } from '@/common/hooks/useMountTransition_fix';
+import useTopChceck from "@/common/hooks/useTopCheck";
 
+import { useRef } from 'react';
+import FilterSetting from './FilterSettingModal';
+import SearchFilter from './SearchFilter';
+import SearchInput from './SearchInput';
+import useSearchSync from './hooks/useSearchSync';
 
-  const { isMount: isMobileSearchMount,
-    setIsMount: setIsMobileSearchMount,
-    onToggle: onToggleMobileSearch,
-    onClose: onCloseMobileSearch,
-    transitionPhase: MobileSearchTransitionPhase } = useMountTransition({ defaultState: 'unmount' });
+const Search = () => {
+  const ref = useRef<HTMLDivElement>(null);
+  const { isTop } = useTopChceck({ ref, top: 0 });
 
+  const { isMount: isFilterSettingMount,
+    setIsMount: setIsFilterSettingMount,
+    onToggle: onToggleFilterSetting,
+    onClose: onCloseFilterSetting,
+    transitionPhase: FilterSettingTransitionPhase } = useMountTransition({ defaultState: 'unmount' });
 
-  const { value: search, setValue: setSearch, onChange } = useInput({ initialValue: '' });
+  useSearchSync();
 
-
-  return (
-    <Wrapper>
-      <SearchButton onClick={onToggleMobileSearch}>
-        <PCSearchInput
-          type='text'
-          placeholder='모집 공고 검색'
-        />
-        <SearchRoundedIcon className='icon' fontSize='inherit' color='inherit' />
-      </SearchButton>
-      {!isPc &&
-        <TransitionContainer
-          duration={300}
-          isMount={isMobileSearchMount}
-          setIsMount={setIsMobileSearchMount}
-          transitionPhase={MobileSearchTransitionPhase}
-        >
-          <MobileSearchModal isOpen={isMobileSearchMount} onClose={onCloseMobileSearch} />
-        </TransitionContainer>}
+  return (<>
+    <Wrapper ref={ref} className={isTop ? 'sticky' : ''}>
+      <SearchFilter />
+      <SearchInput />
+      <FilterSettingButton onClick={onToggleFilterSetting}>
+        <TuneRoundedIcon className='icon' fontSize='inherit' color='inherit' />
+      </FilterSettingButton>
     </Wrapper>
-  );
-};
+
+    <TransitionContainer
+      duration={300}
+      isMount={isFilterSettingMount}
+      setIsMount={setIsFilterSettingMount}
+      transitionPhase={FilterSettingTransitionPhase}
+    >
+      <FilterSetting onClose={onCloseFilterSetting} />
+    </TransitionContainer>
+  </>);
+}
 
 export default Search;
 
+
 const Wrapper = styled.div`
-  position: relative;
-  display : flex;
-  flex-direction: column;
+  position: sticky;
+  z-index: 10; //postCard z-index : 9
+  top: 0;
+ 
+  display: flex;
+  justify-content: center;
   align-items: center;
 
-  overflow: visible;
+  width: 100dvw;
+  height: auto;
+  padding: 12px 0;
+  gap: 8px;
+  background-color: var(--background);
+
+  transition: border-bottom 500ms ease-in-out, box-shadow 500ms ease-in-out;
+  border-bottom: solid 1px var(--background);
+  box-shadow: rgba(0, 0, 0, 0) 0px 6px 6px 0px;
+  &.sticky{
+    border-bottom: solid 1px rgba(0,0,0,0.08);
+    box-shadow: rgba(0, 0, 0, 0.04) 0px 6px 6px 0px;
+  }
+
+  @media (max-width: 640px) { 
+    margin: 0;
+    padding: 8px 3dvw;
+  }
 `
-const SearchButton = styled.button`
+
+const FilterSettingButton = styled.button`
   height: 100%;
   width: auto;
 
@@ -72,23 +96,5 @@ const SearchButton = styled.button`
   .icon{
     color: var(--grey0);
     font-size: 18px;
-  }
-`
-const PCSearchInput = styled.input`
-  display: none;
-  border: none;
-  outline: none;
-  background-color: rgba(0,0,0,0);
-  &::placeholder{
-    color: darkgray;
-  }
-
-  @media (min-width:1024px) {
-    display: inline;
-    width: 200px;
-
-    font-size: 15px;
-    font-weight: 500;
-    color: var(--grey0);
   }
 `

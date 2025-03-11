@@ -1,82 +1,55 @@
+import { isSelected, resetAll, selectAll, selectMultiple, selectSingle } from '@/common/components/Select/function/selectControl';
+import { OptionsType, OptionType } from '@/common/type/selectType';
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
 import RestartAltRoundedIcon from '@mui/icons-material/RestartAltRounded';
 import { Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 
-interface Option {
-  label: string;
-  value: number;
-}
-interface FilterGroupProps<T extends Option[] | Option> {
+interface FilterGroupProps {
+  multiple?: boolean;
   name: string;
-  options: Option[];
-  selectedOptions: T;
-  setSelectedOption: Dispatch<SetStateAction<T>>;
+  options: OptionsType;
+
+  value: number[];
+  setValue: Dispatch<SetStateAction<number[]>>;
 }
 
-const isMultiple = (options: Option | Option[]): options is Option[] => {
-  return Array.isArray(options);
-};
+const FilterGroup = ({ multiple, name, options, value, setValue }: FilterGroupProps) => {
 
-const FilterGroup = <T extends Option[] | Option>(props: FilterGroupProps<T>) => {
-
-  const isSelected = (compareOption: Option) => {
-    if (isMultiple(props.selectedOptions)) {
-      return props.selectedOptions.includes(compareOption) === true;
-    } else {
-      return props.selectedOptions === compareOption;
-    }
-  }
-  const selectFilterOption = (clickedOption: Option) => {
-    if (isMultiple(props.selectedOptions)) {
-      if (props.selectedOptions.includes(clickedOption) === true) {  //선택 요소 삭제
-        const lastValueItems = props.selectedOptions.filter(e => e !== clickedOption)
-        props.setSelectedOption(lastValueItems as T);
-      }
-      else { //선택 요소 추가
-        props.setSelectedOption([...props.selectedOptions, clickedOption] as T);
-      }
+  const isMultiple = multiple === true;
+  const onClickOption = (optionListItem: OptionType) => {
+    if (isMultiple) {
+      selectMultiple({ optionListItem, value, setValue });
     }
     else {
-      if (props.selectedOptions !== clickedOption) {
-        props.setSelectedOption(clickedOption as T);
-      }
-    }
-  }
-  const resetSelectedItems = () => {
-    if (isMultiple(props.selectedOptions)) {
-      props.setSelectedOption([] as unknown as T);
-    }
-  }
-  const selectAllListItem = () => {
-    if (isMultiple(props.selectedOptions)) {
-      props.setSelectedOption([...props.options] as T);
+      selectSingle({ optionListItem, setValue })
     }
   }
 
   return (
     <Wrapper>
       <FilterHeader>
-        <FilterTypeName className="name">{props.name}</FilterTypeName>
+        <FilterTypeName className="name">{name}</FilterTypeName>
         <FilterSubText className="sub">
-          {isMultiple(props.selectedOptions) === true ? '중복 선택 가능' : '단일 선택'}
+          {isMultiple ? '중복 선택 가능' : '단일 선택'}
         </FilterSubText>
       </FilterHeader>
       <FilterOptionList>
-        {props.options.map(option =>
+        {options.map(optionListItem =>
           <FilterOption
-            key={'cat-option-' + option.value}
-            className={isSelected(option) === true ? 'selected' : ''}
-            onClick={() => selectFilterOption(option)} >
-            <span>{option.label}</span>
+            key={'cat-option-' + optionListItem.value}
+            className={isSelected({ value, optionListItem }) === true ? 'selected' : ''}
+            onClick={() => onClickOption(optionListItem)}
+          >
+            <span>{optionListItem.label}</span>
           </FilterOption>)}
       </FilterOptionList>
-      {isMultiple(props.selectedOptions) === true &&
+      {isMultiple &&
         <FilterControl>
-          <button onClick={selectAllListItem}>
+          <button onClick={() => selectAll({ options, setValue })}>
             <CheckCircleRoundedIcon fontSize='inherit' color='inherit' />모두 선택
           </button>
-          <button onClick={resetSelectedItems}>
+          <button onClick={() => resetAll({ setValue })}>
             <RestartAltRoundedIcon fontSize='inherit' color='inherit' />초기화
           </button>
         </FilterControl>}

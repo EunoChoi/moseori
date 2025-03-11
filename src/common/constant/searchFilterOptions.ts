@@ -1,10 +1,6 @@
-interface Option {
-  label: string;
-  value: number;
-}
+import { OptionsType } from "@/common/type/selectType";
 
-//all item selected -> value : -1
-export const CAT_OPTIONS: Option[] = [
+export const CAT_OPTIONS: OptionsType = [
   { label: '역사', value: 0 },
   { label: '소설', value: 1 },
   { label: '인문', value: 2 },
@@ -15,7 +11,7 @@ export const CAT_OPTIONS: Option[] = [
   { label: '기타', value: 7 },
   { label: '취미', value: 8 },
 ];
-export const SORT_OPTIONS: Option[] = [
-  { label: '최근 등록순 정렬', value: 0 },
-  { label: '마감 임박순 정렬', value: 1 },
+export const SORT_OPTIONS: OptionsType = [
+  { label: '최근 등록순', value: 0 },
+  { label: '마감 임박순', value: 1 },
 ]

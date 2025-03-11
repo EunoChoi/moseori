@@ -70,13 +70,13 @@ export const TransitionContainer = ({
 
   useEffect(() => {
     if (isInitialRender.current === true) {
-      console.log('init')
+      // console.log('init')
       isInitialRender.current = false;
       return;
     }
     if (transitionPhase === 'exited') {
       timer.current = setTimeout(() => {
-        console.log('unmount')
+        // console.log('unmount')
         setIsMount(false);
         timer.current = null;
       }, duration);
