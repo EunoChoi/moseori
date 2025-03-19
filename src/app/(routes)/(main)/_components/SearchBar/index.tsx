@@ -6,13 +6,13 @@ import styled from 'styled-components';
 import { TransitionContainer, useMountTransition } from '@/common/hooks/useMountTransition';
 import useTopChceck from "@/common/hooks/useTopCheck";
 
+import FilterSettingModal from '@/common/components/_modals/FilterSettingModal';
 import { useRef } from 'react';
-import FilterSetting from './FilterSettingModal';
+import useSearchSync from './_hooks/useSearchSync';
 import SearchFilter from './SearchFilter';
 import SearchInput from './SearchInput';
-import useSearchSync from './hooks/useSearchSync';
 
-const Search = () => {
+const SearchBar = () => {
   const ref = useRef<HTMLDivElement>(null);
   const { isTop } = useTopChceck({ ref, top: 0 });
 
@@ -40,12 +40,12 @@ const Search = () => {
       setIsMount={setIsFilterSettingMount}
       transitionPhase={FilterSettingTransitionPhase}
     >
-      <FilterSetting onClose={onCloseFilterSetting} />
+      <FilterSettingModal onClose={onCloseFilterSetting} />
     </TransitionContainer>
   </>);
 }
 
-export default Search;
+export default SearchBar;
 
 
 const Wrapper = styled.div`

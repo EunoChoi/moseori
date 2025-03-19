@@ -1,7 +1,7 @@
 import useDocumentScrollLockWhenMount from "@/common/hooks/useDocumentScrollLockWhenMount";
 import { useSearchContext } from "@/common/store/useSearchContext";
 import styled from "styled-components";
-import { CAT_OPTIONS, SORT_OPTIONS } from "../../../../../../common/constant/searchFilterOptions";
+import { CAT_OPTIONS, SORT_OPTIONS } from "../../../constant/searchFilterOptions";
 import FilterGroup from "./FilterGroup";
 
 interface Props {

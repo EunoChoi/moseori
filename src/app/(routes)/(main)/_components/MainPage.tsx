@@ -6,7 +6,7 @@ import styled from "styled-components";
 import Ad from "./Ad";
 import Banner from "./Banner";
 import Posts from "./Posts";
-import Search from "./Search";
+import SearchBar from "./SearchBar";
 
 /**client component, main page component*/
 const MainPage = () => {
@@ -25,7 +25,7 @@ const MainPage = () => {
 
     <Suspense fallback={<></>}>
       <SearchProvider>
-        <Search />
+        <SearchBar />
         <Posts />
       </SearchProvider>
     </Suspense>

@@ -14,7 +14,7 @@ interface Props {
   onClose: () => void;
 }
 
-const MobileSearchModal = ({ onClickSearchButton, searchInput, onSearchInputChange, recentSearchInput, isOpen, onClose }: Props) => {
+const MobileSearchInputModal = ({ onClickSearchButton, searchInput, onSearchInputChange, recentSearchInput, isOpen, onClose }: Props) => {
   useDocumentScrollLockWhenMount() //컴포넌트 마운트시 전체 스크롤 중단
   const hasRecentSearchInput = recentSearchInput.length >= 1;
 
@@ -43,7 +43,7 @@ const MobileSearchModal = ({ onClickSearchButton, searchInput, onSearchInputChan
   </BGWrapper>;
 }
 
-export default MobileSearchModal;
+export default MobileSearchInputModal;
 
 const BGWrapper = styled.div`
   z-index: 99;
