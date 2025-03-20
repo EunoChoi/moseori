@@ -10,7 +10,7 @@ const BannerCard = () => {
         <Button>Go!</Button>
       </InfoArea>
       <ImageWrapper>
-        <Image />
+        <BannerImage />
       </ImageWrapper>
     </Wrapper>
   );
@@ -86,7 +86,7 @@ const ImageWrapper = styled.div`
   align-items: center;
 `;
 
-const Image = styled.div`
+const BannerImage = styled.div`
   width: 100%;
   aspect-ratio: 1;
 

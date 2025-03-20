@@ -41,7 +41,12 @@ export const useMountTransition = ({ defaultState = 'unmount' }: Props) => {
       }
     };
     const onToggle = () => {
-      isMount ? onClose() : onOpen();
+      if (isMount) {
+        onClose();
+      }
+      else {
+        onOpen();
+      }
     };
     return { onOpen, onClose, onToggle };
   }, [isMount])
