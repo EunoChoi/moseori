@@ -1,4 +1,4 @@
-import MobileSearchInputModal from '@/common/components/_modals/MobileSearchInputModal';
+import MobileSearchInputModal from '@/app/(routes)/(main)/_components/SearchBar/SearchInput/MobileSearchInputModal';
 import { TransitionContainer, useMountTransition } from '@/common/hooks/useMountTransition';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import { ChangeEvent } from 'react';
@@ -9,24 +9,22 @@ interface MobileSearchInputProps {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   onSubmit: (e: React.MouseEvent<HTMLButtonElement>) => void;
   searchHistory: string[];
+  setSearchHistory: (value: string[]) => void;
 }
 
 
-const MobileSearchInput = ({ searchInput, onChange, onSubmit, searchHistory }: MobileSearchInputProps) => {
-
+const MobileSearchInput = ({ searchInput, onChange, onSubmit, searchHistory, setSearchHistory }: MobileSearchInputProps) => {
   const { isMount: isMobileSearchMount,
     setIsMount: setIsMobileSearchMount,
     onToggle: onToggleMobileSearch,
     onClose: onCloseMobileSearch,
     transitionPhase: MobileSearchTransitionPhase } = useMountTransition({ defaultState: 'unmount' });
 
-
   return (
     <>
       <SearchButton onClick={onToggleMobileSearch}>
         <SearchRoundedIcon className='icon' fontSize='inherit' color='inherit' />
       </SearchButton>
-
       <TransitionContainer
         portalBody={true}
         duration={300}
@@ -39,6 +37,7 @@ const MobileSearchInput = ({ searchInput, onChange, onSubmit, searchHistory }: M
           searchInput={searchInput}
           onChange={onChange}
           searchHistory={searchHistory}
+          setSearchHistory={setSearchHistory}
           isOpen={isMobileSearchMount}
           onClose={onCloseMobileSearch} />
       </TransitionContainer>
@@ -67,25 +66,5 @@ const SearchButton = styled.div`
   .icon{
     color: var(--grey0);
     font-size: 18px;
-  }
-`
-const PCSearchInput = styled.input`
-  display: none;
-  border: none;
-  outline: none;
-  background-color: rgba(0,0,0,0);
-  padding-left: 18px;
-
-  &::placeholder{
-    color: darkgray;
-  }
-
-  @media (min-width:1024px) {
-    display: inline;
-    width: 200px;
-
-    font-size: 15px;
-    font-weight: 500;
-    color: var(--grey0);
   }
 `

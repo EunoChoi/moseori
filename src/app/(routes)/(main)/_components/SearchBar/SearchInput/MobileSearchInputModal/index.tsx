@@ -10,12 +10,13 @@ interface Props {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   onSubmit: (e: React.MouseEvent<HTMLButtonElement>) => void;
   searchHistory: string[];
+  setSearchHistory: (value: string[]) => void;
 
   isOpen: boolean;
   onClose: () => void;
 }
 
-const MobileSearchInputModal = ({ searchInput, onChange, onSubmit, searchHistory, isOpen, onClose }: Props) => {
+const MobileSearchInputModal = ({ searchInput, onChange, onSubmit, searchHistory, setSearchHistory, isOpen, onClose }: Props) => {
   useDocumentScrollLockWhenMount() //컴포넌트 마운트시 전체 스크롤 중단
 
   return <BGWrapper onClick={onClose} className={isOpen ? 'open' : ''}>
@@ -39,7 +40,10 @@ const MobileSearchInputModal = ({ searchInput, onChange, onSubmit, searchHistory
             <SearchRoundedIcon fontSize="small" color="inherit" />
           </button>
         </SearchInputForm>
-        <RecentSearch searchHistory={searchHistory} />
+        <RecentSearch
+          searchHistory={searchHistory}
+          setSearchHistory={setSearchHistory}
+        />
       </Main>
     </Wrapper>
   </BGWrapper>;

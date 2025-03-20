@@ -1,26 +1,26 @@
 import useInput from '@/common/hooks/useInput';
+import useLocalState from '@/common/hooks/useLocalState';
 import { useSearchQueryContext } from '@/common/store/searchQuery/_hooks/useSearchQueryContext';
-import { useState } from 'react';
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import DesktopSearchInput from './DesktopSearchInput';
 import MobileSearchInput from './MobileSearchInput';
 
-interface SearchInputProps {
-  debounceSearch?: boolean;
-}
-
-const SearchInput = ({ debounceSearch }: SearchInputProps) => {
-  //local에서 history 불러와야함
-  //useLocalState hooks 생성해서 활용
-  const [searchHistory, setSearchHistory] = useState<string[]>([]);
+const SearchInput = () => {
+  const { state: searchHistory, setState: setSearchHistory } = useLocalState<string[]>({ initialValue: [], key: 'searchHistory' });
   const { searchTextQuery, setSearchTextQuery } = useSearchQueryContext();
-  const { value: searchInput, onChange: onSearchInputChange } = useInput({ initialValue: searchTextQuery ? searchTextQuery : '' });
+  const { value: searchInput, onChange: onSearchInputChange, setValue: setSearchInput } = useInput({ initialValue: searchTextQuery ? searchTextQuery : '' });
 
   const onSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setSearchTextQuery(searchInput);
-    setSearchHistory(c => [...c, searchInput]);
+    const updatedSearchHistory = [...searchHistory, searchInput].slice(-10);
+    setSearchHistory(updatedSearchHistory);
   }
+
+  useEffect(() => {
+    setSearchInput(searchTextQuery);
+  }, [searchTextQuery])
 
   return (
     <>
@@ -36,7 +36,9 @@ const SearchInput = ({ debounceSearch }: SearchInputProps) => {
           searchInput={searchInput}
           onChange={onSearchInputChange}
           onSubmit={onSubmit}
+
           searchHistory={searchHistory}
+          setSearchHistory={setSearchHistory}
         />
       </MobileSearchInputWrapper>
     </>

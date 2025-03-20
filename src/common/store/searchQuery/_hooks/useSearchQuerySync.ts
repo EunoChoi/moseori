@@ -36,7 +36,6 @@ const useSearchQuerySync = ({ sortType, categoryType, searchKeyword }: UseSearch
   const pathname = usePathname();
 
   useEffect(() => {
-    console.log('update!');
     const url = makeUrl({ pathname, sortType, categoryType, searchKeyword });
     router.replace(url, { scroll: false })
   }, [sortType, categoryType, searchKeyword]);
