@@ -1,16 +1,16 @@
 import styled from "styled-components";
 
 interface Props {
-  hasRecentSearchInput: boolean;
-  recentSearchInput: string[];
+  searchHistory: string[];
 }
 
-const RecentSearch = ({ hasRecentSearchInput, recentSearchInput }: Props) => {
-  const recentSearchInput_10 = recentSearchInput.slice(0, 10);
+const RecentSearch = ({ searchHistory }: Props) => {
+  const hasRecentSearchInput = searchHistory.length > 0;
+  const searchHistoryTop10 = searchHistory.slice(-10);
 
   return (<Wrapper>
     {hasRecentSearchInput && <span className="title">최근 검색어</span>}
-    {recentSearchInput_10.map((e, i) =>
+    {searchHistoryTop10.map((e, i) =>
       <RecentSearchText key={e + i}>
         <button className="recent-search-text">{e}</button>
         <DeleteRecentButton>&times;</DeleteRecentButton>

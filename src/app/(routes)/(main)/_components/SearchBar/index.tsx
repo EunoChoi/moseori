@@ -8,7 +8,6 @@ import useTopChceck from "@/common/hooks/useTopCheck";
 
 import FilterSettingModal from '@/common/components/_modals/FilterSettingModal';
 import { useRef } from 'react';
-import useSearchSync from './_hooks/useSearchSync';
 import SearchFilter from './SearchFilter';
 import SearchInput from './SearchInput';
 
@@ -22,7 +21,6 @@ const SearchBar = () => {
     onClose: onCloseFilterSetting,
     transitionPhase: FilterSettingTransitionPhase } = useMountTransition({ defaultState: 'unmount' });
 
-  useSearchSync();
 
   return (<>
     <Wrapper ref={ref} className={isTop ? 'sticky' : ''}>

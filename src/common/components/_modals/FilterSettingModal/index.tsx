@@ -1,5 +1,5 @@
 import useDocumentScrollLockWhenMount from "@/common/hooks/useDocumentScrollLockWhenMount";
-import { useSearchContext } from "@/common/store/useSearchContext";
+import { useSearchQueryContext } from "@/common/store/searchQuery/_hooks/useSearchQueryContext";
 import styled from "styled-components";
 import { CAT_OPTIONS, SORT_OPTIONS } from "../../../constant/searchFilterOptions";
 import FilterGroup from "./FilterGroup";
@@ -10,7 +10,7 @@ interface Props {
 }
 
 const FilterSettingModal = ({ className, onClose }: Props) => {
-  const { sortType, setSortType, categoryType, setCategoryType } = useSearchContext();
+  const { sortQuery, setSortQuery, catQuery, setCatQuery } = useSearchQueryContext();
   useDocumentScrollLockWhenMount() //컴포넌트 마운트시 전체 스크롤 중단
 
   return <BGWrapper onClick={onClose} className={className}>
@@ -25,13 +25,13 @@ const FilterSettingModal = ({ className, onClose }: Props) => {
           multiple
           name="도서 카테고리"
           options={CAT_OPTIONS}
-          value={categoryType}
-          setValue={setCategoryType} />
+          value={catQuery}
+          setValue={setCatQuery} />
         <FilterGroup
           name="정렬 방식"
           options={SORT_OPTIONS}
-          value={sortType}
-          setValue={setSortType} />
+          value={sortQuery}
+          setValue={setSortQuery} />
       </Main>
     </Wrapper>
   </BGWrapper>;

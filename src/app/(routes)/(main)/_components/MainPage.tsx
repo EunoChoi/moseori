@@ -1,6 +1,6 @@
 'use client';
 
-import { SearchProvider } from "@/common/store/SearchProvider";
+import { SearchQueryProvider } from "@/common/store/searchQuery/SearchQueryProvider";
 import { Suspense } from "react";
 import styled from "styled-components";
 import Ad from "./Ad";
@@ -24,10 +24,10 @@ const MainPage = () => {
     </IntroWrapper>
 
     <Suspense fallback={<></>}>
-      <SearchProvider>
+      <SearchQueryProvider>
         <SearchBar />
         <Posts />
-      </SearchProvider>
+      </SearchQueryProvider>
     </Suspense>
   </Wrapper>)
 }

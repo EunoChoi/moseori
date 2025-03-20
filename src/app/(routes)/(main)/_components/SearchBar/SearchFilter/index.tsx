@@ -1,24 +1,24 @@
 import Select from "@/common/components/Select";
-import { useSearchContext } from "@/common/store/useSearchContext";
+import { CAT_OPTIONS, SORT_OPTIONS } from "@/common/constant/searchFilterOptions";
+import { useSearchQueryContext } from "@/common/store/searchQuery/_hooks/useSearchQueryContext";
 import styled from "styled-components";
-import { CAT_OPTIONS, SORT_OPTIONS } from "../../../../../../common/constant/searchFilterOptions";
 
 const SearchFilter = () => {
-  const { sortType, setSortType, categoryType, setCategoryType } = useSearchContext();
+  const { sortQuery, setSortQuery, catQuery, setCatQuery } = useSearchQueryContext();
 
   return (<>
     <CatSelect
       multiple
       name="도서 카테고리"
       options={CAT_OPTIONS}
-      value={categoryType}
-      setValue={setCategoryType}
+      value={catQuery}
+      setValue={setCatQuery}
     />
     <SortSelect
       name="정렬"
       options={SORT_OPTIONS}
-      value={sortType}
-      setValue={setSortType} />
+      value={sortQuery}
+      setValue={setSortQuery} />
   </>);
 }
 

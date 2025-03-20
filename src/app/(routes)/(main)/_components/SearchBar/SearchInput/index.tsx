@@ -1,36 +1,43 @@
 import useInput from '@/common/hooks/useInput';
-import { useSearchContext } from '@/common/store/useSearchContext';
+import { useSearchQueryContext } from '@/common/store/searchQuery/_hooks/useSearchQueryContext';
 import { useState } from 'react';
 import styled from 'styled-components';
 import DesktopSearchInput from './DesktopSearchInput';
 import MobileSearchInput from './MobileSearchInput';
-import useDeboundSearch from './_hooks/useDebounceSearch';
 
 interface SearchInputProps {
   debounceSearch?: boolean;
 }
 
 const SearchInput = ({ debounceSearch }: SearchInputProps) => {
+  //local에서 history 불러와야함
+  //useLocalState hooks 생성해서 활용
   const [searchHistory, setSearchHistory] = useState<string[]>([]);
-  const { searchKeyword, setSearchKeyword } = useSearchContext();
-  const { value: searchInput, onChange: onSearchInputChange } = useInput({ initialValue: searchKeyword ? searchKeyword : '' });
+  const { searchTextQuery, setSearchTextQuery } = useSearchQueryContext();
+  const { value: searchInput, onChange: onSearchInputChange } = useInput({ initialValue: searchTextQuery ? searchTextQuery : '' });
 
-  if (debounceSearch) {
-    useDeboundSearch({ searchInput, setSearchKeyword, setSearchHistory });
-  }
-
-  const onClickSearchButton = () => {
-    setSearchKeyword(searchInput);
+  const onSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setSearchTextQuery(searchInput);
     setSearchHistory(c => [...c, searchInput]);
   }
 
   return (
     <>
       <DesktopSearchInputWrapper>
-        <DesktopSearchInput />
+        <DesktopSearchInput
+          searchInput={searchInput}
+          onChange={onSearchInputChange}
+          onSubmit={onSubmit}
+        />
       </DesktopSearchInputWrapper>
       <MobileSearchInputWrapper>
-        <MobileSearchInput />
+        <MobileSearchInput
+          searchInput={searchInput}
+          onChange={onSearchInputChange}
+          onSubmit={onSubmit}
+          searchHistory={searchHistory}
+        />
       </MobileSearchInputWrapper>
     </>
   );

@@ -2,21 +2,21 @@ import useDocumentScrollLockWhenMount from "@/common/hooks/useDocumentScrollLock
 import styled from "styled-components";
 
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
+import { ChangeEvent } from "react";
 import RecentSearch from "./RecentSearch";
 
 interface Props {
-  onClickSearchButton: () => void;
   searchInput: string;
-  onSearchInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-  recentSearchInput: string[];
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onSubmit: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  searchHistory: string[];
 
   isOpen: boolean;
   onClose: () => void;
 }
 
-const MobileSearchInputModal = ({ onClickSearchButton, searchInput, onSearchInputChange, recentSearchInput, isOpen, onClose }: Props) => {
+const MobileSearchInputModal = ({ searchInput, onChange, onSubmit, searchHistory, isOpen, onClose }: Props) => {
   useDocumentScrollLockWhenMount() //컴포넌트 마운트시 전체 스크롤 중단
-  const hasRecentSearchInput = recentSearchInput.length >= 1;
 
   return <BGWrapper onClick={onClose} className={isOpen ? 'open' : ''}>
     <Wrapper onClick={(e) => { e.stopPropagation() }}>
@@ -26,18 +26,20 @@ const MobileSearchInputModal = ({ onClickSearchButton, searchInput, onSearchInpu
         <div className="button end"><button onClick={onClose}>취소</button></div>
       </Header>
       <Main>
-        <SearchInputWrapper>
+        <SearchInputForm>
           <input
             type="text"
             value={searchInput}
-            onChange={onSearchInputChange}
+            onChange={onChange}
             placeholder="모집 공고 검색"
           />
-          <button onClick={onClickSearchButton}>
+          <button
+            type="submit"
+            onClick={onSubmit}>
             <SearchRoundedIcon fontSize="small" color="inherit" />
           </button>
-        </SearchInputWrapper>
-        <RecentSearch hasRecentSearchInput={hasRecentSearchInput} recentSearchInput={recentSearchInput} />
+        </SearchInputForm>
+        <RecentSearch searchHistory={searchHistory} />
       </Main>
     </Wrapper>
   </BGWrapper>;
@@ -130,7 +132,7 @@ const Main = styled.div`
   gap: 56px;
   padding: 40px 0;
 `
-const SearchInputWrapper = styled.div`
+const SearchInputForm = styled.form`
   width: 90%;
   height: 46px;
   border-radius: 16px;

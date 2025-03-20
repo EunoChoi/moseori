@@ -1,45 +1,35 @@
-import useInput from '@/common/hooks/useInput';
-import { useSearchContext } from '@/common/store/useSearchContext';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
-import { useState } from 'react';
+import { ChangeEvent } from 'react';
 import styled from 'styled-components';
 
 interface DesktopSearchInputProps {
-
+  searchInput: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onSubmit: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const DesktopSearchInput = ({ }: DesktopSearchInputProps) => {
-
-  const [recentSearchInput, setRecentSearchInput] = useState<string[]>([]);
-  const { searchKeyword, setSearchKeyword } = useSearchContext();
-  const { value: searchInput, onChange: onSearchInputChange } = useInput({ initialValue: searchKeyword ? searchKeyword : '' });
-
-  //debounce or search button?
-  // useDeboundSearch({ searchInput, setSearchKeyword, setRecentSearchInput });
-
-  const onClickSearchButton = () => {
-    setSearchKeyword(searchInput);
-    setRecentSearchInput(c => [...c, searchInput]);
-  }
-
+const DesktopSearchInput = ({ searchInput, onChange, onSubmit }: DesktopSearchInputProps) => {
   return (
-    <Wrapper>
+    <WrapperForm>
       <SearchInputForm
         type='text'
         value={searchInput}
-        onChange={onSearchInputChange}
+        onChange={onChange}
         placeholder='모집 공고 검색'
       />
-      <SearchButton onClick={onClickSearchButton}>
+      <SearchButton
+        type='submit'
+        onClick={onSubmit}
+      >
         <SearchRoundedIcon className='icon' fontSize='inherit' color='inherit' />
       </SearchButton>
-    </Wrapper>
+    </WrapperForm>
   );
 };
 
 export default DesktopSearchInput;
 
-const Wrapper = styled.div`
+const WrapperForm = styled.form`
   height: 100%;
   width: auto;
   

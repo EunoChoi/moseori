@@ -1,15 +1,19 @@
-import { useSearchContext } from "@/common/store/useSearchContext";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-interface Props {
+interface MakeUrlProps {
   pathname: string;
   sortType: number[],
   categoryType: number[],
   searchKeyword: string;
 }
+interface UseSearchQuerySyncProps {
+  sortType: number[],
+  categoryType: number[],
+  searchKeyword: string;
+}
 
-const makeUrl = ({ pathname, sortType, categoryType, searchKeyword }: Props) => {
+const makeUrl = ({ pathname, sortType, categoryType, searchKeyword }: MakeUrlProps) => {
   const params = new URLSearchParams();
 
   if (searchKeyword) {
@@ -27,16 +31,15 @@ const makeUrl = ({ pathname, sortType, categoryType, searchKeyword }: Props) => 
 }
 
 /** url 쿼리 파라미터 동기화 - search filter, search input state */
-const useSearchSync = () => {
-
+const useSearchQuerySync = ({ sortType, categoryType, searchKeyword }: UseSearchQuerySyncProps) => {
   const router = useRouter();
   const pathname = usePathname();
-  const { sortType, categoryType, searchKeyword } = useSearchContext();
 
   useEffect(() => {
+    console.log('update!');
     const url = makeUrl({ pathname, sortType, categoryType, searchKeyword });
     router.replace(url, { scroll: false })
   }, [sortType, categoryType, searchKeyword]);
 }
 
-export default useSearchSync;
+export default useSearchQuerySync;

@@ -1,22 +1,18 @@
 import MobileSearchInputModal from '@/common/components/_modals/MobileSearchInputModal';
-import useInput from '@/common/hooks/useInput';
 import { TransitionContainer, useMountTransition } from '@/common/hooks/useMountTransition';
-import { useSearchContext } from '@/common/store/useSearchContext';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
-import { useState } from 'react';
+import { ChangeEvent } from 'react';
 import styled from 'styled-components';
 
 interface MobileSearchInputProps {
-
+  searchInput: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onSubmit: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  searchHistory: string[];
 }
 
 
-const MobileSearchInput = ({ }: MobileSearchInputProps) => {
-
-  const [recentSearchInput, setRecentSearchInput] = useState<string[]>([]);
-  const { searchKeyword, setSearchKeyword } = useSearchContext();
-  const { value: searchInput, onChange: onSearchInputChange } = useInput({ initialValue: searchKeyword ? searchKeyword : '' });
-
+const MobileSearchInput = ({ searchInput, onChange, onSubmit, searchHistory }: MobileSearchInputProps) => {
 
   const { isMount: isMobileSearchMount,
     setIsMount: setIsMobileSearchMount,
@@ -24,14 +20,6 @@ const MobileSearchInput = ({ }: MobileSearchInputProps) => {
     onClose: onCloseMobileSearch,
     transitionPhase: MobileSearchTransitionPhase } = useMountTransition({ defaultState: 'unmount' });
 
-
-  //debounce or search button?
-  // useDeboundSearch({ searchInput, setSearchKeyword, setRecentSearchInput });
-
-  const onClickSearchButton = () => {
-    setSearchKeyword(searchInput);
-    setRecentSearchInput(c => [...c, searchInput]);
-  }
 
   return (
     <>
@@ -47,10 +35,10 @@ const MobileSearchInput = ({ }: MobileSearchInputProps) => {
         transitionPhase={MobileSearchTransitionPhase}
       >
         <MobileSearchInputModal
-          onClickSearchButton={onClickSearchButton}
+          onSubmit={onSubmit}
           searchInput={searchInput}
-          onSearchInputChange={onSearchInputChange}
-          recentSearchInput={recentSearchInput}
+          onChange={onChange}
+          searchHistory={searchHistory}
           isOpen={isMobileSearchMount}
           onClose={onCloseMobileSearch} />
       </TransitionContainer>
