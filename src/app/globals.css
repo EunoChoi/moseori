@@ -19,6 +19,10 @@
 
   --grey0: #444444;
   --light-grey: #e1e1e1;
+
+  --naver: #5AC451;
+  --kakao: #FCEC60;
+  --google: #5080E9;
 }
 
 /* @media (prefers-color-scheme: dark) {
