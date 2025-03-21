@@ -1,4 +1,4 @@
-import MobileSearchInputModal from '@/app/(routes)/(main)/_components/SearchBar/SearchInput/MobileSearchInputModal';
+import MobileSearchInputModal from '@/app/(routes)/(withHeaderFooter)/(main)/_components/SearchBar/SearchInput/MobileSearchInputModal';
 import { TransitionContainer, useMountTransition } from '@/common/hooks/useMountTransition';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import { ChangeEvent } from 'react';
