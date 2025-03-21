@@ -1,5 +1,6 @@
 'use client';
 
+import MainFooter from "@/common/components/MainFooter";
 import { SearchQueryProvider } from "@/common/store/searchQuery/SearchQueryProvider";
 import { Suspense } from "react";
 import styled from "styled-components";
@@ -27,6 +28,7 @@ const MainPage = () => {
         <Posts />
       </SearchQueryProvider>
     </Suspense>
+    <MainFooter />
   </Wrapper>)
 }
 
