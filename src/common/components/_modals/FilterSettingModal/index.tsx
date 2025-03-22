@@ -4,6 +4,10 @@ import styled from "styled-components";
 import { CAT_OPTIONS, SORT_OPTIONS } from "../../../constant/searchFilterOptions";
 import FilterGroup from "./FilterGroup";
 
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ModalHeader from "../ModalHeader";
+
+
 interface Props {
   className?: string;
   onClose: () => void;
@@ -15,11 +19,13 @@ const FilterSettingModal = ({ className, onClose }: Props) => {
 
   return <BGWrapper onClick={onClose} className={className}>
     <Wrapper onClick={(e) => { e.stopPropagation() }}>
-      <Header>
-        <div></div>
-        <div className="name">검색 설정</div>
-        <div className="confirm"><button onClick={onClose}>확인</button></div>
-      </Header>
+      <ModalHeader
+        title="검색 설정"
+        leftText={<ArrowBackIosIcon fontSize="inherit" color="inherit" />}
+        rightText={'확인'}
+        onClickLeftButton={onClose}
+        onClickRightButton={onClose}
+      />
       <Main>
         <FilterGroup
           multiple

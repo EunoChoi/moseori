@@ -1,9 +1,13 @@
 import useDocumentScrollLockWhenMount from "@/common/hooks/useDocumentScrollLockWhenMount";
 import styled from "styled-components";
 
+import ModalHeader from "@/common/components/_modals/ModalHeader";
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import { ChangeEvent } from "react";
 import RecentSearch from "./RecentSearch";
+
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+
 
 interface Props {
   searchInput: string;
@@ -21,11 +25,11 @@ const MobileSearchInputModal = ({ searchInput, onChange, onSubmit, searchHistory
 
   return <BGWrapper onClick={onClose} className={isOpen ? 'open' : ''}>
     <Wrapper onClick={(e) => { e.stopPropagation() }}>
-      <Header>
-        <div className="button start"></div>
-        <div className="name">공고 검색</div>
-        <div className="button end"><button onClick={onClose}>취소</button></div>
-      </Header>
+      <ModalHeader
+        title="공고 검색"
+        leftText={<ArrowBackIosIcon fontSize="inherit" color="inherit" />}
+        onClickLeftButton={onClose}
+      />
       <Main>
         <SearchInputForm>
           <input
