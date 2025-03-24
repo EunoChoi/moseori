@@ -84,7 +84,7 @@ const RecentSearchText = styled.button`
   font-size: 16px;
   color: grey;
 
-  white-space: nowrap;
+  white-space: pre;
   overflow-x: hidden;
   text-overflow: ellipsis;
 `

@@ -14,8 +14,11 @@ const SearchInput = () => {
   const onSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setSearchTextQuery(searchInput);
-    const updatedSearchHistory = [...searchHistory, searchInput].slice(-10);
-    setSearchHistory(updatedSearchHistory);
+
+    if (searchInput.trim() !== '') {
+      const updatedSearchHistory = [...searchHistory, searchInput].slice(-10);
+      setSearchHistory(updatedSearchHistory);
+    }
   }
 
   useEffect(() => {
