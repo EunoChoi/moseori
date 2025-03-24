@@ -17,7 +17,7 @@ interface SelectProps {
   setValue: Dispatch<SetStateAction<number[]>>;
 }
 
-const Select = ({
+const MultiSelect = ({
   className,
   multiple,
   name,
@@ -79,7 +79,7 @@ const Select = ({
 };
 
 
-export default Select;
+export default MultiSelect;
 
 const Wrapper = styled.div`
   position: relative;

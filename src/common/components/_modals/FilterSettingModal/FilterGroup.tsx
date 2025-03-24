@@ -1,4 +1,4 @@
-import { isSelected, resetAll, selectAll, selectMultiple, selectSingle } from '@/common/components/Select/function/selectControl';
+import { isSelected, resetAll, selectAll, selectMultiple, selectSingle } from '@/common/components/MultiSelect/function/selectControl';
 import { OptionsType, OptionType } from '@/common/type/selectType';
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
 import RestartAltRoundedIcon from '@mui/icons-material/RestartAltRounded';

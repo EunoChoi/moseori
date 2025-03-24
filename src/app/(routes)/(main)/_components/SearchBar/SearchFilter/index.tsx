@@ -1,4 +1,4 @@
-import Select from "@/common/components/Select";
+import MultiSelect from "@/common/components/MultiSelect";
 import { CAT_OPTIONS, SORT_OPTIONS } from "@/common/constant/searchFilterOptions";
 import { useSearchQueryContext } from "@/common/store/searchQuery/_hooks/useSearchQueryContext";
 import styled from "styled-components";
@@ -24,7 +24,7 @@ const SearchFilter = () => {
 
 export default SearchFilter;
 
-const CatSelect = styled(Select)`
+const CatSelect = styled(MultiSelect)`
   flex-shrink : 0;
   @media (max-width: 640px) {
     flex: 1;
@@ -33,7 +33,7 @@ const CatSelect = styled(Select)`
     width: 250px;
   }
 `
-const SortSelect = styled(Select)`
+const SortSelect = styled(MultiSelect)`
   flex-shrink: 0;
   @media (max-width: 640px) { 
     display: none;
