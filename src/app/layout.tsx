@@ -26,7 +26,8 @@ export default function RootLayout({
         {/* android */}
         <meta name="theme-color" content="#f8f9fa" />
         {/* ios */}
-        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        {/* <meta name="apple-mobile-web-app-capable" content="yes" /> */}
         <meta name="apple-mobile-web-app-status-bar-style" content="#f8f9fa" />
       </head>
       <body>

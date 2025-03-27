@@ -1,5 +1,6 @@
 'use client';
 
+import { SearchQueryProvider } from "@/common/store/searchQuery/SearchQueryProvider";
 import { Suspense } from "react";
 import styled from "styled-components";
 import Ad from "./Ad";
@@ -20,10 +21,12 @@ const MainPage = () => {
       <Banner />
     </IntroWrapper>
 
-    <Suspense>
-      <SearchBar />
-      <Posts />
-    </Suspense>
+    <SearchQueryProvider>
+      <Suspense>
+        <SearchBar />
+        <Posts />
+      </Suspense>
+    </SearchQueryProvider>
   </Wrapper>)
 }
 

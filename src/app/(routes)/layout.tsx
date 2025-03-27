@@ -1,6 +1,5 @@
 'use client';
 
-import { SearchQueryProvider } from "@/common/store/searchQuery/SearchQueryProvider";
 
 interface RootLayoutProps {
   children: React.ReactNode;
@@ -9,9 +8,9 @@ interface RootLayoutProps {
 /** root layout - client component */
 const Layout = ({ children }: RootLayoutProps) => {
 
-  return <SearchQueryProvider>
+  return <>
     {children}
-  </SearchQueryProvider>
+  </>
 }
 
 export default Layout;
