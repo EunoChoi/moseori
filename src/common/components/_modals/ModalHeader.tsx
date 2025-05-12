@@ -2,6 +2,7 @@ import { JSX } from "react";
 import styled from "styled-components";
 
 interface ModalHeaderProps {
+  className?: string;
   title: string;
   leftButtonElement?: string | JSX.Element;
   rightButtonElement?: string | JSX.Element;
@@ -10,9 +11,9 @@ interface ModalHeaderProps {
   onClickRightButton?: () => void;
 }
 
-const ModalHeader = ({ title, leftButtonElement, rightButtonElement, onClickLeftButton, onClickCenterButton, onClickRightButton }: ModalHeaderProps) => {
+const ModalHeader = ({ title, className, leftButtonElement, rightButtonElement, onClickLeftButton, onClickCenterButton, onClickRightButton }: ModalHeaderProps) => {
 
-  return <Wrapper>
+  return <Wrapper className={className}>
     <ButtonWrapper className="left">
       <button onClick={onClickLeftButton}>{leftButtonElement}</button>
     </ButtonWrapper>
