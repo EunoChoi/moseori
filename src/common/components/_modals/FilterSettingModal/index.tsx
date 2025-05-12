@@ -21,8 +21,8 @@ const FilterSettingModal = ({ className, onClose }: Props) => {
     <Wrapper onClick={(e) => { e.stopPropagation() }}>
       <ModalHeader
         title="검색 설정"
-        leftText={<ArrowBackIosIcon fontSize="inherit" color="inherit" />}
-        rightText={'확인'}
+        leftButtonElement={<ArrowBackIosIcon fontSize="inherit" color="inherit" />}
+        rightButtonElement={'확인'}
         onClickLeftButton={onClose}
         onClickRightButton={onClose}
       />

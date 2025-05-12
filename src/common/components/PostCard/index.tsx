@@ -11,11 +11,11 @@ const PostCard = () => {
       <Content>
         <SingleLineText className="title">인스타브레인</SingleLineText>
         <SingleLineText className="author">안데르스 한센</SingleLineText>
-        <SingleLineText className="publisher">동양북스</SingleLineText>
+        {/* <SingleLineText className="publisher">동양북스</SingleLineText> */}
       </Content>
       <TagWrapper>
         <Tag>#카테고리 미분류</Tag>
-        {/* <Tag>#마감 일주일후</Tag> */}
+        <Tag>#마감 일주일후</Tag>
       </TagWrapper>
       <InteractionButtonWrapper>
         <InteractionButton><BookmarkIcon className="icon" fontSize="inherit" color="inherit" /><span>123</span></InteractionButton>

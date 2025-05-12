@@ -27,7 +27,7 @@ const MobileSearchInputModal = ({ searchInput, onChange, onSubmit, searchHistory
     <Wrapper onClick={(e) => { e.stopPropagation() }}>
       <ModalHeader
         title="공고 검색"
-        leftText={<ArrowBackIosIcon fontSize="inherit" color="inherit" />}
+        leftButtonElement={<ArrowBackIosIcon fontSize="inherit" color="inherit" />}
         onClickLeftButton={onClose}
       />
       <Main>

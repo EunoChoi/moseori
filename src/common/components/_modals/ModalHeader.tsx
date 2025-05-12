@@ -3,24 +3,24 @@ import styled from "styled-components";
 
 interface ModalHeaderProps {
   title: string;
-  leftText?: string | JSX.Element;
-  rightText?: string | JSX.Element;
+  leftButtonElement?: string | JSX.Element;
+  rightButtonElement?: string | JSX.Element;
   onClickLeftButton?: () => void;
   onClickCenterButton?: () => void;
   onClickRightButton?: () => void;
 }
 
-const ModalHeader = ({ title, leftText, rightText, onClickLeftButton, onClickCenterButton, onClickRightButton }: ModalHeaderProps) => {
+const ModalHeader = ({ title, leftButtonElement, rightButtonElement, onClickLeftButton, onClickCenterButton, onClickRightButton }: ModalHeaderProps) => {
 
   return <Wrapper>
     <ButtonWrapper className="left">
-      <button onClick={onClickLeftButton}>{leftText}</button>
+      <button onClick={onClickLeftButton}>{leftButtonElement}</button>
     </ButtonWrapper>
     <ButtonWrapper className="title">
       <button onClick={onClickCenterButton}>{title}</button>
     </ButtonWrapper>
     <ButtonWrapper className="right">
-      <button onClick={onClickRightButton}>{rightText}</button>
+      <button onClick={onClickRightButton}>{rightButtonElement}</button>
     </ButtonWrapper>
   </Wrapper>;
 }
