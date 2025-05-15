@@ -21,7 +21,7 @@ const ZoomPage = () => {
 
   return (
     <Wrapper>
-      <ModalHeader
+      <ZoomPostHeader
         title='모집공고'
         leftButtonElement={<ArrowBackIosIcon fontSize="inherit" color="inherit" />}
         onClickLeftButton={() => { router.back() }}
@@ -43,23 +43,26 @@ const Wrapper = styled.div`
   flex-direction: column;
 
   width: 100dvw;
-  height: 100vh;
-  overflow: hidden;
+`
+const ZoomPostHeader = styled(ModalHeader)`
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: white;
 `
 const ContentWrapper = styled.div`
-  width: 100%;
-  flex-grow: 1;
-  overflow: scroll;
-
   display: flex;
 
-  @media (max-width: 479px) { //mobile port
-    flex-direction: column;
-  }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+  @media (max-width: 479px) and (max-width:1023px) { //mobile port + mobild land + tablet
+    width: 100%;
+    height: auto;
     flex-direction: column;
   }
   @media (min-width:1024px) { //desktop
+    width: 100%;
+    height: calc(100dvh - var(--pc-header-height));
+    
+    overflow: scroll;
     flex-direction: row;
   }
 `

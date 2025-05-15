@@ -52,6 +52,7 @@ export default ZoomPostContent;
 const Wrapper = styled.div`
   width: 100%;
   height: auto;
+  background-color: white;
 
   @media (min-width:1024px) { //desktop
     display: flex;
