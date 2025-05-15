@@ -21,12 +21,12 @@ const MainPage = () => {
       <Banner />
     </IntroWrapper>
 
-    <SearchQueryProvider>
-      <Suspense>
+    <Suspense>
+      <SearchQueryProvider>
         <SearchBar />
         <Posts />
-      </Suspense>
-    </SearchQueryProvider>
+      </SearchQueryProvider>
+    </Suspense>
   </Wrapper>)
 }
 
