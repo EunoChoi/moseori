@@ -6,8 +6,8 @@ import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import styled from "styled-components";
 
-import testImage2 from '/public/img/배민.png';
-import testImage from '/public/img/조구만.jpg';
+import testImage from '/public/img/testImage1.png';
+import testImage2 from '/public/img/testImage2.jpg';
 
 import ZoomPostContent from "./_components/ZoomPostContent";
 
