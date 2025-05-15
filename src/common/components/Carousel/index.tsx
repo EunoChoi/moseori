@@ -9,15 +9,11 @@ import Indicator from "./Indicator";
 interface Props {
   children?: ReactNode;
   className?: string;
-
-  width: string;
-  height: string;
-
   indicator?: boolean;
   arrow?: boolean;
 }
 
-const Carousel = ({ children, className, indicator, arrow, width, height }: Props) => {
+const Carousel = ({ children, className, indicator, arrow }: Props) => {
 
   const childrenArray = Children.toArray(children);
   const maxIndex = childrenArray.length - 1;
@@ -30,7 +26,7 @@ const Carousel = ({ children, className, indicator, arrow, width, height }: Prop
   const hasArrows = arrow === true;
   const hasIndicator = indicator === true && childrenArray.length > 1;
 
-  return (<Wrapper className={className} $width={width} $height={height} >
+  return (<Wrapper className={className}  >
     <ScrollWrapper ref={scrollRef} >
       {children}
     </ScrollWrapper>
@@ -51,14 +47,14 @@ const Carousel = ({ children, className, indicator, arrow, width, height }: Prop
 
 export default Carousel;
 
-const Wrapper = styled.div<{ $width: string, $height: string }>`
+const Wrapper = styled.div`
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
   position: relative;
 
-  width: ${(props) => props.$width};
-  height: ${(props) => props.$height};
+  width: 100%;
+  height: auto;
 `
 const ScrollWrapper = styled.div`
   width: 100%;

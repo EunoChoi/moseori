@@ -22,6 +22,6 @@ const BannerCarousel = styled(Carousel)`
     max-width: 480px;
   }
   @media (min-width:1024px) { //desktop
-    width: 520px;
+    width: 550px;
   }
 `
