@@ -23,6 +23,7 @@ interface TransitionContainertProps {
   enteredStyle?: string;
 }
 
+/** onOpen, onClose, onToggle 함수 이용해서 state 변경 필수! (transitionPhase 변경 필요 위함!!)  */
 export const useMountTransition = ({ defaultState = 'unmount' }: Props) => {
 
   const [isMount, setIsMount] = useState(defaultState === 'mount' ? true : false);
