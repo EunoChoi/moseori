@@ -43,7 +43,7 @@ const Wrapper = styled.div`
   flex-direction: column;
 
   width: 100dvw;
-  height: 100dvh;
+  height: 100vh;
   overflow: hidden;
 `
 const ContentWrapper = styled.div`

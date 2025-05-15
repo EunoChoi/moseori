@@ -1,6 +1,6 @@
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import styled from "styled-components";
-import InputFoam from './InputForm';
+import InputForm from './InputForm';
 
 interface ZoomPostCommentsProps {
   onClose: () => void;
@@ -18,7 +18,7 @@ const ZoomPostComments = ({ onClose }: ZoomPostCommentsProps) => {
         <Comments>댓글이 존재하지 않습니다.</Comments>
 
         {/* 로그인 여부 파악 후 마운트 */}
-        <InputFoam />
+        <InputForm />
       </Wrapper>
     </BG>
   );

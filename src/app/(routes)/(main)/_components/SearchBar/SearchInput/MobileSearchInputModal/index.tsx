@@ -153,6 +153,7 @@ const SearchInputForm = styled.form`
   input{
     flex-grow: 1;
     height: 90%;
+    font-size: 16px;
     padding-left: 16px;
   }
   button{
