@@ -32,7 +32,6 @@ export default function RootLayout({
       </head>
       <body>
         <StyledComponentsRegistry>
-          <div id="modal-root" />
           {children}
         </StyledComponentsRegistry>
       </body>
