@@ -33,6 +33,7 @@ const Wrapper = styled.header`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   border-bottom: 1px solid var(--light-grey);
+  background-color: var(--background);
 
   @media (max-width: 479px) { //mobile port
     padding: 0 5dvw;

@@ -43,26 +43,23 @@ const Wrapper = styled.div`
   flex-direction: column;
 
   width: 100dvw;
+  height: auto;
+  @media (min-width:1024px) { //desktop
+    height: 100dvh;
+  }
 `
 const ZoomPostHeader = styled(ModalHeader)`
   position: sticky;
   top: 0;
   z-index: 10;
-  background-color: white;
 `
 const ContentWrapper = styled.div`
-  display: flex;
+  width: 100%;
 
-  @media (max-width: 479px) and (max-width:1023px) { //mobile port + mobild land + tablet
-    width: 100%;
-    height: auto;
-    flex-direction: column;
-  }
+  display: flex;
+  flex-direction: column;
   @media (min-width:1024px) { //desktop
-    width: 100%;
-    height: calc(100dvh - var(--pc-header-height));
-    
-    overflow: scroll;
+    overflow: hidden;
     flex-direction: row;
   }
 `

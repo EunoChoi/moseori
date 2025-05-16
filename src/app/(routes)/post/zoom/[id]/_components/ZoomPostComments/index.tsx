@@ -1,3 +1,4 @@
+import useDocumentScrollLockWhenMount from '@/common/hooks/useDocumentScrollLockWhenMount';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import styled from "styled-components";
 import InputForm from './InputForm';
@@ -7,6 +8,9 @@ interface ZoomPostCommentsProps {
 }
 
 const ZoomPostComments = ({ onClose }: ZoomPostCommentsProps) => {
+
+  useDocumentScrollLockWhenMount();
+
   return (
     <BG onClick={onClose}>
       <Wrapper onClick={(e) => e.stopPropagation()}>
