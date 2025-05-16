@@ -36,6 +36,7 @@ html,
 body {
   scroll-behavior: smooth;
   max-width: 100vw;
+  min-height: 100dvh;
 }
 
 body {
@@ -47,7 +48,7 @@ body {
 }
 
 * {
-  overscroll-behavior: none;
+  /* overscroll-behavior: none; */
   box-sizing: border-box;
   padding: 0;
   margin: 0;
