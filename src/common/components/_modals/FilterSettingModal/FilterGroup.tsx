@@ -66,13 +66,13 @@ const Wrapper = styled.section`
   flex-direction: column;
 
   @media (max-width: 479px) { //mobile port
-    padding: 16px;
+    padding: 16px 5dvw;
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    padding: 24px;
+    padding: 24px 24px;
   }
   @media (min-width:1024px) { //desktop
-    padding: 32px;
+    padding: 32px 24px;
   }
 `
 const FilterHeader = styled.span`

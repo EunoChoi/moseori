@@ -95,11 +95,20 @@ const Main = styled.div`
   flex-grow: 1;
   overflow-y : scroll;
 
+  
   gap: 56px;
-  padding: 40px 0;
+  @media (max-width: 479px) { //mobile port
+    padding: 40px 5dvw;
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    padding: 40px 24px;
+  }
+  @media (min-width:1024px) { //desktop
+    padding: 40px 24px;
+  }
 `
 const SearchInputForm = styled.form`
-  width: 90%;
+  width: 100%;
   height: 46px;
   border-radius: 16px;
   border: 1px solid var(--main-0);

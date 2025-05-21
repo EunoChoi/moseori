@@ -14,15 +14,15 @@ interface ModalHeaderProps {
 const ModalHeader = ({ title, className, leftButtonElement, rightButtonElement, onClickLeftButton, onClickCenterButton, onClickRightButton }: ModalHeaderProps) => {
 
   return <Wrapper className={className}>
-    <ButtonWrapper className="left">
-      <button onClick={onClickLeftButton}>{leftButtonElement}</button>
-    </ButtonWrapper>
-    <ButtonWrapper className="title">
-      <button onClick={onClickCenterButton}>{title}</button>
-    </ButtonWrapper>
-    <ButtonWrapper className="right">
-      <button onClick={onClickRightButton}>{rightButtonElement}</button>
-    </ButtonWrapper>
+    <ModalHeaderButton className="left" onClick={onClickLeftButton}>
+      {leftButtonElement}
+    </ModalHeaderButton>
+    <ModalHeaderButton className="center" onClick={onClickCenterButton}>
+      {title}
+    </ModalHeaderButton>
+    <ModalHeaderButton className="right" onClick={onClickRightButton}>
+      {rightButtonElement}
+    </ModalHeaderButton>
   </Wrapper>;
 }
 
@@ -40,35 +40,37 @@ const Wrapper = styled.header`
     height: var(--mobile-header-height)
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    padding: 0 20px;
+    padding: 0 24px;
     height: var(--mobile-header-height)
   }
   @media (min-width:1024px) { //desktop
-    padding: 0 20px;
+    padding: 0 24px;
     height: var(--pc-header-height);
   }
 `
-const ButtonWrapper = styled.div`
-  &.title{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+const ModalHeaderButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+
+  &.left{
+    justify-content: start;
+  }
+  &.center{
+    justify-content: center;
+    
     font-size: 20px;
     font-weight: 600;
     color: black;
   }
-  &.left{
-    display: flex;
-    justify-content: start;
-    align-items: center;
-  }
   &.right{
-    display: flex;
     justify-content: end;
-    align-items: center;
   }
-  &.left, &.right{
+    &.left, &.right{
     font-size: 16px;
     font-weight: 500;
     color: grey;
