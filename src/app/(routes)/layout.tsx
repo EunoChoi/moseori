@@ -1,5 +1,7 @@
 'use client';
 
+import useDocumentScrollLockWhenWhenOpenVirtualKeyboard from "@/common/hooks/useDocumentScrollLockWhenWhenOpenVirtualKeyboard";
+
 
 interface RootLayoutProps {
   children: React.ReactNode;
@@ -7,6 +9,8 @@ interface RootLayoutProps {
 
 /** root layout - client component */
 const Layout = ({ children }: RootLayoutProps) => {
+
+  useDocumentScrollLockWhenWhenOpenVirtualKeyboard();
 
   return <>
     {children}

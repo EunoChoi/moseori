@@ -47,9 +47,6 @@ const Wrapper = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  width: 100dvw;
-  height: 80dvh;
-
   background-color: white;
   border : 1px solid rgba(0, 0, 0, 0.08);
   border-top-left-radius: 32px;
@@ -60,6 +57,7 @@ const Wrapper = styled.div`
   @media (max-width: 479px) { //mobile port
     width: 100%;
     height: 85%;
+    height: 500px;
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     width: 100%;
