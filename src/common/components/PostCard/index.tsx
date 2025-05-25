@@ -28,7 +28,7 @@ const PostCard = () => {
 
       <PostInfo className="dueDate">25.06.18 마감</PostInfo>
     </CardWrapper>
-    <SC_Row_Wrapper gap={16} margin='4px 0'>
+    <SC_Row_Wrapper $gap={16} $margin='4px 0'>
       <InteractionButton>
         <BookmarkIcon className="icon" fontSize="inherit" color="inherit" />
         <span>123</span>
