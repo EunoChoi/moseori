@@ -1,9 +1,12 @@
 import { useEffect } from "react";
 
-const useDocumentScrollLockWhenWhenOpenVirtualKeyboard = () => {
+const useDocumentScrollLockWhenOpenVirtualKeyboard = () => {
   useEffect(() => {
     const preventScroll = (e: TouchEvent) => {
       if (document.activeElement && document.activeElement.tagName === 'INPUT') {
+        e.preventDefault();
+      }
+      if (document.activeElement && document.activeElement.tagName === 'TEXTAREA') {
         e.preventDefault();
       }
     };
@@ -13,4 +16,4 @@ const useDocumentScrollLockWhenWhenOpenVirtualKeyboard = () => {
   }, []);
 }
 
-export default useDocumentScrollLockWhenWhenOpenVirtualKeyboard;
+export default useDocumentScrollLockWhenOpenVirtualKeyboard;
