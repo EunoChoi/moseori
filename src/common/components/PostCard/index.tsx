@@ -17,7 +17,7 @@ const PostCard = () => {
           src={testBookImage}
           alt='책 이미지'
           layout="fill"
-          style={{ objectFit: 'contain', objectPosition: 'center', clipPath: 'inset(0 0 0 0 round 12px)' }}
+          style={{ objectFit: 'contain', objectPosition: 'center' }}
         />
       </ImageWrapper>
 

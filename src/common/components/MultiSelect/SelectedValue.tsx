@@ -38,6 +38,7 @@ const SelectedValue = ({ value, options, multiple, name, onToggleOptionList, isO
   }
 
   return (<Wrapper
+    type='button'
     onMouseDown={(e) => { e.preventDefault() }}
     onClick={onToggleOptionList}
   >

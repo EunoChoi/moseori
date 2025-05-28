@@ -35,6 +35,8 @@ const Wrapper = styled.header`
   border-bottom: 1px solid var(--light-grey);
   background-color: var(--background);
 
+  width: 100%;
+
   @media (max-width: 479px) { //mobile port
     padding: 0 5dvw;
     height: var(--mobile-header-height)
