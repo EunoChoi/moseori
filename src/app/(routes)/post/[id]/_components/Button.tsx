@@ -8,7 +8,7 @@ import EditIcon from '@mui/icons-material/Edit';
 
 
 import styled from "styled-components";
-import ZoomPostComments from "./ZoomPostComments";
+import ZoomPostComments from "./Comments";
 
 interface ZoomPostButtonProps {
   icon?: React.ReactNode;

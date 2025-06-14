@@ -4,7 +4,6 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import CommentIcon from '@mui/icons-material/Comment';
 
 
-import { SC_Column_Wrapper, SC_Row_Wrapper } from "@/common/StyledComponent/SC_Wrapper";
 import Image from "next/image";
 import testBookImage from '/public/img/testImage-book.jpeg';
 
@@ -16,19 +15,20 @@ const PostCard = () => {
         <Image
           src={testBookImage}
           alt='책 이미지'
-          layout="fill"
+          fill
+          sizes="100vw"
           style={{ objectFit: 'contain', objectPosition: 'center' }}
         />
       </ImageWrapper>
 
-      <SC_Column_Wrapper>
+      <BookInfoTextWrapper>
         <PostInfo className="title">인스타브레인</PostInfo>
         <PostInfo className="author">안데르스 한센</PostInfo>
-      </SC_Column_Wrapper>
+      </BookInfoTextWrapper>
 
       <PostInfo className="dueDate">25.06.18 마감</PostInfo>
     </CardWrapper>
-    <SC_Row_Wrapper $gap={16} $margin='4px 0'>
+    <InteractionButtonWrapper>
       <InteractionButton>
         <BookmarkIcon className="icon" fontSize="inherit" color="inherit" />
         <span>123</span>
@@ -37,12 +37,25 @@ const PostCard = () => {
         <CommentIcon className="icon" fontSize="inherit" color="inherit" />
         <span>12</span>
       </InteractionButton>
-    </SC_Row_Wrapper>
+    </InteractionButtonWrapper>
   </Wrapper>);
 }
 
 export default PostCard;
 
+const BookInfoTextWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+const InteractionButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin: 4px 0;
+`
 const Wrapper = styled.div`
   width: 100%;
   height: 100%;

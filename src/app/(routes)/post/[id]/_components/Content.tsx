@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import ZoomPostButton from './ZoomPostButton';
+import Button from './Button';
 // import SendIcon from '@mui/icons-material/Send';
 
 
@@ -42,7 +42,7 @@ const ZoomPostContent = () => {
           <span>링크 : {dummyPostData.link}</span>
         </MoreInfo>
       </TextInfoWrapper>
-      <ZoomPostButton />
+      <Button />
     </Wrapper>
   );
 }

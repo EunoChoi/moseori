@@ -9,7 +9,7 @@ import styled from "styled-components";
 import testImage from '/public/img/testImage1.png';
 import testImage2 from '/public/img/testImage2.jpg';
 
-import ZoomPostContent from "./_components/ZoomPostContent";
+import Content from "./_components/Content";
 
 const ZoomPage = () => {
 
@@ -31,7 +31,7 @@ const ZoomPage = () => {
           <Image src={testImage} alt='이미지'></Image>
           <Image src={testImage2} alt='이미지2'></Image>
         </ImageContent>
-        <ZoomPostContent />
+        <Content />
       </ContentWrapper>
     </Wrapper>
   );
